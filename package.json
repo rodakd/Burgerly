@@ -8,6 +8,9 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-navigation/drawer": "^5.4.0",
+    "@react-navigation/native": "^5.1.4",
+    "@react-navigation/stack": "^5.2.9",
     "expo": "~36.0.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
