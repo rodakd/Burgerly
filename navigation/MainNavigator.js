@@ -17,17 +17,11 @@ const MainNavigator = () => (
       component={RecipesOverviewScreen}
     />
     <RecipeStackNavigator.Screen
-      name="RecipeDetailsScreen"
+      name="details"
       component={RecipeDetailsScreen}
     />
-    <RecipeStackNavigator.Screen
-      name="SettingsScreen"
-      component={SettingsScreen}
-    />
-    <RecipeStackNavigator.Screen
-      name="EditRecipeScreen"
-      component={EditRecipeScreen}
-    />
+    <RecipeStackNavigator.Screen name="settings" component={SettingsScreen} />
+    <RecipeStackNavigator.Screen name="edit" component={EditRecipeScreen} />
   </RecipeStackNavigator.Navigator>
 );
 
