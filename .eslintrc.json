@@ -1,13 +1,10 @@
 {
-  "env": {
-    "node": true,
-    "browser": false,
-    "es6": true
-  },
-  "parser": "babel-eslint",
-  "extends": "airbnb",
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "prettier/prettier": ["error"],
+    "no-unused-vars": 0,
+    "react/jsx-filename-extension": 0,
     "no-use-before-define": 0
   }
 }
