@@ -1,32 +1,34 @@
-import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { FlatList, Platform } from 'react-native';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import RenderCategory from '../components/RenderCategory';
+import * as recipeActions from '../store/recipeActions';
+import IoniconsHeaderButton from '../components/IoniconsHeaderButton';
 
 const CategoryScreen = () => {
-  const categories = [
-    { id: 1, title: 'light', color: 'red' },
-    { id: 2, title: 'heavy', color: 'blue' },
-    { id: 3, title: 'vegan', color: 'white' },
-  ];
+  const categories = [];
+
+  useEffect(() => {
+    recipeActions.getRecipes();
+  });
+
   return (
-    <ScrollView contentContainerStyle={styles.categories}>
-      {categories.map((category) => (
-        <RenderCategory key={category.id} item={category} />
-      ))}
-    </ScrollView>
+    <FlatList
+      numColumns={2}
+      renderItem={({ item }) => <RenderCategory item={item} />}
+      data={categories}
+      keyExtractor={(item) => item.id.toString()}
+    />
   );
 };
 
-const styles = StyleSheet.create({
-  categories: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-});
-
 export const categoryScreenOptions = {
   headerTitle: 'Categories',
+  headerRight: () => (
+    <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
+      <Item title="add" iconName={Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle'} />
+    </HeaderButtons>
+  ),
 };
 
 export default CategoryScreen;
