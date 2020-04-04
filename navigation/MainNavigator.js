@@ -11,9 +11,9 @@ import Colors from '../constants/Colors';
 
 const defaultNavOptions = {
   headerStyle: {
-    backgroundColor: Colors.secondary,
+    backgroundColor: Colors.primary,
   },
-  headerTintColor: Colors.primary,
+  headerTintColor: Colors.secondary,
 };
 
 const RecipeStackNavigator = createStackNavigator();
