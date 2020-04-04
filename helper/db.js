@@ -2,7 +2,7 @@ import * as SQLite from 'expo-sqlite';
 
 const db = SQLite.openDatabase('reciper.db');
 
-const createCategoryTable = () =>
+export const createCategoryTable = () =>
   new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
@@ -18,12 +18,28 @@ const createCategoryTable = () =>
     });
   });
 
-const insertCategory = (category) =>
+export const insertCategory = (category) =>
   new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
         'INSERT INTO categories VALUES (?, ?, ?);',
         [category.id, category.title, category.color],
+        (_, result) => {
+          resolve(result);
+        },
+        (_, err) => {
+          reject(err);
+        }
+      );
+    });
+  });
+
+export const fetchRecipes = () =>
+  new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT * FROM categories;',
+        [],
         (_, result) => {
           resolve(result);
         },

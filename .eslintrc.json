@@ -5,6 +5,8 @@
     "prettier/prettier": ["error"],
     "no-unused-vars": 0,
     "react/jsx-filename-extension": 0,
-    "no-use-before-define": 0
+    "no-use-before-define": 0,
+    "import/no-extraneous-dependencies": 0,
+    "react/jsx-props-no-spreading": 0
   }
 }
