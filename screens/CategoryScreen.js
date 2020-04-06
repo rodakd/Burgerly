@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { View, FlatList, Platform } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import RenderCategory from '../components/RenderCategory';
@@ -8,11 +9,11 @@ import NewCategoryModal from '../components/NewCategoryModal';
 
 const CategoryScreen = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const categories = [];
+  const categories = useSelector((state) => state.recipes.categories);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    recipeActions.getRecipes();
+    dispatch(recipeActions.setCategories());
     navigation.setOptions({
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
@@ -26,13 +27,16 @@ const CategoryScreen = ({ navigation }) => {
         </HeaderButtons>
       ),
     });
-  });
+  }, [navigation]);
 
   return (
     <View>
       <NewCategoryModal
         isVisible={isModalVisible}
         onBackdropPress={() => setIsModalVisible(false)}
+        onSubmit={(title, color) => {
+          dispatch(recipeActions.addCategory(title, color));
+        }}
       />
       <FlatList
         numColumns={2}

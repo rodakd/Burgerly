@@ -5,9 +5,10 @@ import Modal from 'react-native-modal';
 import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
 import PropTypes from 'prop-types';
 import Input from './Input';
+import Colors from '../constants/Colors';
 
 const NewCategoryModal = (props) => {
-  const [pickedColor, setPickedColor] = useState(null);
+  const [pickedColor, setPickedColor] = useState(Colors.primary);
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const { width, height } = Dimensions.get('window');
@@ -25,6 +26,8 @@ const NewCategoryModal = (props) => {
       setError('Please enter the name');
       ref.current.focus();
     } else {
+      console.log(pickedColor);
+      props.onSubmit(name, pickedColor);
       handleClose();
     }
   };
@@ -57,6 +60,7 @@ const NewCategoryModal = (props) => {
           errorMessage={error}
         />
         <TriangleColorPicker
+          defaultColor={Colors.primary}
           onColorChange={(color) => setPickedColor(fromHsv(color))}
           style={{
             width: width / 2,
@@ -66,9 +70,8 @@ const NewCategoryModal = (props) => {
         <Button
           containerStyle={styles.buttonContainer}
           title="Add category"
-          type="outline"
+          type="solid"
           size={30}
-          raised
           onPress={handleSubmit}
         />
       </View>
@@ -106,6 +109,7 @@ const styles = StyleSheet.create({
 NewCategoryModal.propTypes = {
   isVisible: PropTypes.bool,
   onBackdropPress: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 NewCategoryModal.defaultProps = {

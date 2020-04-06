@@ -22,8 +22,8 @@ export const insertCategory = (category) =>
   new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'INSERT INTO categories VALUES (?, ?, ?);',
-        [category.id, category.title, category.color],
+        'INSERT INTO categories (title, color) VALUES (?, ?);',
+        [category.title, category.color],
         (_, result) => {
           resolve(result);
         },
@@ -34,7 +34,7 @@ export const insertCategory = (category) =>
     });
   });
 
-export const fetchRecipes = () =>
+export const fetchCategories = () =>
   new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
