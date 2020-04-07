@@ -13,6 +13,7 @@ const CategoryScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('rerender');
     dispatch(recipeActions.setCategories());
     navigation.setOptions({
       headerRight: () => (
@@ -27,7 +28,7 @@ const CategoryScreen = ({ navigation }) => {
         </HeaderButtons>
       ),
     });
-  }, [navigation]);
+  }, [isModalVisible]);
 
   return (
     <View>

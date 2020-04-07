@@ -23,7 +23,7 @@ const RenderCategory = ({ item }) => {
     <View
       style={{
         height: window.height / 4,
-        width: window.width / 1.5,
+        width: window.width / 2.5,
         backgroundColor: item.color,
         ...styles.category,
       }}
@@ -39,7 +39,6 @@ const RenderCategory = ({ item }) => {
 
 const styles = StyleSheet.create({
   category: {
-    flex: 1,
     borderRadius: 10,
     margin: 20,
     overflow: 'hidden',

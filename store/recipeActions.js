@@ -1,17 +1,15 @@
 import Category from '../models/Category';
-import { insertCategory } from '../helper/db';
+import { insertCategory, fetchCategories } from '../helper/db';
 
 export const SET_CATEGORIES = 'SET_CATEGORIES';
 export const ADD_CATEGORY = 'ADD_CATEGORY';
 
 export const setCategories = () => {
   return async (dispatch) => {
+    const dbResult = await fetchCategories();
     dispatch({
       type: SET_CATEGORIES,
-      payload: [
-        { id: 1, title: 'Some category', color: '#ddd' },
-        { id: 2, title: 'Some other category', color: '#ee00ee' },
-      ],
+      payload: dbResult.rows._array,
     });
   };
 };

@@ -17,7 +17,7 @@ const NewCategoryModal = (props) => {
   const handleClose = () => {
     setName('');
     setError('');
-    setPickedColor(null);
+    setPickedColor(Colors.primary);
     props.onBackdropPress();
   };
 
@@ -60,6 +60,7 @@ const NewCategoryModal = (props) => {
           errorMessage={error}
         />
         <TriangleColorPicker
+          color={pickedColor}
           defaultColor={Colors.primary}
           onColorChange={(color) => setPickedColor(fromHsv(color))}
           style={{
