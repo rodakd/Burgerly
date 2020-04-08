@@ -6,6 +6,7 @@ import RenderCategory from '../components/RenderCategory';
 import * as recipeActions from '../store/recipeActions';
 import IoniconsHeaderButton from '../components/IoniconsHeaderButton';
 import NewCategoryModal from '../components/NewCategoryModal';
+import Colors from '../constants/Colors';
 
 const CategoryScreen = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -31,7 +32,7 @@ const CategoryScreen = ({ navigation }) => {
   }, [isModalVisible]);
 
   return (
-    <View>
+    <View style={{ backgroundColor: '#222', flex: 1 }}>
       <NewCategoryModal
         isVisible={isModalVisible}
         onBackdropPress={() => setIsModalVisible(false)}

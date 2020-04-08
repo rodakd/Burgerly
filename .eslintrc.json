@@ -9,6 +9,7 @@
     "import/no-extraneous-dependencies": 0,
     "react/jsx-props-no-spreading": 0,
     "react/prop-types": ["error", { "ignore": ["navigation"] }],
-    "no-underscore-dangle": 0
+    "no-underscore-dangle": 0,
+    "global-require": 0
   }
 }

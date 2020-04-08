@@ -30,7 +30,7 @@ const RenderCategory = ({ item }) => {
     >
       <TouchableCmp useForeground>
         <View style={styles.container}>
-          <Text>{item.title}</Text>
+          <Text style={styles.text}>{item.title}</Text>
         </View>
       </TouchableCmp>
     </View>
@@ -52,6 +52,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  text: {
+    fontFamily: 'raleway-semibold',
+    fontSize: Dimensions.get('window').width / 15,
   },
 });
 

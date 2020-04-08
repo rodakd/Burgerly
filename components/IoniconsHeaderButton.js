@@ -9,7 +9,7 @@ const IoniconsHeaderButton = (passMeFurther) => {
     <HeaderButton
       {...passMeFurther}
       IconComponent={Ionicons}
-      iconSize={23}
+      iconSize={30}
       color={Platform.OS === 'ios' ? Colors.primary : Colors.secondary}
     />
   );
