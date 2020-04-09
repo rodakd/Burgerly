@@ -8,7 +8,7 @@ import Input from './Input';
 import Colors from '../constants/Colors';
 
 const NewCategoryModal = (props) => {
-  const [pickedColor, setPickedColor] = useState(Colors.primary);
+  const [pickedColor, setPickedColor] = useState(Colors.text);
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const { width, height } = Dimensions.get('window');
@@ -26,7 +26,6 @@ const NewCategoryModal = (props) => {
       setError('Please enter the name');
       ref.current.focus();
     } else {
-      console.log(pickedColor);
       props.onSubmit(name, pickedColor);
       handleClose();
     }

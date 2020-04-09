@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-const RenderCategory = ({ item }) => {
+const RenderCategory = ({ item, onPress }) => {
   const window = Dimensions.get('window');
 
   let TouchableCmp = TouchableOpacity;
@@ -28,7 +28,7 @@ const RenderCategory = ({ item }) => {
         ...styles.category,
       }}
     >
-      <TouchableCmp useForeground>
+      <TouchableCmp onPress={onPress} useForeground>
         <View style={styles.container}>
           <Text style={styles.text}>{item.title}</Text>
         </View>
@@ -65,6 +65,7 @@ RenderCategory.propTypes = {
     title: PropTypes.string,
     color: PropTypes.string,
   }).isRequired,
+  onPress: PropTypes.func.isRequired,
 };
 
 export default RenderCategory;

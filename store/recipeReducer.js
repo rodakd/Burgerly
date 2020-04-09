@@ -9,7 +9,6 @@ export default (state = initialStore, action) => {
     case SET_CATEGORIES:
       return { ...state, categories: action.payload };
     case ADD_CATEGORY:
-      console.log('category added');
       return { ...state, categories: state.categories.push(action.payload) };
     default:
       return state;

@@ -14,7 +14,6 @@ const CategoryScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('rerender');
     dispatch(recipeActions.setCategories());
     navigation.setOptions({
       headerRight: () => (
@@ -32,7 +31,7 @@ const CategoryScreen = ({ navigation }) => {
   }, [isModalVisible]);
 
   return (
-    <View style={{ backgroundColor: '#222', flex: 1 }}>
+    <View style={{ backgroundColor: Colors.background, flex: 1 }}>
       <NewCategoryModal
         isVisible={isModalVisible}
         onBackdropPress={() => setIsModalVisible(false)}
@@ -42,7 +41,9 @@ const CategoryScreen = ({ navigation }) => {
       />
       <FlatList
         numColumns={2}
-        renderItem={({ item }) => <RenderCategory item={item} />}
+        renderItem={({ item }) => (
+          <RenderCategory item={item} onPress={() => navigation.navigate('recipes', { item })} />
+        )}
         data={categories}
         keyExtractor={(item) => item.id.toString()}
       />

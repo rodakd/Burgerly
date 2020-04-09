@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import Category from '../models/Category';
 import { insertCategory, fetchCategories } from '../helper/db';
 
@@ -6,21 +7,29 @@ export const ADD_CATEGORY = 'ADD_CATEGORY';
 
 export const setCategories = () => {
   return async (dispatch) => {
-    const dbResult = await fetchCategories();
-    dispatch({
-      type: SET_CATEGORIES,
-      payload: dbResult.rows._array,
-    });
+    fetchCategories()
+      .then((dbResult) =>
+        dispatch({
+          type: SET_CATEGORIES,
+          payload: dbResult.rows._array,
+        })
+      )
+      .catch((err) => {
+        Alert.alert(err, 'Please try again', { text: 'Okay' });
+      });
   };
 };
 
 export const addCategory = (title, color) => {
   return async (dispatch) => {
     const category = new Category(title, color);
-    console.log(color);
-    console.log(category.color);
-    const dbResult = await insertCategory(category);
-    console.log(dbResult);
+    insertCategory(category)
+      .then()
+      .catch((err) => {
+        Alert.alert(err, 'Please try again', { text: 'Okay' });
+      });
     dispatch({ type: ADD_CATEGORY, payload: category });
   };
 };
+
+export const addRecipe = () => {};
