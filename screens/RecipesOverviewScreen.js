@@ -5,7 +5,9 @@ import Colors from '../constants/Colors';
 import IoniconsHeaderButton from '../components/IoniconsHeaderButton';
 import { ADD_MODE } from './EditRecipeScreen';
 
-const RecipesOverviewScreen = ({ navigation }) => {
+const RecipesOverviewScreen = ({ navigation, route }) => {
+  const category = route.params.item;
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -19,6 +21,7 @@ const RecipesOverviewScreen = ({ navigation }) => {
           />
         </HeaderButtons>
       ),
+      headerTitle: category.title,
     });
   }, []);
 
@@ -37,9 +40,7 @@ const styles = StyleSheet.create({
 });
 
 export const recipesScreenOptions = () => {
-  return {
-    headerTitle: 'Recipes',
-  };
+  return {};
 };
 
 export default RecipesOverviewScreen;

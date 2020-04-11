@@ -7,11 +7,17 @@ import {
   Platform,
   TouchableNativeFeedback,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
+import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useDispatch } from 'react-redux';
+import { trashCategory } from '../store/recipeActions';
 
-const RenderCategory = ({ item, onPress }) => {
+const RenderCategory = ({ item, onPress, trashMode }) => {
   const window = Dimensions.get('window');
+  const dispatch = useDispatch();
 
   let TouchableCmp = TouchableOpacity;
 
@@ -20,27 +26,52 @@ const RenderCategory = ({ item, onPress }) => {
   }
 
   return (
-    <View
-      style={{
-        height: window.height / 4,
-        width: window.width / 2.5,
-        backgroundColor: item.color,
-        ...styles.category,
-      }}
-    >
-      <TouchableCmp onPress={onPress} useForeground>
-        <View style={styles.container}>
-          <Text style={styles.text}>{item.title}</Text>
-        </View>
-      </TouchableCmp>
+    <View>
+      <View
+        style={{
+          height: wp(40),
+          width: wp(40),
+          borderRadius: wp(4),
+          margin: wp(4),
+          backgroundColor: item.color,
+          ...styles.category,
+        }}
+      >
+        <TouchableCmp
+          onPress={trashMode ? null : onPress}
+          useForeground
+          onLongPress={() => Alert.alert('Long pressed', '', [{ text: 'Yes' }])}
+        >
+          <View style={styles.container}>
+            <Text style={{ fontSize: wp(6), textAlign: 'center', padding: wp(4) }}>
+              {item.title}
+            </Text>
+          </View>
+        </TouchableCmp>
+      </View>
+      {trashMode && (
+        <TouchableCmp onPress={() => dispatch(trashCategory(item.id))}>
+          <View
+            style={{
+              ...styles.circle,
+              ...{
+                width: window.width / 15,
+                height: window.width / 15,
+                borderRadius: window.width / 30,
+                left: window.width / 2.5,
+              },
+            }}
+          >
+            <Icon type="ionicon" name="md-close" size={window.width / 16} color="white" />
+          </View>
+        </TouchableCmp>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   category: {
-    borderRadius: 10,
-    margin: 20,
     overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -55,7 +86,15 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'raleway-semibold',
-    fontSize: Dimensions.get('window').width / 15,
+  },
+
+  circle: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: '#ff3a33',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 6,
+    marginTop: 5,
   },
 });
 
@@ -65,7 +104,13 @@ RenderCategory.propTypes = {
     title: PropTypes.string,
     color: PropTypes.string,
   }).isRequired,
-  onPress: PropTypes.func.isRequired,
+  onPress: PropTypes.func,
+  trashMode: PropTypes.bool,
+};
+
+RenderCategory.defaultProps = {
+  onPress: () => {},
+  trashMode: false,
 };
 
 export default RenderCategory;

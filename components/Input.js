@@ -10,6 +10,7 @@ const RED = '#ff0015';
 
 const Input = (props, ref) => {
   const {
+    label,
     containerStyle,
     labelStyle,
     onFocusColor = BLUE,
@@ -33,7 +34,7 @@ const Input = (props, ref) => {
 
   return (
     <View style={{ ...styles.container, ...containerStyle }}>
-      <Text style={labelStyleMerged}> Category name </Text>
+      <Text style={labelStyleMerged}> {label} </Text>
       <TextInput
         ref={ref}
         value={value}

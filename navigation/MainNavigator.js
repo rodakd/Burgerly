@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import {
   RecipeDetailsScreen,
   RecipesOverviewScreen,
@@ -15,6 +16,9 @@ const defaultNavOptions = {
     backgroundColor: Colors.primary,
   },
   headerTintColor: Colors.secondary,
+  headerTitleStyle: {
+    fontFamily: 'raleway-bold',
+  },
 };
 
 const RecipeStackNavigator = createStackNavigator();

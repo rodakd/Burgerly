@@ -8,7 +8,7 @@ import Input from './Input';
 import Colors from '../constants/Colors';
 
 const NewCategoryModal = (props) => {
-  const [pickedColor, setPickedColor] = useState(Colors.text);
+  const [pickedColor, setPickedColor] = useState(Colors.tertiary);
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const { width, height } = Dimensions.get('window');
@@ -17,7 +17,7 @@ const NewCategoryModal = (props) => {
   const handleClose = () => {
     setName('');
     setError('');
-    setPickedColor(Colors.primary);
+    setPickedColor(Colors.tertiary);
     props.onBackdropPress();
   };
 
@@ -60,7 +60,7 @@ const NewCategoryModal = (props) => {
         />
         <TriangleColorPicker
           color={pickedColor}
-          defaultColor={Colors.primary}
+          defaultColor={Colors.tertiary}
           onColorChange={(color) => setPickedColor(fromHsv(color))}
           style={{
             width: width / 2,

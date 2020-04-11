@@ -34,6 +34,22 @@ export const insertCategory = (category) =>
     });
   });
 
+export const deleteCategory = (id) =>
+  new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'DELETE FROM categories WHERE id=?',
+        [id],
+        (_, result) => {
+          resolve(result);
+        },
+        (_, err) => {
+          reject(err);
+        }
+      );
+    });
+  });
+
 export const fetchCategories = () =>
   new Promise((resolve, reject) => {
     db.transaction((tx) => {
