@@ -1,4 +1,4 @@
-import React, { useState, createRef } from 'react';
+import React, { useState, createRef, useEffect } from 'react';
 import { View, Text, StyleSheet, Keyboard } from 'react-native';
 import { Button } from 'react-native-elements';
 import Modal from 'react-native-modal';
@@ -12,12 +12,19 @@ import Input from './Input';
 import Colors from '../constants/Colors';
 
 const EditCategoryModal = (props) => {
-  const { onBackdropPress, onSubmit, editedItem } = props;
+  const { onBackdropPress, onCreateNewItem, onEditItem, editedItem } = props;
 
   const [pickedColor, setPickedColor] = useState(toHsv(Colors.tertiary));
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const ref = createRef();
+
+  useEffect(() => {
+    if (editedItem) {
+      setName(editedItem.title);
+      setPickedColor(editedItem.color);
+    }
+  }, [editedItem]);
 
   const handleClose = () => {
     setName('');
@@ -30,11 +37,11 @@ const EditCategoryModal = (props) => {
     if (name.length === 0) {
       setError('Please enter the name');
       ref.current.focus();
-    } else if (name.length > 20) {
-      setError('Maximum name length is 20 characters.');
-      ref.current.focus();
+    } else if (editedItem) {
+      onEditItem(editedItem.id, name, fromHsv(pickedColor));
+      handleClose();
     } else {
-      onSubmit(name, fromHsv(pickedColor));
+      onCreateNewItem(name, fromHsv(pickedColor));
       handleClose();
     }
   };
@@ -51,8 +58,8 @@ const EditCategoryModal = (props) => {
         style={{
           ...styles.card,
           ...{
-            width: wp(50),
-            height: wp(75),
+            width: wp(75),
+            height: wp(100),
           },
         }}
       >
@@ -62,13 +69,20 @@ const EditCategoryModal = (props) => {
         <Input
           ref={ref}
           containerStyle={{ alignSelf: 'flex-start' }}
-          textInputStyle={{ paddingVertical: 7, paddingLeft: 4, fontSize: hp(3) }}
+          textInputStyle={{
+            paddingVertical: 7,
+            paddingLeft: 4,
+            fontSize: hp(3),
+            fontFamily: 'raleway-regular',
+          }}
           label="Category name"
+          labelStyle={{ fontFamily: 'raleway-bold', fontSize: hp(1.7) }}
           onChangeText={(value) => {
             setName(value);
           }}
           value={name}
           errorMessage={error}
+          maxLength={20}
         />
         <TriangleColorPicker
           color={pickedColor}
@@ -77,14 +91,13 @@ const EditCategoryModal = (props) => {
             setPickedColor(color);
           }}
           style={{
-            width: wp(37),
-            height: wp(37),
+            width: wp(50),
+            height: wp(50),
           }}
         />
         <Button
-          containerStyle={{ ...styles.buttonContainer, ...{ width: wp(30) } }}
-          titleStyle={{ fontSize: hp(3), fontFamily: 'raleway-bold' }}
-          title="Add category"
+          titleStyle={{ fontSize: hp(3), fontFamily: 'raleway-bold', padding: 10 }}
+          title="Submit"
           type="outline"
           size={wp(50)}
           onPress={handleSubmit}
@@ -111,7 +124,7 @@ const styles = StyleSheet.create({
     elevation: 8,
     borderRadius: 20,
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     padding: wp(2),
   },
   buttonContainer: {
@@ -125,7 +138,8 @@ const styles = StyleSheet.create({
 EditCategoryModal.propTypes = {
   isVisible: PropTypes.bool,
   onBackdropPress: PropTypes.func,
-  onSubmit: PropTypes.func.isRequired,
+  onCreateNewItem: PropTypes.func.isRequired,
+  onEditItem: PropTypes.func.isRequired,
   editedItem: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,

@@ -35,6 +35,7 @@ const Input = forwardRef((props, ref) => {
     <View style={{ ...styles.container, ...containerStyle }}>
       <Text style={labelStyleMerged}> {label} </Text>
       <TextInput
+        {...props}
         ref={ref}
         value={value}
         onChangeText={onChangeText}
@@ -57,7 +58,6 @@ const styles = StyleSheet.create({
   },
   label: {
     color: LIGHT_GREY,
-    fontWeight: 'bold',
   },
   errorMessage: {
     color: RED,

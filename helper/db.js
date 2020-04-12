@@ -34,6 +34,22 @@ export const insertCategory = (category) =>
     });
   });
 
+export const updateCategory = (id, category) =>
+  new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'UPDATE categories SET title=?, color=? WHERE id=?;',
+        [category.title, category.color, id],
+        (_, result) => {
+          resolve(result);
+        },
+        (_, err) => {
+          reject(err);
+        }
+      );
+    });
+  });
+
 export const deleteCategory = (id) =>
   new Promise((resolve, reject) => {
     db.transaction((tx) => {

@@ -43,7 +43,7 @@ const RenderCategory = ({ item, onPress, onPressInEditMode, trashMode, editMode 
   );
 
   const editButton = (
-    <TouchableCmp onPress={onPressInEditMode}>
+    <TouchableCmp onPress={() => onPressInEditMode(item)}>
       <View style={styles.editButton}>
         <Icon type="ionicon" name="md-create" size={wp(20)} color="white" />
       </View>
@@ -74,7 +74,14 @@ const RenderCategory = ({ item, onPress, onPressInEditMode, trashMode, editMode 
                 : styles.container
             }
           >
-            <Text style={{ fontSize: wp(6), textAlign: 'center', padding: wp(4) }}>
+            <Text
+              style={{
+                fontSize: wp(6),
+                textAlign: 'center',
+                padding: wp(4),
+                fontFamily: 'raleway-regular',
+              }}
+            >
               {item.title}
             </Text>
             {editMode && editButton}
