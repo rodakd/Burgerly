@@ -1,17 +1,20 @@
 import React, { useState, createRef } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Keyboard } from 'react-native';
 import { Button } from 'react-native-elements';
 import Modal from 'react-native-modal';
-import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { TriangleColorPicker, fromHsv, toHsv } from 'react-native-color-picker';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import PropTypes from 'prop-types';
 import Input from './Input';
 import Colors from '../constants/Colors';
 
 const EditCategoryModal = (props) => {
-  const { onBackdropPress, isVisible, onSubmit, editedItem } = props;
+  const { onBackdropPress, onSubmit, editedItem } = props;
 
-  const [pickedColor, setPickedColor] = useState(Colors.tertiary);
+  const [pickedColor, setPickedColor] = useState(toHsv(Colors.tertiary));
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const ref = createRef();
@@ -19,7 +22,7 @@ const EditCategoryModal = (props) => {
   const handleClose = () => {
     setName('');
     setError('');
-    setPickedColor(Colors.tertiary);
+    setPickedColor(toHsv(Colors.tertiary));
     onBackdropPress();
   };
 
@@ -31,7 +34,7 @@ const EditCategoryModal = (props) => {
       setError('Maximum name length is 20 characters.');
       ref.current.focus();
     } else {
-      onSubmit(name, pickedColor);
+      onSubmit(name, fromHsv(pickedColor));
       handleClose();
     }
   };
@@ -53,13 +56,13 @@ const EditCategoryModal = (props) => {
           },
         }}
       >
-        <Text style={{ ...styles.cardHeader, ...{ fontSize: wp(5) } }}>
+        <Text style={{ ...styles.cardHeader, ...{ fontSize: hp(4) } }}>
           {editedItem ? 'Editing category' : 'New category'}
         </Text>
         <Input
           ref={ref}
           containerStyle={{ alignSelf: 'flex-start' }}
-          textInputStyle={{ paddingVertical: 5, paddingLeft: 4 }}
+          textInputStyle={{ paddingVertical: 7, paddingLeft: 4, fontSize: hp(3) }}
           label="Category name"
           onChangeText={(value) => {
             setName(value);
@@ -69,16 +72,18 @@ const EditCategoryModal = (props) => {
         />
         <TriangleColorPicker
           color={pickedColor}
-          defaultColor={Colors.tertiary}
-          onColorChange={(color) => setPickedColor(fromHsv(color))}
+          onColorChange={(color) => {
+            Keyboard.dismiss();
+            setPickedColor(color);
+          }}
           style={{
-            width: wp(45),
-            height: wp(45),
+            width: wp(37),
+            height: wp(37),
           }}
         />
         <Button
           containerStyle={{ ...styles.buttonContainer, ...{ width: wp(30) } }}
-          titleStyle={{ fontSize: wp(3) }}
+          titleStyle={{ fontSize: hp(3), fontFamily: 'raleway-bold' }}
           title="Add category"
           type="outline"
           size={wp(50)}
@@ -107,7 +112,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 10,
+    padding: wp(2),
   },
   buttonContainer: {
     marginTop: 10,

@@ -52,6 +52,7 @@ const Input = forwardRef((props, ref) => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+    paddingBottom: 0,
     width: '100%',
   },
   label: {
