@@ -1,32 +1,37 @@
 import React, { useState, createRef } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import PropTypes from 'prop-types';
 import Input from './Input';
 import Colors from '../constants/Colors';
 
-const NewCategoryModal = (props) => {
+const EditCategoryModal = (props) => {
+  const { onBackdropPress, isVisible, onSubmit, editedItem } = props;
+
   const [pickedColor, setPickedColor] = useState(Colors.tertiary);
   const [name, setName] = useState('');
   const [error, setError] = useState('');
-  const { width, height } = Dimensions.get('window');
   const ref = createRef();
 
   const handleClose = () => {
     setName('');
     setError('');
     setPickedColor(Colors.tertiary);
-    props.onBackdropPress();
+    onBackdropPress();
   };
 
   const handleSubmit = () => {
     if (name.length === 0) {
       setError('Please enter the name');
       ref.current.focus();
+    } else if (name.length > 20) {
+      setError('Maximum name length is 20 characters.');
+      ref.current.focus();
     } else {
-      props.onSubmit(name, pickedColor);
+      onSubmit(name, pickedColor);
       handleClose();
     }
   };
@@ -43,15 +48,19 @@ const NewCategoryModal = (props) => {
         style={{
           ...styles.card,
           ...{
-            width: width / 1.3,
-            height: height / 1.5,
+            width: wp(50),
+            height: wp(75),
           },
         }}
       >
-        <Text style={styles.cardHeader}> New category </Text>
+        <Text style={{ ...styles.cardHeader, ...{ fontSize: wp(5) } }}>
+          {editedItem ? 'Editing category' : 'New category'}
+        </Text>
         <Input
           ref={ref}
           containerStyle={{ alignSelf: 'flex-start' }}
+          textInputStyle={{ paddingVertical: 5, paddingLeft: 4 }}
+          label="Category name"
           onChangeText={(value) => {
             setName(value);
           }}
@@ -63,15 +72,16 @@ const NewCategoryModal = (props) => {
           defaultColor={Colors.tertiary}
           onColorChange={(color) => setPickedColor(fromHsv(color))}
           style={{
-            width: width / 2,
-            height: height / 3,
+            width: wp(45),
+            height: wp(45),
           }}
         />
         <Button
-          containerStyle={styles.buttonContainer}
+          containerStyle={{ ...styles.buttonContainer, ...{ width: wp(30) } }}
+          titleStyle={{ fontSize: wp(3) }}
           title="Add category"
-          type="solid"
-          size={30}
+          type="outline"
+          size={wp(50)}
           onPress={handleSubmit}
         />
       </View>
@@ -96,25 +106,32 @@ const styles = StyleSheet.create({
     elevation: 8,
     borderRadius: 20,
     alignItems: 'center',
+    justifyContent: 'space-between',
     padding: 10,
   },
-  cardHeader: {
-    fontSize: 24,
-  },
   buttonContainer: {
-    margin: 20,
+    marginTop: 10,
+  },
+  cardHeader: {
+    fontFamily: 'raleway-regular',
   },
 });
 
-NewCategoryModal.propTypes = {
+EditCategoryModal.propTypes = {
   isVisible: PropTypes.bool,
   onBackdropPress: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
+  editedItem: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    color: PropTypes.string,
+  }),
 };
 
-NewCategoryModal.defaultProps = {
+EditCategoryModal.defaultProps = {
   isVisible: false,
   onBackdropPress: null,
+  editedItem: null,
 };
 
-export default NewCategoryModal;
+export default EditCategoryModal;

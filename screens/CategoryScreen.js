@@ -5,12 +5,14 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import RenderCategory from '../components/RenderCategory';
 import * as recipeActions from '../store/recipeActions';
 import IoniconsHeaderButton from '../components/IoniconsHeaderButton';
-import NewCategoryModal from '../components/NewCategoryModal';
+import EditCategoryModal from '../components/EditCategoryModal';
 import Colors from '../constants/Colors';
 
 const CategoryScreen = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isTrashMode, setIsTrashMode] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editedItem, setEditedItem] = useState(null);
   const categories = useSelector((state) => state.recipes.categories);
   const dispatch = useDispatch();
 
@@ -24,24 +26,42 @@ const CategoryScreen = ({ navigation }) => {
               <Item title="done" iconName="md-checkmark" onPress={() => setIsTrashMode(false)} />
             </HeaderButtons>
           );
+        if (isEditMode)
+          return (
+            <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
+              <Item title="done" iconName="md-checkmark" onPress={() => setIsEditMode(false)} />
+            </HeaderButtons>
+          );
         return (
           <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
+            <Item title="edit" iconName="md-create" onPress={() => setIsEditMode(true)} />
             <Item title="trash" iconName="md-trash" onPress={() => setIsTrashMode(true)} />
             <Item title="add" iconName="md-add" onPress={() => setIsModalVisible(true)} />
           </HeaderButtons>
         );
       },
     });
-  }, [isModalVisible, isTrashMode]);
+  }, [isModalVisible, isTrashMode, isEditMode]);
+
+  const handleEditItem = (item) => {
+    setEditedItem(item);
+    setIsModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setEditedItem(null);
+    setIsModalVisible(false);
+  };
 
   return (
     <>
-      <NewCategoryModal
+      <EditCategoryModal
         isVisible={isModalVisible}
-        onBackdropPress={() => setIsModalVisible(false)}
+        onBackdropPress={handleCloseModal}
         onSubmit={(title, color) => {
           dispatch(recipeActions.addCategory(title, color));
         }}
+        editedItem={editedItem}
       />
       <View style={{ backgroundColor: Colors.background, flex: 1 }}>
         <FlatList
@@ -51,7 +71,9 @@ const CategoryScreen = ({ navigation }) => {
             <RenderCategory
               item={item}
               onPress={() => navigation.navigate('recipes', { item })}
+              onPressInEditMode={handleEditItem}
               trashMode={isTrashMode}
+              editMode={isEditMode}
             />
           )}
           data={categories}

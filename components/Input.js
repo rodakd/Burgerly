@@ -1,22 +1,21 @@
-/* eslint-disable react/prop-types */
-// Prop-types gives an error when forwarding a ref
-
 import React, { useState, forwardRef } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
+import PropTypes from 'prop-types';
 
 const LIGHT_GREY = '#666';
 const BLUE = '#4961ff';
 const RED = '#ff0015';
 
-const Input = (props, ref) => {
+const Input = forwardRef((props, ref) => {
   const {
     label,
     containerStyle,
     labelStyle,
-    onFocusColor = BLUE,
+    onFocusColor,
     errorMessage,
     value,
     onChangeText,
+    textInputStyle,
   } = props;
   const [isFocused, setIsFocused] = useState(false);
 
@@ -39,7 +38,7 @@ const Input = (props, ref) => {
         ref={ref}
         value={value}
         onChangeText={onChangeText}
-        style={styles.textInput}
+        style={textInputStyle}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         selectionColor={underlineColor}
@@ -48,7 +47,7 @@ const Input = (props, ref) => {
       {errorMessage ? <Text style={styles.errorMessage}> {errorMessage} </Text> : null}
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -59,13 +58,31 @@ const styles = StyleSheet.create({
     color: LIGHT_GREY,
     fontWeight: 'bold',
   },
-  textInput: {
-    height: 40,
-    paddingLeft: 6,
-  },
   errorMessage: {
     color: RED,
   },
 });
 
-export default forwardRef(Input);
+Input.propTypes = {
+  label: PropTypes.string,
+  containerStyle: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  labelStyle: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  textInputStyle: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  onFocusColor: PropTypes.string,
+  errorMessage: PropTypes.string,
+  value: PropTypes.string,
+  onChangeText: PropTypes.func,
+};
+
+Input.defaultProps = {
+  label: '',
+  containerStyle: {},
+  labelStyle: {},
+  textInputStyle: {},
+  onFocusColor: BLUE,
+  errorMessage: '',
+  value: '',
+  onChangeText: () => {},
+};
+
+export default Input;
