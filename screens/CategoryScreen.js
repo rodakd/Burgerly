@@ -58,8 +58,11 @@ const CategoryScreen = ({ navigation }) => {
       <EditCategoryModal
         isVisible={isModalVisible}
         onBackdropPress={handleCloseModal}
-        onSubmit={(title, color) => {
+        onCreateNewItem={(title, color) => {
           dispatch(recipeActions.addCategory(title, color));
+        }}
+        onEditItem={(id, title, color) => {
+          dispatch(recipeActions.editCategory(id, title, color));
         }}
         editedItem={editedItem}
       />
