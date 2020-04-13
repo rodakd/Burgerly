@@ -34,12 +34,12 @@ export const insertCategory = (category) =>
     });
   });
 
-export const updateCategory = (id, category) =>
+export const updateCategory = (category) =>
   new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
         'UPDATE categories SET title=?, color=? WHERE id=?;',
-        [category.title, category.color, id],
+        [category.title, category.color, category.id],
         (_, result) => {
           resolve(result);
         },

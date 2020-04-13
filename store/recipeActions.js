@@ -1,5 +1,4 @@
 import { Alert } from 'react-native';
-import Category from '../models/Category';
 import { insertCategory, fetchCategories, deleteCategory, updateCategory } from '../helper/db';
 
 export const SET_CATEGORIES = 'SET_CATEGORIES';
@@ -24,25 +23,23 @@ export const setCategories = () => {
 
 export const addCategory = (title, color) => {
   return async (dispatch) => {
-    const category = new Category(title, color);
-    insertCategory(category)
+    insertCategory({ title, color })
       .then()
       .catch((err) => {
-        Alert.alert(err, 'Please try again', { text: 'Okay' });
+        Alert.alert(err, 'Please try again', [{ text: 'Okay' }]);
       });
-    dispatch({ type: ADD_CATEGORY, payload: category });
+    dispatch({ type: ADD_CATEGORY, payload: { title, color } });
   };
 };
 
 export const editCategory = (id, title, color) => {
   return async (dispatch) => {
-    const category = new Category(title, color);
-    updateCategory(id, category)
+    updateCategory({ id, title, color })
       .then()
       .catch((err) => {
         Alert.alert(err, 'Please try again', { text: 'Okay' });
       });
-    dispatch({ type: EDIT_CATEGORY, payload: [id, category] });
+    dispatch({ type: EDIT_CATEGORY, payload: { id, title, color } });
   };
 };
 

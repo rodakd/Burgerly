@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, FlatList, Platform } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import RenderCategory from '../components/RenderCategory';
 import * as recipeActions from '../store/recipeActions';
-import IoniconsHeaderButton from '../components/IoniconsHeaderButton';
-import EditCategoryModal from '../components/EditCategoryModal';
 import Colors from '../constants/Colors';
+import { IoniconsHeaderButton, EditCategoryModal, RenderCategory } from '../components';
 
-const CategoryScreen = ({ navigation }) => {
+const CategoryScreen = (props) => {
+  const { navigation } = props;
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isTrashMode, setIsTrashMode] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);

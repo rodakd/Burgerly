@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
 
-const RecipeDetailsScreen = ({ navigation }) => (
+const RecipeDetailsScreen = () => (
   <View style={styles.container}>
     <Text>Sup nigga</Text>
   </View>

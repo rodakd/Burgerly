@@ -5,9 +5,8 @@ import {
   StyleSheet,
   TextInput,
   Alert,
-  Image,
+  ImageBackground,
   ScrollView,
-  TouchableOpacity,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -18,11 +17,14 @@ import * as Permissions from 'expo-permissions';
 import { Icon } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import Colors from '../constants/Colors';
+import { IconButton } from '../components';
 
 export const ADD_MODE = 'ADD_MODE';
 export const EDIT_MODE = 'EDIT_MODE';
 
-const EditRecipeScreen = ({ navigation, route }) => {
+const EditRecipeScreen = (props) => {
+  const { navigation, route } = props;
+
   const [title, setTitle] = useState('New recipe');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [image, setImage] = useState(null);
@@ -101,24 +103,40 @@ const EditRecipeScreen = ({ navigation, route }) => {
         }}
       >
         {image ? (
-          <Image
+          <ImageBackground
             style={{ width: wp(24), height: wp(24), borderRadius: wp(50) }}
             source={{ uri: image }}
-          />
+          >
+            <IconButton
+              onPress={pickImage}
+              buttonStyle={{ ...styles.imageOverlay, ...{ borderRadius: wp(25) } }}
+              touchableStyle={{ ...styles.imageOverlay, ...{ borderRadius: wp(25) } }}
+              iconName="md-create"
+              iconSize={wp(10)}
+              noRipple
+            />
+          </ImageBackground>
         ) : (
-          <Image
-            style={{ width: wp(23), height: wp(23), borderRadius: wp(50) }}
+          <ImageBackground
+            style={{
+              width: wp(23),
+              height: wp(23),
+              borderRadius: wp(50),
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
             source={require('../assets/icon.png')}
-          />
+          >
+            <IconButton
+              onPress={pickImage}
+              buttonStyle={{ ...styles.imageOverlay, ...{ borderRadius: wp(25) } }}
+              touchableStyle={{ ...styles.imageOverlay, ...{ borderRadius: wp(25) } }}
+              iconName="md-create"
+              iconSize={wp(10)}
+              noRipple
+            />
+          </ImageBackground>
         )}
-        <TouchableOpacity
-          style={{ ...styles.imageOverlay, ...{ borderRadius: wp(25) } }}
-          onPress={pickImage}
-        >
-          <View style={{ ...styles.imageOverlay, ...{ borderRadius: wp(25) } }}>
-            <Icon type="ionicon" name="md-create" size={wp(10)} color="white" />
-          </View>
-        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -160,9 +178,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   imageOverlay: {
-    ...StyleSheet.absoluteFill,
+    height: '100%',
+    width: '100%',
     backgroundColor: 'rgba(0,0,0,0.3)',
-    opacity: 0.8,
     justifyContent: 'center',
     alignItems: 'center',
   },

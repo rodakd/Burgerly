@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import { View, FlatList, StyleSheet, Platform } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import Colors from '../constants/Colors';
-import IoniconsHeaderButton from '../components/IoniconsHeaderButton';
+import { IoniconsHeaderButton } from '../components';
 import { ADD_MODE } from './EditRecipeScreen';
 
-const RecipesOverviewScreen = ({ navigation, route }) => {
+const RecipesOverviewScreen = (props) => {
+  const { navigation, route } = props;
+
   const category = route.params.item;
 
   useEffect(() => {

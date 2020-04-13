@@ -1,54 +1,15 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Platform,
-  TouchableNativeFeedback,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
-import { Icon } from 'react-native-elements';
+import { View, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useDispatch } from 'react-redux';
 import { trashCategory } from '../store/recipeActions';
+import Touchable from './Touchable';
+import IconButton from './IconButton';
 
-const RenderCategory = ({ item, onPress, onPressInEditMode, trashMode, editMode }) => {
+const RenderCategory = (props) => {
+  const { item, onPress, onPressInEditMode, trashMode, editMode } = props;
   const dispatch = useDispatch();
-
-  let TouchableCmp = TouchableOpacity;
-
-  if (Platform.OS === 'android' && Platform.Version >= 21) {
-    TouchableCmp = TouchableNativeFeedback;
-  }
-
-  const deleteButton = (
-    <TouchableCmp onPress={() => dispatch(trashCategory(item.id))}>
-      <View
-        style={{
-          ...styles.deleteButton,
-          ...{
-            width: wp(7),
-            height: wp(7),
-            borderRadius: wp(3.5),
-            left: wp(40),
-          },
-        }}
-      >
-        <Icon type="ionicon" name="md-close" size={wp(6)} color="white" />
-      </View>
-    </TouchableCmp>
-  );
-
-  const editButton = (
-    <TouchableCmp onPress={() => onPressInEditMode(item)}>
-      <View style={styles.editButton}>
-        <Icon type="ionicon" name="md-create" size={wp(20)} color="white" />
-      </View>
-    </TouchableCmp>
-  );
 
   return (
     <View>
@@ -62,11 +23,7 @@ const RenderCategory = ({ item, onPress, onPressInEditMode, trashMode, editMode 
           ...styles.category,
         }}
       >
-        <TouchableCmp
-          onPress={trashMode || editMode ? null : onPress}
-          useForeground
-          onLongPress={() => Alert.alert('Long pressed', '', [{ text: 'Yes' }])}
-        >
+        <Touchable onPress={trashMode || editMode ? null : onPress} useForeground>
           <View
             style={
               editMode
@@ -84,11 +41,33 @@ const RenderCategory = ({ item, onPress, onPressInEditMode, trashMode, editMode 
             >
               {item.title}
             </Text>
-            {editMode && editButton}
+            {editMode && (
+              <IconButton
+                onPress={() => onPressInEditMode(item)}
+                buttonStyle={styles.editButton}
+                iconSize={wp(20)}
+                iconName="md-create"
+              />
+            )}
           </View>
-        </TouchableCmp>
+        </Touchable>
       </View>
-      {trashMode && deleteButton}
+      {trashMode && (
+        <IconButton
+          onPress={() => dispatch(trashCategory(item.id))}
+          buttonStyle={{
+            ...styles.deleteButton,
+            ...{
+              width: wp(7),
+              height: wp(7),
+              borderRadius: wp(3.5),
+              left: wp(40),
+            },
+          }}
+          iconSize={wp(6)}
+          iconName="md-close"
+        />
+      )}
     </View>
   );
 };
