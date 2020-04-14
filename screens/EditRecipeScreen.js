@@ -1,23 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Alert,
-  ImageBackground,
-  ScrollView,
-} from 'react-native';
+import { View, Text, StyleSheet, TextInput, ScrollView } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import * as ImagePicker from 'expo-image-picker';
-import * as Permissions from 'expo-permissions';
 import { Icon } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import Colors from '../constants/Colors';
-import { IconButton } from '../components';
+import ImagePick from '../components/ImagePick';
 
 export const ADD_MODE = 'ADD_MODE';
 export const EDIT_MODE = 'EDIT_MODE';
@@ -27,7 +17,7 @@ const EditRecipeScreen = (props) => {
 
   const [title, setTitle] = useState('New recipe');
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(require('../assets/icon.png'));
 
   useEffect(() => {
     navigation.setOptions({
@@ -41,32 +31,6 @@ const EditRecipeScreen = (props) => {
 
   const handleOpenModal = () => {
     setIsModalVisible(true);
-  };
-
-  const getPermissionAsync = async () => {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    if (status !== 'granted') {
-      return false;
-    }
-    return true;
-  };
-
-  const pickImage = async () => {
-    if (getPermissionAsync) {
-      try {
-        const result = await ImagePicker.launchCameraAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          quality: 0.5,
-        });
-        if (!result.cancelled) {
-          setImage(result.uri);
-        }
-      } catch (err) {
-        Alert.alert('You rejected permissions', 'Sorry, we need them to make it work!', [
-          { text: 'Okay' },
-        ]);
-      }
-    }
   };
 
   return (
@@ -96,48 +60,7 @@ const EditRecipeScreen = (props) => {
           underlayColor={Colors.background}
         />
       </View>
-      <View
-        style={{
-          ...styles.imagePickerContainer,
-          ...{ borderRadius: wp(50), width: wp(25), height: wp(25) },
-        }}
-      >
-        {image ? (
-          <ImageBackground
-            style={{ width: wp(24), height: wp(24), borderRadius: wp(50) }}
-            source={{ uri: image }}
-          >
-            <IconButton
-              onPress={pickImage}
-              buttonStyle={{ ...styles.imageOverlay, ...{ borderRadius: wp(25) } }}
-              touchableStyle={{ ...styles.imageOverlay, ...{ borderRadius: wp(25) } }}
-              iconName="md-create"
-              iconSize={wp(10)}
-              noRipple
-            />
-          </ImageBackground>
-        ) : (
-          <ImageBackground
-            style={{
-              width: wp(23),
-              height: wp(23),
-              borderRadius: wp(50),
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            source={require('../assets/icon.png')}
-          >
-            <IconButton
-              onPress={pickImage}
-              buttonStyle={{ ...styles.imageOverlay, ...{ borderRadius: wp(25) } }}
-              touchableStyle={{ ...styles.imageOverlay, ...{ borderRadius: wp(25) } }}
-              iconName="md-create"
-              iconSize={wp(10)}
-              noRipple
-            />
-          </ImageBackground>
-        )}
-      </View>
+      <ImagePick image={image} onSetImage={setImage} />
     </ScrollView>
   );
 };
@@ -172,17 +95,6 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     marginVertical: 5,
     textAlign: 'center',
-  },
-  imagePickerContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  imageOverlay: {
-    height: '100%',
-    width: '100%',
-    backgroundColor: 'rgba(0,0,0,0.3)',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 
