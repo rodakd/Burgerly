@@ -1,8 +1,21 @@
 import EditCategoryModal from './EditCategoryModal';
-import IconButton from './IconButton';
-import Input from './Input';
-import IoniconsHeaderButton from './IoniconsHeaderButton';
+import IconButton from './common/IconButton';
+import Input from './common/Input';
+import IoniconsHeaderButton from './common/IoniconsHeaderButton';
 import RenderCategory from './RenderCategory';
-import Touchable from './Touchable';
+import Touchable from './common/Touchable';
+import DifficultySlider from './sliders/DifficultySlider';
+import DurationSlider from './sliders/DurationSlider';
+import CaloriesSlider from './sliders/CaloriesSlider';
 
-export { EditCategoryModal, IconButton, Input, IoniconsHeaderButton, RenderCategory, Touchable };
+export {
+  EditCategoryModal,
+  IconButton,
+  Input,
+  IoniconsHeaderButton,
+  RenderCategory,
+  Touchable,
+  DifficultySlider,
+  DurationSlider,
+  CaloriesSlider,
+};

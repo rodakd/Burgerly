@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useDispatch } from 'react-redux';
 import { trashCategory } from '../store/recipeActions';
-import Touchable from './Touchable';
-import IconButton from './IconButton';
+import Touchable from './common/Touchable';
+import IconButton from './common/IconButton';
 
 const RenderCategory = (props) => {
   const { item, onPress, onPressInEditMode, trashMode, editMode } = props;

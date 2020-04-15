@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { Icon } from 'react-native-elements';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { Icon } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import Colors from '../constants/Colors';
 import ImagePick from '../components/ImagePick';
+import { DurationSlider, DifficultySlider, CaloriesSlider } from '../components';
 
 export const ADD_MODE = 'ADD_MODE';
 export const EDIT_MODE = 'EDIT_MODE';
@@ -18,6 +19,9 @@ const EditRecipeScreen = (props) => {
   const [title, setTitle] = useState('New recipe');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [image, setImage] = useState(require('../assets/icon.png'));
+  const [duration, setDuration] = useState(10);
+  const [difficulty, setDifficulty] = useState(1);
+  const [calories, setCalories] = useState(0);
 
   useEffect(() => {
     navigation.setOptions({
@@ -61,6 +65,11 @@ const EditRecipeScreen = (props) => {
         />
       </View>
       <ImagePick image={image} onSetImage={setImage} />
+      <View style={{ ...styles.inputsContainer, ...{ marginTop: hp(4) } }}>
+        <DurationSlider value={duration} onValueChange={setDuration} />
+        <DifficultySlider value={difficulty} onValueChange={setDifficulty} />
+        <CaloriesSlider value={calories} onValueChange={setCalories} />
+      </View>
     </ScrollView>
   );
 };
@@ -95,6 +104,14 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     marginVertical: 5,
     textAlign: 'center',
+  },
+  inputsContainer: {
+    alignSelf: 'flex-start',
+    width: '100%',
+  },
+  label: {
+    fontFamily: 'raleway-regular',
+    color: 'white',
   },
 });
 

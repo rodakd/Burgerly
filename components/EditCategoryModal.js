@@ -8,7 +8,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import PropTypes from 'prop-types';
-import Input from './Input';
+import Input from './common/Input';
 import Colors from '../constants/Colors';
 
 const EditCategoryModal = (props) => {
