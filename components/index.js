@@ -6,7 +6,8 @@ import RenderCategory from './RenderCategory';
 import Touchable from './common/Touchable';
 import DifficultySlider from './sliders/DifficultySlider';
 import DurationSlider from './sliders/DurationSlider';
-import CaloriesSlider from './sliders/CaloriesSlider';
+import AddButton from './common/AddButton';
+import Ingredient from './common/Ingredient';
 
 export {
   EditCategoryModal,
@@ -17,5 +18,6 @@ export {
   Touchable,
   DifficultySlider,
   DurationSlider,
-  CaloriesSlider,
+  AddButton,
+  Ingredient,
 };

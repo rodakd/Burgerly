@@ -18,6 +18,9 @@ const CategoryScreen = (props) => {
 
   useEffect(() => {
     dispatch(recipeActions.setCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         if (isTrashMode)
@@ -41,7 +44,7 @@ const CategoryScreen = (props) => {
         );
       },
     });
-  }, [isModalVisible, isTrashMode, isEditMode]);
+  }, [isTrashMode, isEditMode]);
 
   const handleEditItem = (item) => {
     setEditedItem(item);
@@ -51,6 +54,7 @@ const CategoryScreen = (props) => {
   const handleCloseModal = () => {
     setEditedItem(null);
     setIsModalVisible(false);
+    dispatch(recipeActions.setCategories());
   };
 
   return (

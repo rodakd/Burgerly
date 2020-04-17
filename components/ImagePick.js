@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
-import { IconButton } from '.';
+import IconButton from './common/IconButton';
 
 const ImagePick = (props) => {
   const { image, onSetImage } = props;
