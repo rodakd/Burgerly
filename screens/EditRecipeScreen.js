@@ -1,7 +1,7 @@
 // TODO Remove width and height from dynamic styling and clean up
 // TODO Extract components
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -18,9 +18,17 @@ import {
 } from 'react-native-responsive-screen';
 import Modal from 'react-native-modal';
 import { useHeaderHeight } from '@react-navigation/stack';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import Colors from '../constants/Colors';
 import ImagePick from '../components/ImagePick';
-import { DurationSlider, DifficultySlider, Ingredient, AddButton } from '../components';
+import {
+  DurationSlider,
+  DifficultySlider,
+  Ingredient,
+  AddButton,
+  Step,
+  IoniconsHeaderButton,
+} from '../components';
 
 export const ADD_MODE = 'ADD_MODE';
 export const EDIT_MODE = 'EDIT_MODE';
@@ -28,6 +36,7 @@ export const EDIT_MODE = 'EDIT_MODE';
 const EditRecipeScreen = (props) => {
   const { navigation, route } = props;
   const headerHeight = useHeaderHeight();
+  const ref = useRef();
 
   const [title, setTitle] = useState('New recipe');
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -43,8 +52,17 @@ const EditRecipeScreen = (props) => {
   useEffect(() => {
     navigation.setOptions({
       headerTitle: route.params.mode === ADD_MODE ? 'Add recipe' : 'Edit recipe',
+      headerRight: () => {
+        return (
+          <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
+            <Item title="done" iconName="md-checkmark" onPress={handleCreateRecipe} />
+          </HeaderButtons>
+        );
+      },
     });
   }, [navigation]);
+
+  const handleCreateRecipe = () => {};
 
   const handleCloseModal = () => {
     setIsModalVisible(false);
@@ -56,6 +74,10 @@ const EditRecipeScreen = (props) => {
 
   const handleDeleteIngredient = (id) => {
     setIngredients((state) => state.filter((ing) => ing.id !== id));
+  };
+
+  const handleDeleteStep = (id) => {
+    setSteps((state) => state.filter((step) => step.id !== id));
   };
 
   const validateCalories = (text) => {
@@ -79,6 +101,17 @@ const EditRecipeScreen = (props) => {
     setIngredients((state) => state.concat(newIngredient));
   };
 
+  const handleAddStep = () => {
+    if (stepInput.length === 0) {
+      return;
+    }
+    const numOfSteps = steps.length;
+    const id = numOfSteps === 0 ? 1 : steps[numOfSteps - 1].id + 1;
+    const newStep = { id, text: stepInput.trim() };
+    setStepInput('');
+    setSteps((state) => state.concat(newStep));
+  };
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, backgroundColor: Colors.background }}
@@ -86,128 +119,125 @@ const EditRecipeScreen = (props) => {
         ? { behavior: 'padding' }
         : {
             // Padding only works on emulators on Android
-            // behavior: 'padding'
+            behavior: 'padding',
           })}
-      keyboardVerticalOffset={headerHeight}
+      keyboardVerticalOffset={headerHeight + 20}
     >
-      <ScrollView
-        contentContainerStyle={{
-          ...styles.container,
-          ...{ padding: wp(5) },
-        }}
-        keyboardDismissMode="on-drag"
-        keyboardShouldPersistTaps="always"
-      >
-        <Modal
-          isVisible={isModalVisible}
-          useNativeDriver
-          onBackdropPress={handleCloseModal}
-          style={styles.modal}
-          backdropOpacity={0.9}
+      <ScrollView keyboardDismissMode="on-drag" keyboardShouldPersistTaps="always">
+        <View
+          style={{
+            ...styles.container,
+            ...{ padding: wp(4) },
+          }}
         >
-          <Text style={{ ...styles.modalTitleLabel, fontSize: hp(4) }}>Enter recipe name</Text>
-          <TextInput
-            value={title}
-            onChangeText={setTitle}
-            style={{ ...styles.modalTextInput, width: wp(66), fontSize: hp(4) }}
-            maxLength={50}
-          />
-        </Modal>
-        <View style={{ ...styles.headerContainer, ...{ paddingHorizontal: wp(7) } }}>
-          <Text style={{ ...styles.title, fontSize: hp(5), padding: wp(2) }}>{title}</Text>
-          <Icon
-            name="md-create"
-            type="ionicon"
-            size={wp(7)}
-            color="white"
-            onPress={handleOpenModal}
-            underlayColor={Colors.background}
-          />
-        </View>
-        <ImagePick image={image} onSetImage={setImage} />
-        <View style={{ ...styles.inputsContainer, ...{ marginTop: hp(4) } }}>
-          <DurationSlider value={duration} onValueChange={setDuration} />
-          <DifficultySlider value={difficulty} onValueChange={setDifficulty} />
-          <View
-            style={{
-              marginTop: hp(3),
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
+          <Modal
+            isVisible={isModalVisible}
+            useNativeDriver
+            onBackdropPress={handleCloseModal}
+            onModalShow={() => ref.current.focus()}
+            style={styles.modal}
+            backdropOpacity={0.9}
           >
-            <Text style={{ ...styles.label, ...{ fontSize: hp(3) } }}>Calories: </Text>
+            <Text style={{ ...styles.modalTitleLabel, fontSize: hp(4) }}>Enter recipe name</Text>
             <TextInput
-              style={{
-                fontSize: hp(4),
-                backgroundColor: Colors.inputBackground,
-                color: 'white',
-                textAlign: 'center',
-                width: hp(11),
-                marginLeft: 10,
-                paddingHorizontal: 5,
-                fontFamily: 'source-regular',
-                borderRadius: 10,
-              }}
-              keyboardType="numeric"
-              onChangeText={validateCalories}
-              maxLength={4}
-              value={calories}
-              onFocus={() => setCalories('')}
-              onBlur={() => {
-                if (calories.length === 0) {
-                  setCalories('0');
-                }
-              }}
+              ref={ref}
+              value={title}
+              onChangeText={setTitle}
+              style={{ ...styles.modalTextInput, width: wp(66), fontSize: hp(4) }}
+              maxLength={50}
+            />
+          </Modal>
+          <View style={{ ...styles.headerContainer, ...{ paddingHorizontal: wp(7) } }}>
+            <Text style={{ ...styles.title, fontSize: hp(5), padding: wp(2) }}>{title}</Text>
+            <Icon
+              name="md-create"
+              type="ionicon"
+              size={wp(7)}
+              color="white"
+              onPress={handleOpenModal}
+              underlayColor={Colors.background}
             />
           </View>
-          <View
-            style={{
-              marginTop: hp(3),
-            }}
-          >
-            <Text style={{ ...styles.label, ...{ fontSize: hp(3) } }}>Ingredients:</Text>
-            {ingredients.map((ing) => (
-              <Ingredient
-                key={ing.id}
-                id={ing.id}
-                text={ing.text}
-                onDelete={handleDeleteIngredient}
-              />
-            ))}
-            <View style={styles.addIngredient}>
+          <ImagePick image={image} onSetImage={setImage} />
+          <View style={{ ...styles.inputsContainer, ...{ marginTop: hp(4) } }}>
+            <DurationSlider value={duration} onValueChange={setDuration} />
+            <DifficultySlider value={difficulty} onValueChange={setDifficulty} />
+            <View
+              style={{
+                marginTop: hp(3),
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <Text style={{ ...styles.label, ...{ fontSize: hp(3) } }}>Calories: </Text>
               <TextInput
-                style={{ ...styles.addIngredientInput, ...{ fontSize: hp(3) } }}
-                onChangeText={setIngredientInput}
-                value={ingredientInput}
+                style={{
+                  fontSize: hp(4),
+                  backgroundColor: Colors.inputBackground,
+                  color: 'white',
+                  textAlign: 'center',
+                  width: hp(11),
+                  marginLeft: 10,
+                  paddingHorizontal: 5,
+                  fontFamily: 'source-regular',
+                  borderRadius: 10,
+                }}
+                keyboardType="numeric"
+                onChangeText={validateCalories}
+                maxLength={4}
+                value={calories}
+                onFocus={() => setCalories('')}
+                onBlur={() => {
+                  if (calories.length === 0) {
+                    setCalories('0');
+                  }
+                }}
               />
-              <AddButton onPress={handleAddIngredient} />
+            </View>
+            <View
+              style={{
+                marginTop: hp(3),
+              }}
+            >
+              <Text style={{ ...styles.label, ...{ fontSize: hp(3) } }}>Ingredients:</Text>
+              {ingredients.map((ing) => (
+                <Ingredient
+                  key={ing.id}
+                  id={ing.id}
+                  text={ing.text}
+                  onDelete={handleDeleteIngredient}
+                />
+              ))}
+              <View style={styles.addIngredient}>
+                <TextInput
+                  style={{ ...styles.addIngredientInput, ...{ fontSize: hp(3) } }}
+                  onChangeText={setIngredientInput}
+                  value={ingredientInput}
+                />
+                <AddButton onPress={handleAddIngredient} />
+              </View>
+            </View>
+            <View
+              style={{
+                marginTop: hp(3),
+              }}
+            >
+              <Text style={{ ...styles.label, ...{ fontSize: hp(3) } }}>Steps:</Text>
+              {steps.map((step) => (
+                <Step key={step.id} id={step.id} text={step.text} onDelete={handleDeleteStep} />
+              ))}
+              <View style={styles.addIngredient}>
+                <TextInput
+                  style={{ ...styles.addIngredientInput, ...{ fontSize: hp(3) } }}
+                  onChangeText={setStepInput}
+                  value={stepInput}
+                />
+                <AddButton onPress={handleAddStep} />
+              </View>
             </View>
           </View>
-          <View
-            style={{
-              marginTop: hp(3),
-            }}
-          >
-            <Text style={{ ...styles.label, ...{ fontSize: hp(3) } }}>Steps:</Text>
-            {steps.map((step) => (
-              <Ingredient
-                key={step.id}
-                id={step.id}
-                text={step.text}
-                onDelete={handleDeleteIngredient}
-              />
-            ))}
-            <View style={styles.addIngredient}>
-              <TextInput
-                style={{ ...styles.addIngredientInput, ...{ fontSize: hp(3) } }}
-                onChangeText={setStepInput}
-                value={stepInput}
-              />
-              <AddButton onPress={handleAddIngredient} />
-            </View>
-          </View>
+          <View style={{ flex: 1 }} />
         </View>
-        <View style={{ flex: 1 }} />
       </ScrollView>
     </KeyboardAvoidingView>
   );

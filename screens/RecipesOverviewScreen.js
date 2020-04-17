@@ -18,7 +18,7 @@ const RecipesOverviewScreen = (props) => {
             title="add"
             iconName={Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle'}
             onPress={() => {
-              navigation.navigate('edit', { mode: ADD_MODE });
+              navigation.navigate('edit', { mode: ADD_MODE, categoryId: category.id });
             }}
           />
         </HeaderButtons>

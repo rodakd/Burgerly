@@ -8,6 +8,7 @@ import DifficultySlider from './sliders/DifficultySlider';
 import DurationSlider from './sliders/DurationSlider';
 import AddButton from './common/AddButton';
 import Ingredient from './common/Ingredient';
+import Step from './common/Step';
 
 export {
   EditCategoryModal,
@@ -20,4 +21,5 @@ export {
   DurationSlider,
   AddButton,
   Ingredient,
+  Step,
 };
