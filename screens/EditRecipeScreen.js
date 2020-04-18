@@ -10,6 +10,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import {
@@ -19,6 +20,7 @@ import {
 import Modal from 'react-native-modal';
 import { useHeaderHeight } from '@react-navigation/stack';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { useDispatch } from 'react-redux';
 import Colors from '../constants/Colors';
 import ImagePick from '../components/ImagePick';
 import {
@@ -35,6 +37,7 @@ export const EDIT_MODE = 'EDIT_MODE';
 
 const EditRecipeScreen = (props) => {
   const { navigation, route } = props;
+  const dispatch = useDispatch();
   const headerHeight = useHeaderHeight();
   const ref = useRef();
 
@@ -62,7 +65,31 @@ const EditRecipeScreen = (props) => {
     });
   }, [navigation]);
 
-  const handleCreateRecipe = () => {};
+  const handleCreateRecipe = () => {
+    if (validateRecipe) {
+      const ingredientsJSON = JSON.stringify(ingredients);
+      const stepsJSON = JSON.stringify(steps);
+      dispatch();
+    }
+  };
+
+  const validateRecipe = () => {
+    if (title.length === 0) {
+      Alert.alert('Failed to create recipe', 'Please enter the recipe name', [{ text: 'Okay' }]);
+      return false;
+    }
+    if (ingredients.length === 0) {
+      Alert.alert('Failed to create recipe', 'Ingredients list must not be empty', [
+        { text: 'Okay ' },
+      ]);
+      return false;
+    }
+    if (steps.length === 0) {
+      Alert.alert('Failed to create recipe', 'Steps list must not be empty', [{ text: 'Okay' }]);
+      return false;
+    }
+    return true;
+  };
 
   const handleCloseModal = () => {
     setIsModalVisible(false);

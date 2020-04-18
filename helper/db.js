@@ -18,6 +18,22 @@ export const createCategoryTable = () =>
     });
   });
 
+export const createRecipeTable = () =>
+  new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'CREATE TABLE IF NOT EXISTS recipes (id INTEGER PRIMARY KEY, title TEXT NOT NULL, color TEXT NOT NULL);',
+        [],
+        (_, result) => {
+          resolve(result);
+        },
+        (_, err) => {
+          reject(err);
+        }
+      );
+    });
+  });
+
 export const insertCategory = (category) =>
   new Promise((resolve, reject) => {
     db.transaction((tx) => {
