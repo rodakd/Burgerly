@@ -1,7 +1,15 @@
-import { SET_CATEGORIES, ADD_CATEGORY, DELETE_CATEGORY } from './recipeActions';
+import {
+  SET_CATEGORIES,
+  SET_RECIPES,
+  ADD_CATEGORY,
+  ADD_RECIPE,
+  DELETE_CATEGORY,
+  DELETE_RECIPE,
+} from './recipeActions';
 
 const initialStore = {
   categories: [],
+  recipes: [],
 };
 
 export default (state = initialStore, action) => {
@@ -9,10 +17,21 @@ export default (state = initialStore, action) => {
     case SET_CATEGORIES:
       return { ...state, categories: action.payload };
     case ADD_CATEGORY:
-      return { ...state, categories: state.categories.push(action.payload) };
+      state.categories.push(action.payload);
+      return { state };
     case DELETE_CATEGORY: {
       const newCategories = state.categories.filter((category) => category.id !== action.payload);
       return { ...state, categories: newCategories };
+    }
+    case SET_RECIPES:
+      return { ...state, recipes: action.payload };
+    case ADD_RECIPE:
+      console.log('RENDERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR', typeof state.recipes);
+      state.recipes.push(action.payload);
+      return { state };
+    case DELETE_RECIPE: {
+      const newRecipes = state.recipes.filter((recipe) => recipe.id !== action.payload);
+      return { ...state, categories: newRecipes };
     }
     default:
       return state;

@@ -1,14 +1,21 @@
 import React, { useEffect } from 'react';
-import { View, FlatList, StyleSheet, Platform } from 'react-native';
+import { View, FlatList, StyleSheet, Platform, Text } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { useDispatch, useSelector } from 'react-redux';
 import Colors from '../constants/Colors';
 import { IoniconsHeaderButton } from '../components';
 import { ADD_MODE } from './EditRecipeScreen';
+import { setRecipes } from '../store/recipeActions';
 
 const RecipesOverviewScreen = (props) => {
   const { navigation, route } = props;
-
+  const recipes = useSelector((state) => state.recipes);
+  const dispatch = useDispatch();
   const category = route.params.item;
+
+  useEffect(() => {
+    dispatch(setRecipes());
+  }, [dispatch]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -29,7 +36,11 @@ const RecipesOverviewScreen = (props) => {
 
   return (
     <View style={styles.container}>
-      <FlatList keyExtractor={(item) => item.id.toString()} />
+      <FlatList
+        keyExtractor={(item) => item.id.toString()}
+        // data={recipes}
+        // renderItem={({ item }) => <Text> {item.title} </Text>}
+      />
     </View>
   );
 };

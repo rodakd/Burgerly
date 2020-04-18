@@ -32,7 +32,7 @@ export const setCategories = () => {
         })
       )
       .catch((err) => {
-        Alert.alert(err, 'Please try again', { text: 'Okay' });
+        Alert.alert(err.message, 'Please try again', { text: 'Okay' });
       });
   };
 };
@@ -47,7 +47,7 @@ export const setRecipes = () => {
         })
       )
       .catch((err) => {
-        Alert.alert(err, 'Please try again', { text: 'Okay' });
+        Alert.alert(err.message, 'Please try again', { text: 'Okay' });
       });
   };
 };
@@ -59,20 +59,28 @@ export const addCategory = (title, color) => {
     insertCategory(category)
       .then()
       .catch((err) => {
-        Alert.alert(err, 'Please try again', [{ text: 'Okay' }]);
+        Alert.alert(err.message, 'Please try again', [{ text: 'Okay' }]);
       });
     dispatch({ type: ADD_CATEGORY, payload: category });
   };
 };
 
-export const addRecipe = (title, image, duration, difficulty, calories, ingredients, steps) => {
-  const recipe = { title, image, duration, difficulty, calories, ingredients, steps };
-
+export const addRecipe = (
+  categoryId,
+  title,
+  image,
+  duration,
+  difficulty,
+  calories,
+  ingredients,
+  steps
+) => {
+  const recipe = { categoryId, title, image, duration, difficulty, calories, ingredients, steps };
   return async (dispatch) => {
     insertRecipe(recipe)
       .then()
       .catch((err) => {
-        Alert.alert(err, 'Please try again', [{ text: 'Okay' }]);
+        Alert.alert(err.message, 'Please try again', [{ text: 'Okay' }]);
       });
     dispatch({ type: ADD_RECIPE, payload: recipe });
   };
@@ -85,7 +93,7 @@ export const editCategory = (id, title, color) => {
     updateCategory(category)
       .then()
       .catch((err) => {
-        Alert.alert(err, 'Please try again', { text: 'Okay' });
+        Alert.alert(err.message, 'Please try again', { text: 'Okay' });
       });
     dispatch({ type: EDIT_CATEGORY, payload: category });
   };
@@ -101,13 +109,22 @@ export const editRecipe = (
   ingredients,
   steps
 ) => {
-  const recipe = { id, title, image, duration, difficulty, calories, ingredients, steps };
+  const recipe = {
+    id,
+    title,
+    image,
+    duration,
+    difficulty,
+    calories,
+    ingredients,
+    steps,
+  };
 
   return async (dispatch) => {
     updateRecipe(recipe)
       .then()
       .catch((err) => {
-        Alert.alert(err, 'Please try again', { text: 'Okay' });
+        Alert.alert(err.message, 'Please try again', { text: 'Okay' });
       });
     dispatch({ type: EDIT_RECIPE, payload: recipe });
   };
@@ -118,7 +135,7 @@ export const trashCategory = (id) => {
     deleteCategory(id)
       .then()
       .catch((err) => {
-        Alert.alert(err, 'Please try again', { text: 'Okay' });
+        Alert.alert(err.message, 'Please try again', { text: 'Okay' });
       });
     dispatch({ type: DELETE_CATEGORY, payload: id });
   };
@@ -129,7 +146,7 @@ export const trashRecipe = (id) => {
     deleteRecipe(id)
       .then()
       .catch((err) => {
-        Alert.alert(err, 'Please try again', { text: 'Okay' });
+        Alert.alert(err.message, 'Please try again', { text: 'Okay' });
       });
     dispatch({ type: DELETE_RECIPE, payload: id });
   };

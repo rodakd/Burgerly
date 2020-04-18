@@ -1,7 +1,7 @@
 // TODO Remove width and height from dynamic styling and clean up
 // TODO Extract components
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import {
   View,
   Text,
@@ -31,12 +31,14 @@ import {
   Step,
   IoniconsHeaderButton,
 } from '../components';
+import { addRecipe } from '../store/recipeActions';
 
 export const ADD_MODE = 'ADD_MODE';
 export const EDIT_MODE = 'EDIT_MODE';
 
 const EditRecipeScreen = (props) => {
   const { navigation, route } = props;
+  const { categoryId } = route.params;
   const dispatch = useDispatch();
   const headerHeight = useHeaderHeight();
   const ref = useRef();
@@ -66,10 +68,23 @@ const EditRecipeScreen = (props) => {
   }, [navigation, handleCreateRecipe]);
 
   const handleCreateRecipe = () => {
-    if (validateRecipe) {
+    if (validateRecipe()) {
       const ingredientsJSON = JSON.stringify(ingredients);
       const stepsJSON = JSON.stringify(steps);
       const img = typeof image === 'number' ? null : image;
+      dispatch(
+        addRecipe(
+          categoryId,
+          title,
+          img,
+          duration,
+          difficulty,
+          calories,
+          ingredientsJSON,
+          stepsJSON
+        )
+      );
+      navigation.goBack();
     }
   };
 
@@ -146,7 +161,7 @@ const EditRecipeScreen = (props) => {
         ? { behavior: 'padding' }
         : {
             // Padding only works on emulators on Android
-            behavior: 'padding',
+            // behavior: 'padding',
           })}
       keyboardVerticalOffset={headerHeight + 20}
     >
