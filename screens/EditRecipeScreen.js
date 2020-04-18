@@ -63,13 +63,13 @@ const EditRecipeScreen = (props) => {
         );
       },
     });
-  }, [navigation]);
+  }, [navigation, handleCreateRecipe]);
 
   const handleCreateRecipe = () => {
     if (validateRecipe) {
       const ingredientsJSON = JSON.stringify(ingredients);
       const stepsJSON = JSON.stringify(steps);
-      dispatch();
+      const img = typeof image === 'number' ? null : image;
     }
   };
 

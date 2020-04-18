@@ -8,9 +8,13 @@ import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import recipeReducer from './store/recipeReducer';
 import MainNavigator from './navigation/MainNavigator';
-import { createCategoryTable } from './helper/db';
+import { createCategoryTable, createRecipeTable } from './helper/db';
 
 createCategoryTable()
+  .then()
+  .catch((err) => Alert.alert('Error!', `${err}. PLEASE contact with us!`, [{ text: 'Okay' }]));
+
+createRecipeTable()
   .then()
   .catch((err) => Alert.alert('Error!', `${err}. PLEASE contact with us!`, [{ text: 'Okay' }]));
 
