@@ -25,10 +25,10 @@ export default (state = initialStore, action) => {
     }
     case SET_RECIPES:
       return { ...state, recipes: action.payload };
-    case ADD_RECIPE:
-      console.log('RENDERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR', typeof state.recipes);
-      state.recipes.push(action.payload);
-      return { state };
+    case ADD_RECIPE: {
+      const newRecipes = state.recipes.concat(action.payload);
+      return { ...state, recipes: newRecipes };
+    }
     case DELETE_RECIPE: {
       const newRecipes = state.recipes.filter((recipe) => recipe.id !== action.payload);
       return { ...state, categories: newRecipes };

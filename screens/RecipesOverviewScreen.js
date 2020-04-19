@@ -6,10 +6,11 @@ import Colors from '../constants/Colors';
 import { IoniconsHeaderButton } from '../components';
 import { ADD_MODE } from './EditRecipeScreen';
 import { setRecipes } from '../store/recipeActions';
+import RecipeListItem from '../components/RecipeListItem';
 
 const RecipesOverviewScreen = (props) => {
   const { navigation, route } = props;
-  const recipes = useSelector((state) => state.recipes);
+  const recipes = useSelector((state) => state.recipes.recipes);
   const dispatch = useDispatch();
   const category = route.params.item;
 
@@ -38,8 +39,8 @@ const RecipesOverviewScreen = (props) => {
     <View style={styles.container}>
       <FlatList
         keyExtractor={(item) => item.id.toString()}
-        // data={recipes}
-        // renderItem={({ item }) => <Text> {item.title} </Text>}
+        data={recipes}
+        renderItem={({ item }) => <RecipeListItem text={item.title} />}
       />
     </View>
   );

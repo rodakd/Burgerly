@@ -1,7 +1,7 @@
 // TODO Remove width and height from dynamic styling and clean up
 // TODO Extract components
 
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -65,7 +65,7 @@ const EditRecipeScreen = (props) => {
         );
       },
     });
-  }, [navigation, handleCreateRecipe]);
+  }, [navigation, handleCreateRecipe, ingredients, steps]);
 
   const handleCreateRecipe = () => {
     if (validateRecipe()) {

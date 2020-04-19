@@ -75,7 +75,17 @@ export const addRecipe = (
   ingredients,
   steps
 ) => {
-  const recipe = { categoryId, title, image, duration, difficulty, calories, ingredients, steps };
+  const recipe = {
+    id: Math.floor(Math.random() * 3),
+    categoryId,
+    title,
+    image,
+    duration,
+    difficulty,
+    calories,
+    ingredients,
+    steps,
+  };
   return async (dispatch) => {
     insertRecipe(recipe)
       .then()
