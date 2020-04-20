@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { View, FlatList, StyleSheet, Platform, Text } from 'react-native';
+import { View, FlatList, StyleSheet, Platform } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useDispatch, useSelector } from 'react-redux';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Colors from '../constants/Colors';
 import { IoniconsHeaderButton } from '../components';
 import { ADD_MODE } from './EditRecipeScreen';
@@ -40,7 +41,24 @@ const RecipesOverviewScreen = (props) => {
       <FlatList
         keyExtractor={(item) => item.id.toString()}
         data={recipes}
-        renderItem={({ item }) => <RecipeListItem text={item.title} />}
+        renderItem={({ item }) => (
+          // TODO Extract this
+          <RecipeListItem
+            title={item.title}
+            leftAvatar={
+              item.image
+                ? { source: { uri: item.image }, style: { width: hp(10), height: hp(10) } }
+                : {
+                    source: require('../assets/icon.png'),
+                    style: { width: hp(10), height: hp(10) },
+                  }
+            }
+            subtitle={`🍔 ${item.calories} kcal  ⌚ ${item.duration} min`}
+            titleStyle={{ fontSize: hp(4), fontFamily: 'raleway-regular' }}
+            subtitleStyle={{ fontSize: hp(2), fontFamily: 'source-regular' }}
+            bottomDivider
+          />
+        )}
       />
     </View>
   );
