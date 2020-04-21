@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
 
-const RecipeDetailsScreen = () => (
-  <View style={styles.container}>
-    <Text>Sup nigga</Text>
-  </View>
-);
+const RecipeDetailsScreen = (props) => {
+  const { navigation, route } = props;
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: route.params.recipe.title,
+    });
+  }, [navigation]);
+
+  return (
+    <View style={styles.container}>
+      <Text>Sup nigga</Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
