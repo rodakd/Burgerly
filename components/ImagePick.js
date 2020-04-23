@@ -49,7 +49,7 @@ const ImagePick = (props) => {
           alignItems: 'center',
         }}
         imageStyle={{ borderRadius: wp(50) }}
-        source={typeof image === 'number' ? image : { uri: image }}
+        source={image === null ? require('../assets/icon.png') : { uri: image }}
       >
         <IconButton
           onPress={pickImage}
@@ -80,8 +80,12 @@ const styles = StyleSheet.create({
 });
 
 ImagePick.propTypes = {
-  image: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  image: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onSetImage: PropTypes.func.isRequired,
+};
+
+ImagePick.defaultProps = {
+  image: null,
 };
 
 export default ImagePick;
