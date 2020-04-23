@@ -2,21 +2,7 @@ import * as SQLite from 'expo-sqlite';
 
 const db = SQLite.openDatabase('burgerly.db');
 
-export const enableConstraints = () =>
-  new Promise((resolve, reject) => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'PRAGMA foreign_keys = ON;',
-        [],
-        (_, result) => {
-          resolve(result);
-        },
-        (_, err) => {
-          reject(err);
-        }
-      );
-    });
-  });
+db.exec([{ sql: 'PRAGMA foreign_keys = ON;', args: [] }], false, () => {});
 
 export const createCategoryTable = () =>
   new Promise((resolve, reject) => {
@@ -38,7 +24,7 @@ export const createRecipeTable = () =>
   new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS recipes (id INTEGER PRIMARY KEY, categoryId INTEGER NOT NULL, title TEXT NOT NULL, image TEXT, duration INTEGER NOT NULL, difficulty INTEGER NOT NULL, calories INTEGER NOT NULL, ingredients TEXT NOT NULL, steps TEXT NOT NULL, FOREIGN KEY(categoryId) REFERENCES categories(id) ON DELETE CASCADE);',
+        'CREATE TABLE IF NOT EXISTS recipes (id INTEGER PRIMARY KEY, categoryId INTEGER NOT NULL REFERENCES categories(id) ON DELETE CASCADE, title TEXT NOT NULL, image TEXT, duration INTEGER NOT NULL, difficulty INTEGER NOT NULL, calories INTEGER NOT NULL, ingredients TEXT NOT NULL, steps TEXT NOT NULL);',
         [],
         (_, result) => {
           resolve(result);

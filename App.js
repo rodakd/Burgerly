@@ -8,16 +8,10 @@ import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import recipeReducer from './store/recipeReducer';
 import MainNavigator from './navigation/MainNavigator';
-import {
-  fetchAllRecipes,
-  createCategoryTable,
-  createRecipeTable,
-  enableConstraints,
-} from './helper/db';
+import { fetchAllRecipes, createCategoryTable, createRecipeTable } from './helper/db';
 
 const init = async () => {
   try {
-    await enableConstraints();
     await createCategoryTable();
     await createRecipeTable();
   } catch (err) {

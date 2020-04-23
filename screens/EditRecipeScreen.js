@@ -64,7 +64,7 @@ const EditRecipeScreen = (props) => {
         );
       },
     });
-  }, [navigation, handleFinishRecipe, ingredients, steps]);
+  }, [navigation, handleFinishRecipe, ingredients, steps, duration, difficulty, title, calories]);
 
   const handleFinishRecipe = () => {
     if (validateRecipe()) {
