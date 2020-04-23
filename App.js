@@ -8,7 +8,7 @@ import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import recipeReducer from './store/recipeReducer';
 import MainNavigator from './navigation/MainNavigator';
-import { fetchAllRecipes, createCategoryTable, createRecipeTable } from './helper/db';
+import { createCategoryTable, createRecipeTable } from './helper/db';
 
 const init = async () => {
   try {
@@ -37,11 +37,6 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 export default function App() {
-  const fetch = async () => {
-    const dataResult = await fetchAllRecipes();
-    console.log(dataResult.rows._array);
-  };
-  fetch();
   const [isReady, setIsReady] = useState(false);
 
   if (!isReady) {

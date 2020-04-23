@@ -182,19 +182,3 @@ export const fetchRecipes = (categoryId) =>
       );
     });
   });
-
-export const fetchAllRecipes = () =>
-  new Promise((resolve, reject) => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'SELECT * FROM recipes;',
-        [],
-        (_, result) => {
-          resolve(result);
-        },
-        (_, err) => {
-          reject(err);
-        }
-      );
-    });
-  });
