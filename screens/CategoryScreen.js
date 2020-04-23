@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, FlatList } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import * as recipeActions from '../store/recipeActions';
+import { setCategories, addCategory, editCategory } from '../store/recipeActions';
 import Colors from '../constants/Colors';
 import { IoniconsHeaderButton, EditCategoryModal, RenderCategory } from '../components';
 
@@ -17,11 +17,12 @@ const CategoryScreen = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(recipeActions.setCategories());
+    dispatch(setCategories());
   }, [dispatch]);
 
   useEffect(() => {
     navigation.setOptions({
+      headerTitle: 'Categories',
       headerRight: () => {
         if (isTrashMode)
           return (
@@ -54,7 +55,7 @@ const CategoryScreen = (props) => {
   const handleCloseModal = () => {
     setEditedItem(null);
     setIsModalVisible(false);
-    dispatch(recipeActions.setCategories());
+    dispatch(setCategories());
   };
 
   return (
@@ -63,10 +64,10 @@ const CategoryScreen = (props) => {
         isVisible={isModalVisible}
         onBackdropPress={handleCloseModal}
         onCreateNewItem={(title, color) => {
-          dispatch(recipeActions.addCategory(title, color));
+          dispatch(addCategory(title, color));
         }}
         onEditItem={(id, title, color) => {
-          dispatch(recipeActions.editCategory(id, title, color));
+          dispatch(editCategory(id, title, color));
         }}
         editedItem={editedItem}
       />
@@ -89,12 +90,6 @@ const CategoryScreen = (props) => {
       </View>
     </>
   );
-};
-
-export const categoryScreenOptions = () => {
-  return {
-    headerTitle: 'Categories',
-  };
 };
 
 export default CategoryScreen;

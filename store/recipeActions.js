@@ -1,3 +1,6 @@
+// TODO Extract to categoriesActions
+// TODO Fix the generated id
+
 import { Alert } from 'react-native';
 import {
   insertCategory,
@@ -53,7 +56,7 @@ export const setRecipes = () => {
 };
 
 export const addCategory = (title, color) => {
-  const category = { title, color };
+  const category = { id: new Date().getTime(), title, color };
 
   return async (dispatch) => {
     insertCategory(category)
@@ -76,7 +79,7 @@ export const addRecipe = (
   steps
 ) => {
   const recipe = {
-    id: Math.floor(Math.random() * 3),
+    id: new Date().getTime(),
     categoryId,
     title,
     image,
@@ -99,13 +102,12 @@ export const addRecipe = (
 export const editCategory = (id, title, color) => {
   const category = { id, title, color };
 
-  return async (dispatch) => {
+  return async () => {
     updateCategory(category)
       .then()
       .catch((err) => {
         Alert.alert(err.message, 'Please try again', { text: 'Okay' });
       });
-    dispatch({ type: EDIT_CATEGORY, payload: category });
   };
 };
 

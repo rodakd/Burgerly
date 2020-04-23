@@ -6,9 +6,8 @@ import {
   SettingsScreen,
   EditRecipeScreen,
 } from '../screens';
-import CategoryScreen, { categoryScreenOptions } from '../screens/CategoryScreen';
+import CategoryScreen from '../screens/CategoryScreen';
 import Colors from '../constants/Colors';
-import { recipesScreenOptions } from '../screens/RecipesOverviewScreen';
 
 const defaultNavOptions = {
   headerStyle: {
@@ -23,16 +22,8 @@ const defaultNavOptions = {
 const RecipeStackNavigator = createStackNavigator();
 const MainNavigator = () => (
   <RecipeStackNavigator.Navigator screenOptions={defaultNavOptions}>
-    <RecipeStackNavigator.Screen
-      name="categories"
-      component={CategoryScreen}
-      options={categoryScreenOptions}
-    />
-    <RecipeStackNavigator.Screen
-      name="recipes"
-      component={RecipesOverviewScreen}
-      options={recipesScreenOptions}
-    />
+    <RecipeStackNavigator.Screen name="categories" component={CategoryScreen} />
+    <RecipeStackNavigator.Screen name="recipes" component={RecipesOverviewScreen} />
     <RecipeStackNavigator.Screen name="details" component={RecipeDetailsScreen} />
     <RecipeStackNavigator.Screen name="settings" component={SettingsScreen} />
     <RecipeStackNavigator.Screen name="edit" component={EditRecipeScreen} />

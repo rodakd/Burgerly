@@ -1,3 +1,6 @@
+// TODO Extract recipe list item
+// TODO Fetch only recipes from category
+
 import React, { useEffect } from 'react';
 import { View, FlatList, StyleSheet, Platform } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -5,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Colors from '../constants/Colors';
 import { IoniconsHeaderButton } from '../components';
-import { ADD_MODE } from './EditRecipeScreen';
 import { setRecipes } from '../store/recipeActions';
 import RecipeListItem from '../components/RecipeListItem';
 
@@ -16,8 +18,11 @@ const RecipesOverviewScreen = (props) => {
   const category = route.params.item;
 
   useEffect(() => {
-    dispatch(setRecipes());
-  }, [dispatch]);
+    const unsubscribe = navigation.addListener('focus', () => {
+      dispatch(setRecipes());
+    });
+    return unsubscribe;
+  }, [dispatch, navigation]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -27,7 +32,7 @@ const RecipesOverviewScreen = (props) => {
             title="add"
             iconName={Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle'}
             onPress={() => {
-              navigation.navigate('edit', { mode: ADD_MODE, categoryId: category.id });
+              navigation.navigate('edit', { categoryId: category.id });
             }}
           />
         </HeaderButtons>
@@ -42,7 +47,6 @@ const RecipesOverviewScreen = (props) => {
         keyExtractor={(item) => item.id.toString()}
         data={recipes}
         renderItem={({ item }) => (
-          // TODO Extract this
           <RecipeListItem
             containerStyle={{ backgroundColor: Colors.primary }}
             title={item.title}
@@ -78,9 +82,5 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
 });
-
-export const recipesScreenOptions = () => {
-  return {};
-};
 
 export default RecipesOverviewScreen;

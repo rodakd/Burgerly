@@ -1,5 +1,6 @@
 // TODO Remove width and height from dynamic styling and clean up
 // TODO Extract components
+// TODO Fix trash can moving to right side of the screen
 
 import React, { useEffect, useState, useRef } from 'react';
 import {
@@ -31,59 +32,72 @@ import {
   Step,
   IoniconsHeaderButton,
 } from '../components';
-import { addRecipe } from '../store/recipeActions';
-
-export const ADD_MODE = 'ADD_MODE';
-export const EDIT_MODE = 'EDIT_MODE';
+import { addRecipe, editRecipe } from '../store/recipeActions';
 
 const EditRecipeScreen = (props) => {
   const { navigation, route } = props;
   const { categoryId } = route.params;
+  const editedRecipe = route.params.recipe;
   const dispatch = useDispatch();
   const headerHeight = useHeaderHeight();
   const ref = useRef();
 
-  const [title, setTitle] = useState('New recipe');
+  const [title, setTitle] = useState(editedRecipe ? editedRecipe.title : 'New recipe');
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [image, setImage] = useState(require('../assets/icon.png'));
-  const [duration, setDuration] = useState(10);
-  const [difficulty, setDifficulty] = useState(1);
-  const [calories, setCalories] = useState('0');
-  const [ingredients, setIngredients] = useState([]);
+  const [image, setImage] = useState(editedRecipe ? editedRecipe.image : null);
+  const [duration, setDuration] = useState(editedRecipe ? editedRecipe.duration : 10);
+  const [difficulty, setDifficulty] = useState(editedRecipe ? editedRecipe.difficulty : 1);
+  const [calories, setCalories] = useState(editedRecipe ? editedRecipe.calories.toString() : '0');
+  const [ingredients, setIngredients] = useState(editedRecipe ? editedRecipe.ingredients : []);
   const [ingredientInput, setIngredientInput] = useState('');
-  const [steps, setSteps] = useState([]);
+  const [steps, setSteps] = useState(editedRecipe ? editedRecipe.steps : []);
   const [stepInput, setStepInput] = useState('');
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: route.params.mode === ADD_MODE ? 'Add recipe' : 'Edit recipe',
+      headerTitle: editedRecipe ? 'Edit recipe' : 'Add recipe',
       headerRight: () => {
         return (
           <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
-            <Item title="done" iconName="md-checkmark" onPress={handleCreateRecipe} />
+            <Item title="done" iconName="md-checkmark" onPress={handleFinishRecipe} />
           </HeaderButtons>
         );
       },
     });
-  }, [navigation, handleCreateRecipe, ingredients, steps]);
+  }, [navigation, handleFinishRecipe, ingredients, steps]);
 
-  const handleCreateRecipe = () => {
+  const handleFinishRecipe = () => {
     if (validateRecipe()) {
       const ingredientsJSON = JSON.stringify(ingredients);
       const stepsJSON = JSON.stringify(steps);
-      const img = typeof image === 'number' ? null : image;
-      dispatch(
-        addRecipe(
-          categoryId,
-          title,
-          img,
-          duration,
-          difficulty,
-          calories,
-          ingredientsJSON,
-          stepsJSON
-        )
-      );
+      if (!editedRecipe) {
+        dispatch(
+          addRecipe(
+            categoryId,
+            title,
+            image,
+            duration,
+            difficulty,
+            calories,
+            ingredientsJSON,
+            stepsJSON
+          )
+        );
+      } else {
+        dispatch(
+          editRecipe(
+            editedRecipe.id,
+            title,
+            image,
+            duration,
+            difficulty,
+            calories,
+            ingredientsJSON,
+            stepsJSON
+          )
+        );
+      }
+
       navigation.goBack();
     }
   };
@@ -161,7 +175,7 @@ const EditRecipeScreen = (props) => {
         ? { behavior: 'padding' }
         : {
             // Padding only works on emulators on Android
-            // behavior: 'padding',
+            //  behavior: 'padding',
           })}
       keyboardVerticalOffset={headerHeight + 20}
     >

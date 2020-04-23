@@ -22,7 +22,7 @@ export const createRecipeTable = () =>
   new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS recipes (id INTEGER PRIMARY KEY, categoryId INTEGER NOT NULL, title TEXT NOT NULL, image TEXT, duration INTEGER NOT NULL, difficulty INTEGER NOT NULL, calories INTEGER NOT NULL, ingredients TEXT NOT NULL, steps TEXT NOT NULL, FOREIGN KEY(categoryId) REFERENCES categories(id));',
+        'CREATE TABLE IF NOT EXISTS recipes (id INTEGER PRIMARY KEY, categoryId INTEGER NOT NULL, title TEXT NOT NULL, image TEXT, duration INTEGER NOT NULL, difficulty INTEGER NOT NULL, calories INTEGER NOT NULL, ingredients TEXT NOT NULL, steps TEXT NOT NULL, FOREIGN KEY(categoryId) REFERENCES categories(id) ON DELETE CASCADE);',
         [],
         (_, result) => {
           resolve(result);
@@ -38,8 +38,8 @@ export const insertCategory = (category) =>
   new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'INSERT INTO categories (title, color) VALUES (?, ?);',
-        [category.title, category.color],
+        'INSERT INTO categories VALUES (?, ?, ?);',
+        [category.id, category.title, category.color],
         (_, result) => {
           resolve(result);
         },
@@ -54,8 +54,9 @@ export const insertRecipe = (recipe) =>
   new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'INSERT INTO recipes (categoryId, title, image, duration, difficulty, calories, ingredients, steps) VALUES (?, ?, ?, ?, ?, ?, ?, ?);',
+        'INSERT INTO recipes VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);',
         [
+          recipe.id,
           recipe.categoryId,
           recipe.title,
           recipe.image,
