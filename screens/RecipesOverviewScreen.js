@@ -15,11 +15,11 @@ const RecipesOverviewScreen = (props) => {
   const { navigation, route } = props;
   const recipes = useSelector((state) => state.recipes.recipes);
   const dispatch = useDispatch();
-  const category = route.params.item;
+  const { category } = route.params;
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      dispatch(setRecipes());
+      dispatch(setRecipes(category.id));
     });
     return unsubscribe;
   }, [dispatch, navigation]);

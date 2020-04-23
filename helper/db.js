@@ -1,6 +1,22 @@
 import * as SQLite from 'expo-sqlite';
 
-const db = SQLite.openDatabase('reciper.db');
+const db = SQLite.openDatabase('burgerly.db');
+
+export const enableConstraints = () =>
+  new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'PRAGMA foreign_keys = ON;',
+        [],
+        (_, result) => {
+          resolve(result);
+        },
+        (_, err) => {
+          reject(err);
+        }
+      );
+    });
+  });
 
 export const createCategoryTable = () =>
   new Promise((resolve, reject) => {
@@ -165,7 +181,23 @@ export const fetchCategories = () =>
     });
   });
 
-export const fetchRecipes = () =>
+export const fetchRecipes = (categoryId) =>
+  new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT * FROM recipes WHERE categoryId=?;',
+        [categoryId],
+        (_, result) => {
+          resolve(result);
+        },
+        (_, err) => {
+          reject(err);
+        }
+      );
+    });
+  });
+
+export const fetchAllRecipes = () =>
   new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(

@@ -78,7 +78,7 @@ const CategoryScreen = (props) => {
           renderItem={({ item }) => (
             <RenderCategory
               item={item}
-              onPress={() => navigation.navigate('recipes', { item })}
+              onPress={() => navigation.navigate('recipes', { category: item })}
               onPressInEditMode={handleEditItem}
               trashMode={isTrashMode}
               editMode={isEditMode}

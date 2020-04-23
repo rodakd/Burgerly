@@ -8,15 +8,24 @@ import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import recipeReducer from './store/recipeReducer';
 import MainNavigator from './navigation/MainNavigator';
-import { createCategoryTable, createRecipeTable } from './helper/db';
+import {
+  fetchAllRecipes,
+  createCategoryTable,
+  createRecipeTable,
+  enableConstraints,
+} from './helper/db';
 
-createCategoryTable()
-  .then()
-  .catch((err) => Alert.alert('Error!', `${err}. PLEASE contact with us!`, [{ text: 'Okay' }]));
+const init = async () => {
+  try {
+    await enableConstraints();
+    await createCategoryTable();
+    await createRecipeTable();
+  } catch (err) {
+    Alert.alert('Error!', `${err}. PLEASE contact with us!`, [{ text: 'Okay' }]);
+  }
+};
 
-createRecipeTable()
-  .then()
-  .catch((err) => Alert.alert('Error!', `${err}. PLEASE contact with us!`, [{ text: 'Okay' }]));
+init();
 
 const fetchFonts = async () =>
   Font.loadAsync({
@@ -34,6 +43,11 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 export default function App() {
+  const fetch = async () => {
+    const dataResult = await fetchAllRecipes();
+    console.log(dataResult.rows._array);
+  };
+  fetch();
   const [isReady, setIsReady] = useState(false);
 
   if (!isReady) {

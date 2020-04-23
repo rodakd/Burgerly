@@ -35,14 +35,14 @@ export const setCategories = () => {
         })
       )
       .catch((err) => {
-        Alert.alert(err.message, 'Please try again', { text: 'Okay' });
+        Alert.alert(err.message, 'Please try again', [{ text: 'Okay' }]);
       });
   };
 };
 
-export const setRecipes = () => {
+export const setRecipes = (categoryId) => {
   return async (dispatch) => {
-    fetchRecipes()
+    fetchRecipes(categoryId)
       .then((dbResult) =>
         dispatch({
           type: SET_RECIPES,
