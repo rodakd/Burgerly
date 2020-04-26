@@ -38,9 +38,9 @@ export const addRecipe = (
     image,
     duration,
     difficulty,
-    calories,
-    ingredients,
-    steps,
+    calories: parseFloat(calories),
+    ingredients: JSON.stringify(ingredients),
+    steps: JSON.stringify(steps),
   };
   return async (dispatch) => {
     insertRecipe(recipe)
@@ -68,9 +68,9 @@ export const editRecipe = (
     image,
     duration,
     difficulty,
-    calories,
-    ingredients,
-    steps,
+    calories: parseFloat(calories),
+    ingredients: JSON.stringify(ingredients),
+    steps: JSON.stringify(steps),
   };
 
   return async (dispatch) => {

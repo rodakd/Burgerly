@@ -1,4 +1,3 @@
-// TODO Remove dynamic styling
 // TODO Extract components
 // TODO Fix trash can moving to right side of the screen
 // TODO Take a photo from storage
@@ -37,7 +36,7 @@ import { addRecipe, editRecipe } from '../store/recipes/recipesActions';
 
 const EditRecipeScreen = (props) => {
   const { navigation, route } = props;
-  const { categoryId } = route.params;
+  const { category } = route.params;
   const editedRecipe = route.params.recipe;
   const dispatch = useDispatch();
   const headerHeight = useHeaderHeight();
@@ -69,21 +68,11 @@ const EditRecipeScreen = (props) => {
 
   const handleFinishRecipe = () => {
     if (validateRecipe()) {
-      const ingredientsJSON = JSON.stringify(ingredients);
-      const stepsJSON = JSON.stringify(steps);
       if (!editedRecipe) {
         dispatch(
-          addRecipe(
-            categoryId,
-            title,
-            image,
-            duration,
-            difficulty,
-            calories,
-            ingredientsJSON,
-            stepsJSON
-          )
+          addRecipe(category.id, title, image, duration, difficulty, calories, ingredients, steps)
         );
+        navigation.goBack();
       } else {
         dispatch(
           editRecipe(
@@ -93,13 +82,12 @@ const EditRecipeScreen = (props) => {
             duration,
             difficulty,
             calories,
-            ingredientsJSON,
-            stepsJSON
+            ingredients,
+            steps
           )
         );
+        navigation.navigate('recipes', { category });
       }
-
-      navigation.goBack();
     }
   };
 

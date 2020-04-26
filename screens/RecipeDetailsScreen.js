@@ -18,8 +18,9 @@ const RecipeDetailsScreen = (props) => {
   const steps = JSON.parse(recipe.steps);
 
   useEffect(() => {
+    const title = recipe.title.length > 15 ? `${recipe.title.slice(0, 15)}...` : recipe.title;
     navigation.setOptions({
-      headerTitle: recipe.title,
+      headerTitle: title,
       headerRight: () => {
         return (
           <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
