@@ -5,7 +5,6 @@ import React, { useEffect } from 'react';
 import { View, FlatList, StyleSheet, Platform } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useDispatch, useSelector } from 'react-redux';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Colors from '../constants/Colors';
 import { IoniconsHeaderButton } from '../components';
 import { setRecipes } from '../store/recipes/recipesActions';
@@ -43,27 +42,8 @@ const RecipesOverviewScreen = (props) => {
         data={recipes}
         renderItem={({ item }) => (
           <RecipeListItem
-            containerStyle={{ backgroundColor: Colors.primary }}
-            title={item.title}
-            leftAvatar={
-              item.image
-                ? {
-                    source: { uri: item.image },
-                    style: { width: hp(10), height: hp(10) },
-                  }
-                : {
-                    source: require('../assets/icon.png'),
-                    style: { width: hp(10), height: hp(10) },
-                  }
-            }
-            subtitle={`🍔 ${item.calories} kcal  ⌚ ${item.duration} min`}
-            titleStyle={{ fontSize: hp(4), fontFamily: 'raleway-regular', color: 'white' }}
-            subtitleStyle={{
-              fontSize: hp(2),
-              fontFamily: 'source-regular',
-              color: 'rgb(230,230,230)',
-            }}
             onPress={() => navigation.navigate('details', { recipe: item })}
+            item={item}
           />
         )}
       />

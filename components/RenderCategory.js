@@ -15,10 +15,6 @@ const RenderCategory = (props) => {
     <View>
       <View
         style={{
-          height: wp(40),
-          width: wp(40),
-          borderRadius: wp(4),
-          margin: wp(4),
           backgroundColor: item.color,
           ...styles.category,
         }}
@@ -31,16 +27,7 @@ const RenderCategory = (props) => {
                 : styles.container
             }
           >
-            <Text
-              style={{
-                fontSize: wp(6),
-                textAlign: 'center',
-                padding: wp(4),
-                fontFamily: 'raleway-regular',
-              }}
-            >
-              {item.title}
-            </Text>
+            <Text style={styles.text}>{item.title}</Text>
             {editMode && (
               <IconButton
                 onPress={() => onPressInEditMode(item)}
@@ -55,15 +42,7 @@ const RenderCategory = (props) => {
       {trashMode && (
         <IconButton
           onPress={() => dispatch(trashCategory(item.id))}
-          buttonStyle={{
-            ...styles.deleteButton,
-            ...{
-              width: wp(7),
-              height: wp(7),
-              borderRadius: wp(3.5),
-              left: wp(40),
-            },
-          }}
+          buttonStyle={styles.deleteButton}
           iconSize={wp(6)}
           iconName="md-close"
         />
@@ -80,6 +59,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 2,
     elevation: 5,
+    height: wp(40),
+    width: wp(40),
+    borderRadius: wp(4),
+    margin: wp(4),
   },
   container: {
     flex: 1,
@@ -87,7 +70,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontFamily: 'raleway-semibold',
+    fontSize: wp(6),
+    textAlign: 'center',
+    padding: wp(4),
+    fontFamily: 'raleway-regular',
   },
 
   deleteButton: {
@@ -97,6 +83,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     elevation: 6,
     marginTop: 5,
+    width: wp(7),
+    height: wp(7),
+    borderRadius: wp(3.5),
+    left: wp(40),
   },
   editButton: {
     ...StyleSheet.absoluteFillObject,

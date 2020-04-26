@@ -11,13 +11,9 @@ const DurationSlider = (props) => {
   return (
     <>
       {value ? (
-        <Text style={{ ...styles.label, ...{ fontSize: hp(3), marginBottom: hp(2) } }}>
-          Duration: {value} mins
-        </Text>
+        <Text style={styles.label}>Duration: {value} mins</Text>
       ) : (
-        <Text style={{ ...styles.label, ...{ fontSize: hp(3), marginBottom: hp(2) } }}>
-          No duration
-        </Text>
+        <Text style={styles.label}>No duration</Text>
       )}
       <Slider
         minimumValue={0}
@@ -42,6 +38,8 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: 'raleway-regular',
     color: 'white',
+    fontSize: hp(3),
+    marginBottom: hp(2),
   },
 });
 

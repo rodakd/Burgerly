@@ -8,7 +8,7 @@ const Step = (props) => {
   const { id, text, onDelete } = props;
   return (
     <View style={styles.container}>
-      <Text style={{ ...styles.description, ...{ fontSize: hp(2.8), marginRight: hp(1.3) } }}>
+      <Text style={styles.description}>
         {id}. {text}
       </Text>
       <IconButton iconName="md-trash" onPress={() => onDelete(id)} iconSize={hp(2.8)} />
@@ -26,6 +26,8 @@ const styles = StyleSheet.create({
   description: {
     fontFamily: 'source-bold',
     color: 'white',
+    fontSize: hp(2.8),
+    marginRight: hp(1.3),
   },
 });
 

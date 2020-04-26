@@ -34,27 +34,16 @@ const ImagePick = (props) => {
   };
 
   return (
-    <View
-      style={{
-        ...styles.imagePickerContainer,
-        ...{ borderRadius: wp(50), width: wp(23), height: wp(23) },
-      }}
-    >
+    <View style={styles.imagePickerContainer}>
       <ImageBackground
-        style={{
-          width: wp(23),
-          height: wp(23),
-          borderRadius: wp(50),
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        imageStyle={{ borderRadius: wp(50) }}
+        style={styles.imageBackground}
+        imageStyle={styles.rounded}
         source={image === null ? require('../assets/icon.png') : { uri: image }}
       >
         <IconButton
           onPress={pickImage}
-          buttonStyle={{ ...styles.imageOverlay, ...{ borderRadius: wp(50) } }}
-          touchableStyle={{ ...styles.imageOverlay, ...{ borderRadius: wp(50) } }}
+          buttonStyle={{ ...styles.imageOverlay, ...styles.rounded }}
+          touchableStyle={{ ...styles.imageOverlay, ...styles.rounded }}
           iconName="md-create"
           iconSize={wp(10)}
           noRipple
@@ -69,6 +58,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
+    borderRadius: wp(50),
+    width: wp(23),
+    height: wp(23),
   },
   imageOverlay: {
     height: '100%',
@@ -76,6 +68,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.3)',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  imageBackground: {
+    width: wp(23),
+    height: wp(23),
+    borderRadius: wp(50),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  rounded: {
+    borderRadius: wp(50),
   },
 });
 

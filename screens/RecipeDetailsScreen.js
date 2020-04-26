@@ -45,10 +45,8 @@ const RecipeDetailsScreen = (props) => {
   }, [navigation]);
 
   return (
-    <View style={{ ...styles.container, ...{ padding: wp(5) } }}>
-      {recipe.image && (
-        <Image style={{ ...styles.image, ...{ borderRadius: wp(5) } }} source={{ uri: image }} />
-      )}
+    <View style={styles.container}>
+      {recipe.image && <Image style={styles.image} source={{ uri: image }} />}
     </View>
   );
 };
@@ -58,10 +56,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: Colors.background,
+    padding: wp(5),
   },
   image: {
     width: '100%',
     height: '40%',
+    borderRadius: wp(5),
   },
 });
 

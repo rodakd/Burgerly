@@ -9,16 +9,7 @@ const Ingredient = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text
-        style={{
-          fontSize: hp(2.8),
-          marginRight: hp(1.3),
-          fontFamily: 'source-bold',
-          color: 'white',
-        }}
-      >
-        {text}
-      </Text>
+      <Text style={styles.ingredient}>{text}</Text>
       <IconButton iconName="md-trash" onPress={() => onDelete(id)} iconSize={hp(2.8)} />
     </View>
   );
@@ -30,6 +21,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: hp(1),
     marginLeft: hp(2),
+  },
+  ingredient: {
+    fontSize: hp(2.8),
+    marginRight: hp(1.3),
+    fontFamily: 'source-bold',
+    color: 'white',
   },
 });
 

@@ -23,11 +23,7 @@ const DifficultySlider = (props) => {
 
   return (
     <>
-      <Text
-        style={{ ...styles.label, ...{ fontSize: hp(3), marginBottom: hp(2), marginTop: hp(4) } }}
-      >
-        Difficulty: {difficultyPointsToText(value)}
-      </Text>
+      <Text style={styles.label}>Difficulty: {difficultyPointsToText(value)}</Text>
       <Slider
         minimumValue={1}
         maximumValue={4}
@@ -51,6 +47,9 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: 'raleway-regular',
     color: 'white',
+    fontSize: hp(3),
+    marginBottom: hp(2),
+    marginTop: hp(4),
   },
 });
 

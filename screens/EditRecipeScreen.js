@@ -1,4 +1,4 @@
-// TODO Remove width and height from dynamic styling and clean up
+// TODO Remove dynamic styling
 // TODO Extract components
 // TODO Fix trash can moving to right side of the screen
 // TODO Take a photo from storage
@@ -181,12 +181,7 @@ const EditRecipeScreen = (props) => {
       keyboardVerticalOffset={headerHeight + 20}
     >
       <ScrollView keyboardDismissMode="on-drag" keyboardShouldPersistTaps="always">
-        <View
-          style={{
-            ...styles.container,
-            ...{ padding: wp(4) },
-          }}
-        >
+        <View style={styles.container}>
           <Modal
             isVisible={isModalVisible}
             useNativeDriver
@@ -195,17 +190,17 @@ const EditRecipeScreen = (props) => {
             style={styles.modal}
             backdropOpacity={0.9}
           >
-            <Text style={{ ...styles.modalTitleLabel, fontSize: hp(4) }}>Enter recipe name</Text>
+            <Text style={styles.modalTitleLabel}>Enter recipe name</Text>
             <TextInput
               ref={ref}
               value={title}
               onChangeText={setTitle}
-              style={{ ...styles.modalTextInput, width: wp(66), fontSize: hp(4) }}
+              style={styles.modalTextInput}
               maxLength={50}
             />
           </Modal>
-          <View style={{ ...styles.headerContainer, ...{ paddingHorizontal: wp(7) } }}>
-            <Text style={{ ...styles.title, fontSize: hp(5), padding: wp(2) }}>{title}</Text>
+          <View style={styles.headerContainer}>
+            <Text style={styles.title}>{title}</Text>
             <Icon
               name="md-create"
               type="ionicon"
@@ -216,29 +211,13 @@ const EditRecipeScreen = (props) => {
             />
           </View>
           <ImagePick image={image} onSetImage={setImage} />
-          <View style={{ ...styles.inputsContainer, ...{ marginTop: hp(4) } }}>
+          <View style={styles.inputsContainer}>
             <DurationSlider value={duration} onValueChange={setDuration} />
             <DifficultySlider value={difficulty} onValueChange={setDifficulty} />
-            <View
-              style={{
-                marginTop: hp(3),
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}
-            >
-              <Text style={{ ...styles.label, ...{ fontSize: hp(3) } }}>Calories: </Text>
+            <View style={styles.caloriesContainer}>
+              <Text style={styles.label}>Calories: </Text>
               <TextInput
-                style={{
-                  fontSize: hp(4),
-                  backgroundColor: Colors.inputBackground,
-                  color: 'white',
-                  textAlign: 'center',
-                  width: hp(11),
-                  marginLeft: 10,
-                  paddingHorizontal: 5,
-                  fontFamily: 'source-regular',
-                  borderRadius: 10,
-                }}
+                style={styles.caloriesInput}
                 keyboardType="numeric"
                 onChangeText={validateCalories}
                 maxLength={4}
@@ -251,12 +230,8 @@ const EditRecipeScreen = (props) => {
                 }}
               />
             </View>
-            <View
-              style={{
-                marginTop: hp(3),
-              }}
-            >
-              <Text style={{ ...styles.label, ...{ fontSize: hp(3) } }}>Ingredients:</Text>
+            <View style={styles.ingredientsContainer}>
+              <Text style={styles.label}>Ingredients:</Text>
               {ingredients.map((ing) => (
                 <Ingredient
                   key={ing.id}
@@ -267,25 +242,21 @@ const EditRecipeScreen = (props) => {
               ))}
               <View style={styles.addIngredient}>
                 <TextInput
-                  style={{ ...styles.addIngredientInput, ...{ fontSize: hp(3) } }}
+                  style={styles.addIngredientInput}
                   onChangeText={setIngredientInput}
                   value={ingredientInput}
                 />
                 <AddButton onPress={handleAddIngredient} />
               </View>
             </View>
-            <View
-              style={{
-                marginTop: hp(3),
-              }}
-            >
-              <Text style={{ ...styles.label, ...{ fontSize: hp(3) } }}>Steps:</Text>
+            <View style={styles.ingredientsContainer}>
+              <Text style={styles.label}>Steps:</Text>
               {steps.map((step) => (
                 <Step key={step.id} id={step.id} text={step.text} onDelete={handleDeleteStep} />
               ))}
               <View style={styles.addIngredient}>
                 <TextInput
-                  style={{ ...styles.addIngredientInput, ...{ fontSize: hp(3) } }}
+                  style={styles.addIngredientInput}
                   onChangeText={setStepInput}
                   value={stepInput}
                 />
@@ -306,6 +277,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     backgroundColor: Colors.background,
     alignItems: 'center',
+    padding: wp(4),
   },
   modal: {
     justifyContent: 'center',
@@ -315,15 +287,19 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'raleway-regular',
     textAlign: 'center',
+    fontSize: hp(5),
+    padding: wp(2),
   },
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: wp(7),
   },
   modalTitleLabel: {
     color: 'white',
     fontFamily: 'raleway-regular',
+    fontSize: hp(4),
   },
   modalTextInput: {
     backgroundColor: 'white',
@@ -331,14 +307,18 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     marginVertical: 5,
     textAlign: 'center',
+    width: '70%',
+    fontSize: hp(4),
   },
   inputsContainer: {
     alignSelf: 'flex-start',
     width: '100%',
+    marginTop: hp(4),
   },
   label: {
     fontFamily: 'raleway-regular',
     color: 'white',
+    fontSize: hp(3),
   },
   addIngredient: {
     flexDirection: 'row',
@@ -353,6 +333,26 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     backgroundColor: Colors.inputBackground,
     color: 'white',
+    fontSize: hp(3),
+  },
+  caloriesContainer: {
+    marginTop: hp(3),
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  caloriesInput: {
+    fontSize: hp(4),
+    backgroundColor: Colors.inputBackground,
+    color: 'white',
+    textAlign: 'center',
+    marginLeft: 10,
+    paddingHorizontal: 5,
+    fontFamily: 'source-regular',
+    borderRadius: 10,
+    width: '15%',
+  },
+  ingredientsContainer: {
+    marginTop: hp(3),
   },
 });
 

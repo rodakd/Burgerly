@@ -54,29 +54,14 @@ const EditCategoryModal = (props) => {
       onBackdropPress={handleClose}
       onBackButtonPress={handleClose}
     >
-      <View
-        style={{
-          ...styles.card,
-          ...{
-            width: wp(75),
-            height: wp(100),
-          },
-        }}
-      >
-        <Text style={{ ...styles.cardHeader, ...{ fontSize: hp(4) } }}>
-          {editedItem ? 'Editing category' : 'New category'}
-        </Text>
+      <View style={styles.card}>
+        <Text style={styles.cardHeader}>{editedItem ? 'Editing category' : 'New category'}</Text>
         <Input
           ref={ref}
           containerStyle={{ alignSelf: 'flex-start' }}
-          textInputStyle={{
-            paddingVertical: 7,
-            paddingLeft: 4,
-            fontSize: hp(3),
-            fontFamily: 'raleway-regular',
-          }}
+          textInputStyle={styles.textInputStyle}
           label="Category name"
-          labelStyle={{ fontFamily: 'raleway-bold', fontSize: hp(1.7) }}
+          labelStyle={styles.inputLabel}
           onChangeText={(value) => {
             setName(value);
           }}
@@ -90,13 +75,10 @@ const EditCategoryModal = (props) => {
             Keyboard.dismiss();
             setPickedColor(color);
           }}
-          style={{
-            width: wp(50),
-            height: wp(50),
-          }}
+          style={styles.colorPicker}
         />
         <Button
-          titleStyle={{ fontSize: hp(3), fontFamily: 'raleway-bold', padding: 10 }}
+          titleStyle={styles.buttonTitle}
           title="Submit"
           type="outline"
           size={wp(50)}
@@ -126,11 +108,33 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     padding: wp(2),
+    width: wp(75),
+    height: wp(100),
   },
   buttonContainer: {
     marginTop: 10,
   },
   cardHeader: {
+    fontFamily: 'raleway-regular',
+    fontSize: hp(4),
+  },
+  buttonTitle: {
+    fontSize: hp(3),
+    fontFamily: 'raleway-bold',
+    padding: 10,
+  },
+  colorPicker: {
+    width: wp(50),
+    height: wp(50),
+  },
+  inputLabel: {
+    fontFamily: 'raleway-bold',
+    fontSize: hp(1.7),
+  },
+  textInputStyle: {
+    paddingVertical: 7,
+    paddingLeft: 4,
+    fontSize: hp(3),
     fontFamily: 'raleway-regular',
   },
 });
