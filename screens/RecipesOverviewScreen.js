@@ -8,23 +8,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Colors from '../constants/Colors';
 import { IoniconsHeaderButton } from '../components';
-import { setRecipes } from '../store/recipeActions';
+import { setRecipes } from '../store/recipes/recipesActions';
 import RecipeListItem from '../components/RecipeListItem';
 
 const RecipesOverviewScreen = (props) => {
   const { navigation, route } = props;
-  const recipes = useSelector((state) => state.recipes.recipes);
-  const dispatch = useDispatch();
   const { category } = route.params;
+  const recipes = useSelector((state) => state.root.recipes);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      dispatch(setRecipes(category.id));
-    });
-    return unsubscribe;
-  }, [dispatch, navigation]);
+    dispatch(setRecipes(category.id));
 
-  useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
@@ -39,7 +34,7 @@ const RecipesOverviewScreen = (props) => {
       ),
       headerTitle: category.title,
     });
-  }, []);
+  }, [navigation, dispatch]);
 
   return (
     <View style={styles.container}>

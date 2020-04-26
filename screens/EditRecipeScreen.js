@@ -1,6 +1,7 @@
 // TODO Remove width and height from dynamic styling and clean up
 // TODO Extract components
 // TODO Fix trash can moving to right side of the screen
+// TODO Take a photo from storage
 
 import React, { useEffect, useState, useRef } from 'react';
 import {
@@ -32,7 +33,7 @@ import {
   Step,
   IoniconsHeaderButton,
 } from '../components';
-import { addRecipe, editRecipe } from '../store/recipeActions';
+import { addRecipe, editRecipe } from '../store/recipes/recipesActions';
 
 const EditRecipeScreen = (props) => {
   const { navigation, route } = props;

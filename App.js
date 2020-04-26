@@ -6,7 +6,7 @@ import { Alert } from 'react-native';
 import ReduxThunk from 'redux-thunk';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
-import recipeReducer from './store/recipeReducer';
+import reducer from './store/reducer';
 import MainNavigator from './navigation/MainNavigator';
 import { createCategoryTable, createRecipeTable } from './helper/db';
 
@@ -32,7 +32,7 @@ const fetchFonts = async () =>
   });
 
 const rootReducer = combineReducers({
-  recipes: recipeReducer,
+  root: reducer,
 });
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 

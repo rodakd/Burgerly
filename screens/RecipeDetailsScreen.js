@@ -7,14 +7,13 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useDispatch } from 'react-redux';
 import { IoniconsHeaderButton } from '../components';
 import Colors from '../constants/Colors';
-import { trashRecipe } from '../store/recipeActions';
+import { trashRecipe } from '../store/recipes/recipesActions';
 
 const RecipeDetailsScreen = (props) => {
   const { navigation, route } = props;
-
   const dispatch = useDispatch();
   const { recipe } = route.params;
-  const { title, image, difficulty, duration, calories } = recipe;
+  const { image } = recipe;
   const ingredients = JSON.parse(recipe.ingredients);
   const steps = JSON.parse(recipe.steps);
 

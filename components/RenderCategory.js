@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useDispatch } from 'react-redux';
-import { trashCategory } from '../store/recipeActions';
+import { trashCategory } from '../store/categories/categoriesActions';
 import Touchable from './common/Touchable';
 import IconButton from './common/IconButton';
 

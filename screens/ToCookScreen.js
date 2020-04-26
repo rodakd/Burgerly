@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 
 const ToCookScreen = () => (
   <View style={styles.container}>
-    <Text>Sup nigga</Text>
+    <Text>ToCook List</Text>
   </View>
 );
 

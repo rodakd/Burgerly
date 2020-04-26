@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, FlatList } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { setCategories, addCategory, editCategory } from '../store/recipeActions';
+import { setCategories, addCategory, editCategory } from '../store/categories/categoriesActions';
 import Colors from '../constants/Colors';
 import { IoniconsHeaderButton, EditCategoryModal, RenderCategory } from '../components';
 
@@ -13,7 +13,7 @@ const CategoryScreen = (props) => {
   const [isTrashMode, setIsTrashMode] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedItem, setEditedItem] = useState(null);
-  const categories = useSelector((state) => state.recipes.categories);
+  const categories = useSelector((state) => state.root.categories);
   const dispatch = useDispatch();
 
   useEffect(() => {
