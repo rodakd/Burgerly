@@ -12,20 +12,20 @@ const ListItem = (props) => {
         {id}. {text}
       </Text>
       <IconButton
+        iconName="md-arrow-round-up"
+        onPress={() => {}}
+        iconSize={hp(2.8)}
+        buttonStyle={styles.button}
+      />
+      <IconButton
+        iconName="md-arrow-round-down"
+        onPress={() => {}}
+        iconSize={hp(2.8)}
+        buttonStyle={styles.button}
+      />
+      <IconButton
         iconName="md-trash"
         onPress={() => onDelete(id)}
-        iconSize={hp(2.8)}
-        buttonStyle={styles.button}
-      />
-      <IconButton
-        iconName="md-trash"
-        onPress={() => {}}
-        iconSize={hp(2.8)}
-        buttonStyle={styles.button}
-      />
-      <IconButton
-        iconName="md-trash"
-        onPress={() => {}}
         iconSize={hp(2.8)}
         buttonStyle={styles.button}
       />

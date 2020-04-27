@@ -7,6 +7,17 @@ import Colors from '../constants/Colors';
 
 const RecipeListItem = (props) => {
   const { item, onPress } = props;
+  let subtitle = null;
+  const calories = item.calories ? `🍔 ${item.calories} kcal` : '';
+  const duration = item.duration ? ` ⌚ ${item.duration} min` : '';
+
+  if (calories && duration) {
+    subtitle = `${calories} ${duration}`;
+  } else if (calories) {
+    subtitle = calories;
+  } else if (duration) {
+    subtitle = duration;
+  }
 
   return (
     <ListItem
@@ -25,7 +36,7 @@ const RecipeListItem = (props) => {
               style: styles.avatar,
             }
       }
-      subtitle={`🍔 ${item.calories} kcal  ⌚ ${item.duration} min`}
+      subtitle={subtitle}
       onPress={onPress}
     />
   );
