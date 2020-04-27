@@ -111,6 +111,12 @@ const EditRecipeScreen = (props) => {
       Alert.alert('Failed to create recipe', 'Steps list must not be empty', [{ text: 'Okay' }]);
       return false;
     }
+    if (calories.length === 0) {
+      Alert.alert('Failed to create recipe', 'Calories field must not be empty', [
+        { text: 'Okay' },
+      ]);
+      return false;
+    }
     return true;
   };
 
