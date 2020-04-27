@@ -1,5 +1,3 @@
-// TODO Fix trash can moving to right side of the screen
-
 import React, { useEffect, useState, useRef } from 'react';
 import {
   View,
@@ -171,7 +169,7 @@ const EditRecipeScreen = (props) => {
       {...(Platform.OS === 'ios'
         ? { behavior: 'padding' }
         : {
-            // Padding only works on emulators on Android
+            //  Padding only works on emulators on Android
             //  behavior: 'padding',
           })}
       keyboardVerticalOffset={headerHeight + 20}
