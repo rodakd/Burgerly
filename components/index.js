@@ -7,8 +7,7 @@ import Touchable from './common/Touchable';
 import DifficultySlider from './sliders/DifficultySlider';
 import DurationSlider from './sliders/DurationSlider';
 import AddButton from './common/AddButton';
-import Ingredient from './common/Ingredient';
-import Step from './common/Step';
+import ListItem from './common/ListItem';
 
 export {
   EditCategoryModal,
@@ -20,6 +19,5 @@ export {
   DifficultySlider,
   DurationSlider,
   AddButton,
-  Ingredient,
-  Step,
+  ListItem,
 };

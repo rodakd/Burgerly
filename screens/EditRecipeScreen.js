@@ -23,9 +23,8 @@ import ImagePick from '../components/ImagePick';
 import {
   DurationSlider,
   DifficultySlider,
-  Ingredient,
   AddButton,
-  Step,
+  ListItem,
   IoniconsHeaderButton,
 } from '../components';
 import { addRecipe, editRecipe } from '../store/recipes/recipesActions';
@@ -227,7 +226,7 @@ const EditRecipeScreen = (props) => {
             <View style={styles.ingredientsContainer}>
               <Text style={styles.label}>Ingredients:</Text>
               {ingredients.map((ing) => (
-                <Ingredient
+                <ListItem
                   key={ing.id}
                   id={ing.id}
                   text={ing.text}
@@ -246,7 +245,7 @@ const EditRecipeScreen = (props) => {
             <View style={styles.ingredientsContainer}>
               <Text style={styles.label}>Steps:</Text>
               {steps.map((step) => (
-                <Step key={step.id} id={step.id} text={step.text} onDelete={handleDeleteStep} />
+                <ListItem key={step.id} id={step.id} text={step.text} onDelete={handleDeleteStep} />
               ))}
               <View style={styles.addIngredient}>
                 <TextInput
