@@ -1,5 +1,3 @@
-// TODO Fix header for long names
-
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';

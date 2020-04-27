@@ -1,6 +1,3 @@
-// TODO Extract recipe list item
-// TODO Fetch only recipes from category
-
 import React, { useEffect } from 'react';
 import { View, FlatList, StyleSheet, Platform } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -18,7 +15,7 @@ const RecipesOverviewScreen = (props) => {
 
   useEffect(() => {
     dispatch(setRecipes(category.id));
-
+    const title = category.title.length > 15 ? `${category.title.slice(0, 15)}...` : category.title;
     navigation.setOptions({
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
@@ -31,7 +28,7 @@ const RecipesOverviewScreen = (props) => {
           />
         </HeaderButtons>
       ),
-      headerTitle: category.title,
+      headerTitle: title,
     });
   }, [navigation, dispatch]);
 

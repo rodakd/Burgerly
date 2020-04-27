@@ -1,6 +1,4 @@
-// TODO Extract components
 // TODO Fix trash can moving to right side of the screen
-// TODO Take a photo from storage
 
 import React, { useEffect, useState, useRef } from 'react';
 import {
@@ -64,7 +62,17 @@ const EditRecipeScreen = (props) => {
         );
       },
     });
-  }, [navigation, handleFinishRecipe, ingredients, steps, duration, difficulty, title, calories]);
+  }, [
+    navigation,
+    handleFinishRecipe,
+    ingredients,
+    steps,
+    duration,
+    difficulty,
+    title,
+    calories,
+    image,
+  ]);
 
   const handleFinishRecipe = () => {
     if (validateRecipe()) {

@@ -18,7 +18,7 @@ const ImagePick = (props) => {
   const pickImage = async () => {
     if (getPermissionAsync) {
       try {
-        const result = await ImagePicker.launchCameraAsync({
+        const result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
           quality: 0.5,
         });
