@@ -20,13 +20,7 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useDispatch } from 'react-redux';
 import Colors from '../constants/Colors';
 import ImagePick from '../components/ImagePick';
-import {
-  DurationSlider,
-  DifficultySlider,
-  AddButton,
-  ListItem,
-  IoniconsHeaderButton,
-} from '../components';
+import { DurationSlider, DifficultySlider, AddButton, IoniconsHeaderButton } from '../components';
 import { addRecipe, editRecipe } from '../store/recipes/recipesActions';
 
 const EditRecipeScreen = (props) => {
@@ -37,15 +31,17 @@ const EditRecipeScreen = (props) => {
   const headerHeight = useHeaderHeight();
   const ref = useRef();
 
-  const [title, setTitle] = useState(editedRecipe ? editedRecipe.title : 'New recipe');
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const [title, setTitle] = useState(editedRecipe ? editedRecipe.title : 'New recipe');
   const [image, setImage] = useState(editedRecipe ? editedRecipe.image : null);
   const [duration, setDuration] = useState(editedRecipe ? editedRecipe.duration : 10);
   const [difficulty, setDifficulty] = useState(editedRecipe ? editedRecipe.difficulty : 1);
   const [calories, setCalories] = useState(editedRecipe ? editedRecipe.calories.toString() : '0');
+
   const [ingredients, setIngredients] = useState(editedRecipe ? editedRecipe.ingredients : []);
-  const [ingredientInput, setIngredientInput] = useState('');
   const [steps, setSteps] = useState(editedRecipe ? editedRecipe.steps : []);
+  const [ingredientInput, setIngredientInput] = useState('');
   const [stepInput, setStepInput] = useState('');
 
   useEffect(() => {
@@ -128,14 +124,6 @@ const EditRecipeScreen = (props) => {
     setIsModalVisible(true);
   };
 
-  const handleDeleteIngredient = (id) => {
-    setIngredients((state) => state.filter((ing) => ing.id !== id));
-  };
-
-  const handleDeleteStep = (id) => {
-    setSteps((state) => state.filter((step) => step.id !== id));
-  };
-
   const validateCalories = (text) => {
     if (text.length > 1 && text[0] === '0') {
       return;
@@ -144,28 +132,6 @@ const EditRecipeScreen = (props) => {
     if (numreg.test(text) || text === '') {
       setCalories(text);
     }
-  };
-
-  const handleAddIngredient = () => {
-    if (ingredientInput.length === 0) {
-      return;
-    }
-    const numOfIngredients = ingredients.length;
-    const id = numOfIngredients === 0 ? 1 : ingredients[numOfIngredients - 1].id + 1;
-    const newIngredient = { id, text: ingredientInput.trim() };
-    setIngredientInput('');
-    setIngredients((state) => state.concat(newIngredient));
-  };
-
-  const handleAddStep = () => {
-    if (stepInput.length === 0) {
-      return;
-    }
-    const numOfSteps = steps.length;
-    const id = numOfSteps === 0 ? 1 : steps[numOfSteps - 1].id + 1;
-    const newStep = { id, text: stepInput.trim() };
-    setStepInput('');
-    setSteps((state) => state.concat(newStep));
   };
 
   return (
@@ -231,35 +197,25 @@ const EditRecipeScreen = (props) => {
             </View>
             <View style={styles.ingredientsContainer}>
               <Text style={styles.label}>Ingredients:</Text>
-              {ingredients.map((ing) => (
-                <ListItem
-                  key={ing.id}
-                  id={ing.id}
-                  text={ing.text}
-                  onDelete={handleDeleteIngredient}
-                />
-              ))}
               <View style={styles.addIngredient}>
                 <TextInput
                   style={styles.addIngredientInput}
                   onChangeText={setIngredientInput}
                   value={ingredientInput}
                 />
-                <AddButton onPress={handleAddIngredient} />
+                <AddButton onPress={() => {}} />
               </View>
             </View>
             <View style={styles.ingredientsContainer}>
               <Text style={styles.label}>Steps:</Text>
-              {steps.map((step) => (
-                <ListItem key={step.id} id={step.id} text={step.text} onDelete={handleDeleteStep} />
-              ))}
+
               <View style={styles.addIngredient}>
                 <TextInput
                   style={styles.addIngredientInput}
                   onChangeText={setStepInput}
                   value={stepInput}
                 />
-                <AddButton onPress={handleAddStep} />
+                <AddButton onPress={() => {}} />
               </View>
             </View>
           </View>
