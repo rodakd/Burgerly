@@ -5,7 +5,7 @@ import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import Touchable from './Touchable';
 
-const AddRecipeButton = (props) => {
+const EditButton = (props) => {
   const { onPress, color } = props;
 
   return (
@@ -31,13 +31,13 @@ const styles = StyleSheet.create({
   },
 });
 
-AddRecipeButton.propTypes = {
+EditButton.propTypes = {
   color: PropTypes.string,
   onPress: PropTypes.func.isRequired,
 };
 
-AddRecipeButton.defaultProps = {
+EditButton.defaultProps = {
   color: 'white',
 };
 
-export default AddRecipeButton;
+export default EditButton;

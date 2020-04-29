@@ -20,8 +20,20 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useDispatch } from 'react-redux';
 import Colors from '../constants/Colors';
 import ImagePick from '../components/ImagePick';
-import { DurationSlider, DifficultySlider, AddButton, IoniconsHeaderButton } from '../components';
+import {
+  DurationSlider,
+  DifficultySlider,
+  EditButton,
+  IoniconsHeaderButton,
+  IngredientListItem,
+} from '../components';
 import { addRecipe, editRecipe } from '../store/recipes/recipesActions';
+
+let key = 0;
+const getKey = () => {
+  key += 1;
+  return key;
+};
 
 const EditRecipeScreen = (props) => {
   const { navigation, route } = props;
@@ -38,11 +50,8 @@ const EditRecipeScreen = (props) => {
   const [duration, setDuration] = useState(editedRecipe ? editedRecipe.duration : 10);
   const [difficulty, setDifficulty] = useState(editedRecipe ? editedRecipe.difficulty : 1);
   const [calories, setCalories] = useState(editedRecipe ? editedRecipe.calories.toString() : '0');
-
   const [ingredients, setIngredients] = useState(editedRecipe ? editedRecipe.ingredients : []);
   const [steps, setSteps] = useState(editedRecipe ? editedRecipe.steps : []);
-  const [ingredientInput, setIngredientInput] = useState('');
-  const [stepInput, setStepInput] = useState('');
 
   useEffect(() => {
     navigation.setOptions({
@@ -197,26 +206,14 @@ const EditRecipeScreen = (props) => {
             </View>
             <View style={styles.ingredientsContainer}>
               <Text style={styles.label}>Ingredients:</Text>
-              <View style={styles.addIngredient}>
-                <TextInput
-                  style={styles.addIngredientInput}
-                  onChangeText={setIngredientInput}
-                  value={ingredientInput}
-                />
-                <AddButton onPress={() => {}} />
-              </View>
+              {ingredients.map((item) => (
+                <IngredientListItem key={() => getKey().toString()} text={item} />
+              ))}
+              <EditButton onPress={() => navigation.navigate('draggableList')} />
             </View>
             <View style={styles.ingredientsContainer}>
               <Text style={styles.label}>Steps:</Text>
-
-              <View style={styles.addIngredient}>
-                <TextInput
-                  style={styles.addIngredientInput}
-                  onChangeText={setStepInput}
-                  value={stepInput}
-                />
-                <AddButton onPress={() => {}} />
-              </View>
+              <EditButton onPress={() => navigation.navigate('draggableList')} />
             </View>
           </View>
           <View style={{ flex: 1 }} />
