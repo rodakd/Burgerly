@@ -43,7 +43,7 @@ const RecipeListItem = (props) => {
 };
 
 const styles = StyleSheet.create({
-  title: { fontSize: hp(4), fontFamily: 'raleway-regular', color: 'white' },
+  title: { fontSize: hp(4), fontFamily: 'raleway-regular', color: Colors.secondary },
   subtitle: {
     fontSize: hp(2),
     fontFamily: 'source-regular',

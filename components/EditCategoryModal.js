@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   card: {
-    backgroundColor: 'white',
+    backgroundColor: Colors.secondary,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

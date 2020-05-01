@@ -30,7 +30,7 @@ const DifficultySlider = (props) => {
         value={value}
         onValueChange={onValueChange}
         step={1}
-        minimumTrackTintColor="white"
+        minimumTrackTintColor={Colors.secondary}
         maximumTrackTintColor="grey"
         thumbTintColor={Colors.secondary}
       />
@@ -46,7 +46,7 @@ DifficultySlider.propTypes = {
 const styles = StyleSheet.create({
   label: {
     fontFamily: 'raleway-regular',
-    color: 'white',
+    color: Colors.secondary,
     fontSize: hp(3),
     marginBottom: hp(2),
     marginTop: hp(4),

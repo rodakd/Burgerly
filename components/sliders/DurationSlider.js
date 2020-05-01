@@ -21,7 +21,7 @@ const DurationSlider = (props) => {
         value={value}
         onValueChange={onValueChange}
         step={5}
-        minimumTrackTintColor="white"
+        minimumTrackTintColor={Colors.secondary}
         maximumTrackTintColor="grey"
         thumbTintColor={Colors.secondary}
       />
@@ -37,7 +37,7 @@ DurationSlider.propTypes = {
 const styles = StyleSheet.create({
   label: {
     fontFamily: 'raleway-regular',
-    color: 'white',
+    color: Colors.secondary,
     fontSize: hp(3),
     marginBottom: hp(2),
   },

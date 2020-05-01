@@ -4,6 +4,7 @@ import EditRecipeScreen from './EditRecipeScreen';
 import RecipeDetailsScreen from './RecipeDetailsScreen';
 import SettingsScreen from './SettingsScreen';
 import ToCookScreen from './ToCookScreen';
+import DraggableListScreen from './DraggableListScreen';
 
 export {
   CategoryScreen,
@@ -12,4 +13,5 @@ export {
   RecipeDetailsScreen,
   SettingsScreen,
   ToCookScreen,
+  DraggableListScreen,
 };

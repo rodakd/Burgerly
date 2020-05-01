@@ -20,20 +20,8 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useDispatch } from 'react-redux';
 import Colors from '../constants/Colors';
 import ImagePick from '../components/ImagePick';
-import {
-  DurationSlider,
-  DifficultySlider,
-  EditButton,
-  IoniconsHeaderButton,
-  IngredientListItem,
-} from '../components';
+import { DurationSlider, DifficultySlider, EditButton, IoniconsHeaderButton } from '../components';
 import { addRecipe, editRecipe } from '../store/recipes/recipesActions';
-
-let key = 0;
-const getKey = () => {
-  key += 1;
-  return key;
-};
 
 const EditRecipeScreen = (props) => {
   const { navigation, route } = props;
@@ -75,6 +63,10 @@ const EditRecipeScreen = (props) => {
     calories,
     image,
   ]);
+
+  const handleConfirmChangesInLists = (params) => {
+    navigation.navigate('edit', params);
+  };
 
   const handleFinishRecipe = () => {
     if (validateRecipe()) {
@@ -161,6 +153,7 @@ const EditRecipeScreen = (props) => {
             useNativeDriver
             onBackdropPress={handleCloseModal}
             onModalShow={() => ref.current.focus()}
+            onModalHide={() => title.length === 0 && setTitle('New recipe')}
             style={styles.modal}
             backdropOpacity={0.9}
           >
@@ -174,12 +167,14 @@ const EditRecipeScreen = (props) => {
             />
           </Modal>
           <View style={styles.headerContainer}>
-            <Text style={styles.title}>{title}</Text>
+            <Text multiline style={styles.title}>
+              {title}
+            </Text>
             <Icon
               name="md-create"
               type="ionicon"
               size={wp(7)}
-              color="white"
+              color={Colors.secondary}
               onPress={handleOpenModal}
               underlayColor={Colors.background}
             />
@@ -205,15 +200,40 @@ const EditRecipeScreen = (props) => {
               />
             </View>
             <View style={styles.ingredientsContainer}>
-              <Text style={styles.label}>Ingredients:</Text>
-              {ingredients.map((item) => (
-                <IngredientListItem key={() => getKey().toString()} text={item} />
+              <View style={styles.listHeader}>
+                <Text style={styles.label}>Ingredients </Text>
+                <EditButton
+                  onPress={() =>
+                    navigation.navigate('dragList', {
+                      headerTitle: 'Edit ingredients',
+                      name: `${title} ingredients`,
+                      data: ingredients,
+                      onFinish: handleConfirmChangesInLists,
+                    })
+                  }
+                />
+              </View>
+              {ingredients.map((ing) => (
+                <Text>{ing.text}</Text>
               ))}
-              <EditButton onPress={() => navigation.navigate('draggableList')} />
             </View>
             <View style={styles.ingredientsContainer}>
-              <Text style={styles.label}>Steps:</Text>
-              <EditButton onPress={() => navigation.navigate('draggableList')} />
+              <View style={styles.listHeader}>
+                <Text style={styles.label}>Steps</Text>
+                <EditButton
+                  onPress={() =>
+                    navigation.navigate('dragList', {
+                      headerTitle: 'Edit steps',
+                      name: `${title} steps`,
+                      data: steps,
+                      onFinish: handleConfirmChangesInLists,
+                    })
+                  }
+                />
+              </View>
+              {steps.map((step) => (
+                <Text>{step.text}</Text>
+              ))}
             </View>
           </View>
           <View style={{ flex: 1 }} />
@@ -236,7 +256,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    color: 'white',
+    color: Colors.secondary,
     fontFamily: 'raleway-regular',
     textAlign: 'center',
     fontSize: hp(5),
@@ -249,12 +269,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(7),
   },
   modalTitleLabel: {
-    color: 'white',
+    color: Colors.secondary,
     fontFamily: 'raleway-regular',
     fontSize: hp(4),
   },
   modalTextInput: {
-    backgroundColor: 'white',
+    backgroundColor: Colors.secondary,
     fontFamily: 'raleway-regular',
     paddingVertical: 5,
     marginVertical: 5,
@@ -269,23 +289,12 @@ const styles = StyleSheet.create({
   },
   label: {
     fontFamily: 'raleway-regular',
-    color: 'white',
+    color: Colors.secondary,
     fontSize: hp(3),
   },
   addIngredient: {
     flexDirection: 'row',
     marginTop: 10,
-  },
-  addIngredientInput: {
-    fontFamily: 'source-regular',
-    width: '40%',
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
-    paddingHorizontal: 5,
-    paddingVertical: 2,
-    backgroundColor: Colors.inputBackground,
-    color: 'white',
-    fontSize: hp(3),
   },
   caloriesContainer: {
     marginTop: hp(3),
@@ -295,7 +304,7 @@ const styles = StyleSheet.create({
   caloriesInput: {
     fontSize: hp(4),
     backgroundColor: Colors.inputBackground,
-    color: 'white',
+    color: Colors.secondary,
     textAlign: 'center',
     marginLeft: 10,
     paddingHorizontal: 5,
@@ -305,6 +314,9 @@ const styles = StyleSheet.create({
   },
   ingredientsContainer: {
     marginTop: hp(3),
+  },
+  listHeader: {
+    flexDirection: 'row',
   },
 });
 

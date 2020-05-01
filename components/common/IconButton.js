@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import Touchable from './Touchable';
+import Colors from '../../constants/Colors';
 
 const IconButton = (props) => {
   const { onPress, touchableStyle, buttonStyle, iconSize, iconName, iconColor, noRipple } = props;
@@ -31,7 +32,7 @@ IconButton.defaultProps = {
   touchableStyle: {},
   buttonStyle: {},
   iconSize: 24,
-  iconColor: 'white',
+  iconColor: Colors.secondary,
   noRipple: false,
 };
 

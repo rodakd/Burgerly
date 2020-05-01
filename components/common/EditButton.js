@@ -4,14 +4,15 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import Touchable from './Touchable';
+import Colors from '../../constants/Colors';
 
 const EditButton = (props) => {
   const { onPress, color } = props;
 
   return (
     <Touchable noRipple style={styles.container} onPress={onPress}>
-      <Text style={{ ...styles.label, ...{ color } }}>Add</Text>
-      <Icon type="ionicon" name="md-add" size={hp(2.3)} color={color} />
+      <Text style={{ ...styles.label, ...{ color } }}>Edit</Text>
+      <Icon type="ionicon" name="md-create" size={hp(2.3)} color={color} />
     </Touchable>
   );
 };
@@ -37,7 +38,7 @@ EditButton.propTypes = {
 };
 
 EditButton.defaultProps = {
-  color: 'white',
+  color: Colors.secondary,
 };
 
 export default EditButton;
