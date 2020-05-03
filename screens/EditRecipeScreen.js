@@ -55,7 +55,8 @@ const EditRecipeScreen = (props) => {
     });
     if (newIngredients) {
       setIngredients(newIngredients);
-    } else if (newSteps) {
+    }
+    if (newSteps) {
       setSteps(newSteps);
     }
   }, [
@@ -212,7 +213,9 @@ const EditRecipeScreen = (props) => {
                 />
               </View>
               {ingredients.map((ing) => (
-                <Text key={ing.key}>{ing.text}</Text>
+                <Text key={ing.key} style={styles.listItem}>
+                  {ing.text}
+                </Text>
               ))}
             </View>
             <View style={styles.ingredientsContainer}>
@@ -223,7 +226,9 @@ const EditRecipeScreen = (props) => {
                 />
               </View>
               {steps.map((step) => (
-                <Text key={step.key}>{step.text}</Text>
+                <Text key={step.key} style={styles.listItem}>
+                  {step.text}
+                </Text>
               ))}
             </View>
           </View>
@@ -308,6 +313,12 @@ const styles = StyleSheet.create({
   },
   listHeader: {
     flexDirection: 'row',
+  },
+  listItem: {
+    fontSize: hp(3),
+    fontFamily: 'raleway-bold',
+    color: Colors.secondary,
+    marginTop: hp(1),
   },
 });
 

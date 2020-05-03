@@ -40,7 +40,7 @@ const DragListScreen = (props) => {
 
   useEffect(() => {
     for (let i = 0; i < items.length; i += 1) {
-      if (items[i].key > highestKey) setHighestKey(items[i].key);
+      if (items[i].key > highestKey) setHighestKey(items[i].key + 1);
     }
 
     navigation.setOptions({
