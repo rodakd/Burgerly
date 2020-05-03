@@ -3,9 +3,8 @@ import { View, FlatList, StyleSheet, Platform } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useDispatch, useSelector } from 'react-redux';
 import Colors from '../constants/Colors';
-import { IoniconsHeaderButton } from '../components';
+import { IoniconsHeaderButton, RecipeListItem } from '../components';
 import { setRecipes } from '../store/recipes/recipesActions';
-import RecipeListItem from '../components/RecipeListItem';
 
 const RecipesOverviewScreen = (props) => {
   const { navigation, route } = props;

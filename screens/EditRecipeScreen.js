@@ -22,10 +22,11 @@ import Colors from '../constants/Colors';
 import ImagePick from '../components/ImagePick';
 import { DurationSlider, DifficultySlider, EditButton, IoniconsHeaderButton } from '../components';
 import { addRecipe, editRecipe } from '../store/recipes/recipesActions';
+import { INGREDIENTS, STEPS } from './DragListScreen';
 
 const EditRecipeScreen = (props) => {
   const { navigation, route } = props;
-  const { category } = route.params;
+  const { category, newIngredients, newSteps } = route.params;
   const editedRecipe = route.params.recipe;
   const dispatch = useDispatch();
   const headerHeight = useHeaderHeight();
@@ -52,6 +53,11 @@ const EditRecipeScreen = (props) => {
         );
       },
     });
+    if (newIngredients) {
+      setIngredients(newIngredients);
+    } else if (newSteps) {
+      setSteps(newSteps);
+    }
   }, [
     navigation,
     handleFinishRecipe,
@@ -62,11 +68,8 @@ const EditRecipeScreen = (props) => {
     title,
     calories,
     image,
+    route,
   ]);
-
-  const handleConfirmChangesInLists = (params) => {
-    navigation.navigate('edit', params);
-  };
 
   const handleFinishRecipe = () => {
     if (validateRecipe()) {
@@ -204,35 +207,23 @@ const EditRecipeScreen = (props) => {
                 <Text style={styles.label}>Ingredients </Text>
                 <EditButton
                   onPress={() =>
-                    navigation.navigate('dragList', {
-                      headerTitle: 'Edit ingredients',
-                      name: `${title} ingredients`,
-                      data: ingredients,
-                      onFinish: handleConfirmChangesInLists,
-                    })
+                    navigation.navigate('dragList', { type: INGREDIENTS, data: ingredients })
                   }
                 />
               </View>
               {ingredients.map((ing) => (
-                <Text>{ing.text}</Text>
+                <Text key={ing.key}>{ing.text}</Text>
               ))}
             </View>
             <View style={styles.ingredientsContainer}>
               <View style={styles.listHeader}>
-                <Text style={styles.label}>Steps</Text>
+                <Text style={styles.label}>Steps </Text>
                 <EditButton
-                  onPress={() =>
-                    navigation.navigate('dragList', {
-                      headerTitle: 'Edit steps',
-                      name: `${title} steps`,
-                      data: steps,
-                      onFinish: handleConfirmChangesInLists,
-                    })
-                  }
+                  onPress={() => navigation.navigate('dragList', { type: STEPS, data: steps })}
                 />
               </View>
               {steps.map((step) => (
-                <Text>{step.text}</Text>
+                <Text key={step.key}>{step.text}</Text>
               ))}
             </View>
           </View>

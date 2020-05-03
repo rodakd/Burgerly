@@ -5,7 +5,7 @@ import {
   RecipesOverviewScreen,
   SettingsScreen,
   EditRecipeScreen,
-  DraggableListScreen,
+  DragListScreen,
 } from '../screens';
 import CategoryScreen from '../screens/CategoryScreen';
 import Colors from '../constants/Colors';
@@ -28,7 +28,7 @@ const MainNavigator = () => (
     <RecipeStackNavigator.Screen name="details" component={RecipeDetailsScreen} />
     <RecipeStackNavigator.Screen name="settings" component={SettingsScreen} />
     <RecipeStackNavigator.Screen name="edit" component={EditRecipeScreen} />
-    <RecipeStackNavigator.Screen name="dragList" component={DraggableListScreen} />
+    <RecipeStackNavigator.Screen name="dragList" component={DragListScreen} />
   </RecipeStackNavigator.Navigator>
 );
 
