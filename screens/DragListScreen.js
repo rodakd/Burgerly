@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { useHeaderHeight } from '@react-navigation/stack';
 import Colors from '../constants/Colors';
 import { RenderDragListItem, IconButton, IoniconsHeaderButton } from '../components';
 
@@ -18,6 +19,7 @@ const DragListScreen = (props) => {
   const [items, setItems] = useState(data);
   const [inputValue, setInputValue] = useState('');
   const [highestKey, setHighestKey] = useState(0);
+  const headerHeight = useHeaderHeight();
 
   const addItem = () => {
     if (inputValue.length !== 0) {
@@ -56,21 +58,32 @@ const DragListScreen = (props) => {
   }, [navigation, items]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>{type === INGREDIENTS ? 'Ingredients' : 'Steps'}</Text>
-      <DraggableFlatList
-        data={items}
-        renderItem={({ item, drag }) => (
-          <RenderDragListItem item={item} drag={drag} type={type} onDelete={deleteItem} />
-        )}
-        keyExtractor={(item) => `draggable-item-${item.key}`}
-        onDragEnd={(newItems) => setItems(newItems.data)}
-      />
-      <View style={styles.inputContainer}>
-        <TextInput value={inputValue} onChangeText={setInputValue} style={styles.input} />
-        <IconButton buttonStyle={styles.addButton} iconName="md-add" onPress={addItem} />
+    <KeyboardAvoidingView
+      style={{ flex: 1, backgroundColor: Colors.background }}
+      {...(Platform.OS === 'ios'
+        ? { behavior: 'padding' }
+        : {
+            //  Padding only works on emulators on Android
+            //  behavior: 'padding',
+          })}
+      keyboardVerticalOffset={headerHeight}
+    >
+      <View style={styles.container}>
+        <Text style={styles.header}>{type === INGREDIENTS ? 'Ingredients' : 'Steps'}</Text>
+        <DraggableFlatList
+          data={items}
+          renderItem={({ item, drag }) => (
+            <RenderDragListItem item={item} drag={drag} type={type} onDelete={deleteItem} />
+          )}
+          keyExtractor={(item) => `draggable-item-${item.key}`}
+          onDragEnd={(newItems) => setItems(newItems.data)}
+        />
+        <View style={styles.inputContainer}>
+          <TextInput value={inputValue} onChangeText={setInputValue} style={styles.input} />
+          <IconButton buttonStyle={styles.addButton} iconName="md-add" onPress={addItem} />
+        </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -79,6 +92,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: wp(4),
     backgroundColor: Colors.background,
+    justifyContent: 'flex-end',
   },
   header: {
     fontSize: hp(5),

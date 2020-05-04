@@ -146,7 +146,7 @@ const EditRecipeScreen = (props) => {
         ? { behavior: 'padding' }
         : {
             //  Padding only works on emulators on Android
-            //  behavior: 'padding',
+            behavior: 'padding',
           })}
       keyboardVerticalOffset={headerHeight + 20}
     >
