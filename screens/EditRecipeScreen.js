@@ -20,7 +20,7 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useDispatch } from 'react-redux';
 import Colors from '../constants/Colors';
 import ImagePick from '../components/ImagePick';
-import { DurationSlider, DifficultySlider, EditButton, IoniconsHeaderButton } from '../components';
+import { DurationSlider, DifficultySlider, IoniconsHeaderButton, List } from '../components';
 import { addRecipe, editRecipe } from '../store/recipes/recipesActions';
 import { INGREDIENTS, STEPS } from './DragListScreen';
 
@@ -142,12 +142,7 @@ const EditRecipeScreen = (props) => {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, backgroundColor: Colors.background }}
-      {...(Platform.OS === 'ios'
-        ? { behavior: 'padding' }
-        : {
-            //  Padding only works on emulators on Android
-            behavior: 'padding',
-          })}
+      {...(Platform.OS === 'ios' && { behavior: 'padding' })}
       keyboardVerticalOffset={headerHeight + 20}
     >
       <ScrollView keyboardDismissMode="on-drag" keyboardShouldPersistTaps="always">
@@ -203,35 +198,17 @@ const EditRecipeScreen = (props) => {
                 }}
               />
             </View>
-            <View style={styles.ingredientsContainer}>
-              <View style={styles.listHeader}>
-                <Text style={styles.label}>Ingredients </Text>
-                <EditButton
-                  onPress={() =>
-                    navigation.navigate('dragList', { type: INGREDIENTS, data: ingredients })
-                  }
-                />
-              </View>
-              {ingredients.map((ing) => (
-                <Text key={ing.key} style={styles.listItem}>
-                  {ing.text}
-                </Text>
-              ))}
-            </View>
-            <View style={styles.ingredientsContainer}>
-              <View style={styles.listHeader}>
-                <Text style={styles.label}>Steps </Text>
-                <EditButton
-                  onPress={() => navigation.navigate('dragList', { type: STEPS, data: steps })}
-                />
-              </View>
-              {steps.map((step) => (
-                <Text key={step.key} style={styles.listItem}>
-                  {step.text}
-                </Text>
-              ))}
-            </View>
           </View>
+          <List
+            type={INGREDIENTS}
+            data={ingredients}
+            onEdit={() => navigation.navigate('dragList', { type: INGREDIENTS, data: ingredients })}
+          />
+          <List
+            type={STEPS}
+            data={steps}
+            onEdit={() => navigation.navigate('dragList', { type: STEPS, data: steps })}
+          />
           <View style={{ flex: 1 }} />
         </View>
       </ScrollView>
@@ -307,18 +284,6 @@ const styles = StyleSheet.create({
     fontFamily: 'source-regular',
     borderRadius: 10,
     width: '15%',
-  },
-  ingredientsContainer: {
-    marginTop: hp(3),
-  },
-  listHeader: {
-    flexDirection: 'row',
-  },
-  listItem: {
-    fontSize: hp(3),
-    fontFamily: 'raleway-bold',
-    color: Colors.secondary,
-    marginTop: hp(1),
   },
 });
 

@@ -9,6 +9,7 @@ import DurationSlider from './sliders/DurationSlider';
 import EditButton from './common/EditButton';
 import RenderDragListItem from './RenderDragListItem';
 import RecipeListItem from './RecipeListItem';
+import List from './common/List';
 
 export {
   EditCategoryModal,
@@ -22,4 +23,5 @@ export {
   EditButton,
   RenderDragListItem,
   RecipeListItem,
+  List,
 };

@@ -124,7 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-DragListScreen.propTypes = {};
-DragListScreen.defaultProps = {};
-
 export default DragListScreen;

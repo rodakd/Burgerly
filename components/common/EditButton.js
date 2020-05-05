@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(60,60,60,0.7)',
     justifyContent: 'center',
     width: hp(10),
+    marginLeft: hp(1),
   },
   label: {
     fontFamily: 'raleway-regular',
