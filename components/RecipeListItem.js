@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     fontSize: hp(2),
     fontFamily: 'source-regular',
     color: 'rgb(230,230,230)',
+    marginTop: hp(1),
   },
   avatar: { width: hp(10), height: hp(10) },
 });

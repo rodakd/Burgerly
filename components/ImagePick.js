@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet, Alert } from 'react-native';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import PropTypes from 'prop-types';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -63,8 +66,8 @@ const styles = StyleSheet.create({
     height: wp(23),
   },
   imageOverlay: {
-    height: '100%',
-    width: '100%',
+    height: hp(100),
+    width: wp(100),
     backgroundColor: 'rgba(0,0,0,0.3)',
     justifyContent: 'center',
     alignItems: 'center',

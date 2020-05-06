@@ -1,7 +1,10 @@
 import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import IconButton from './common/IconButton';
 import Touchable from './common/Touchable';
 import Colors from '../constants/Colors';
@@ -24,7 +27,7 @@ const RenderDragListItem = (props) => {
             fontWeight: 'bold',
             color: type === 'INGREDIENTS' ? Colors.secondary : Colors.primary,
             fontSize: hp(4),
-            width: '90%',
+            width: wp(90),
           }}
           multiline
         >

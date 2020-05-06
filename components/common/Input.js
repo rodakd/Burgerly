@@ -1,5 +1,6 @@
 import React, { useState, forwardRef } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import PropTypes from 'prop-types';
 
 const LIGHT_GREY = '#666';
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     paddingBottom: 0,
-    width: '100%',
+    width: wp(100),
   },
   label: {
     color: LIGHT_GREY,

@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useDispatch } from 'react-redux';
 import { IoniconsHeaderButton } from '../components';
@@ -16,9 +19,8 @@ const RecipeDetailsScreen = (props) => {
   const steps = JSON.parse(recipe.steps);
 
   useEffect(() => {
-    const title = recipe.title.length > 15 ? `${recipe.title.slice(0, 15)}...` : recipe.title;
     navigation.setOptions({
-      headerTitle: title,
+      headerTitle: '',
       headerRight: () => {
         return (
           <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
@@ -58,8 +60,8 @@ const styles = StyleSheet.create({
     padding: wp(5),
   },
   image: {
-    width: '100%',
-    height: '40%',
+    width: wp(100),
+    height: hp(40),
     borderRadius: wp(5),
   },
 });

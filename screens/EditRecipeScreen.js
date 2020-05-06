@@ -166,9 +166,7 @@ const EditRecipeScreen = (props) => {
             />
           </Modal>
           <View style={styles.headerContainer}>
-            <Text multiline style={styles.title}>
-              {title}
-            </Text>
+            <Text style={styles.title}>{title}</Text>
             <Icon
               name="md-create"
               type="ionicon"
@@ -231,15 +229,13 @@ const styles = StyleSheet.create({
   title: {
     color: Colors.secondary,
     fontFamily: 'raleway-regular',
-    textAlign: 'center',
     fontSize: hp(5),
-    padding: wp(2),
+    marginRight: wp(3),
   },
   headerContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: wp(7),
+    margin: wp(2),
   },
   modalTitleLabel: {
     color: Colors.secondary,
@@ -249,25 +245,21 @@ const styles = StyleSheet.create({
   modalTextInput: {
     backgroundColor: Colors.secondary,
     fontFamily: 'raleway-regular',
-    paddingVertical: 5,
-    marginVertical: 5,
+    paddingVertical: hp(1),
+    marginVertical: hp(1),
     textAlign: 'center',
-    width: '70%',
+    width: wp(70),
     fontSize: hp(4),
   },
   inputsContainer: {
     alignSelf: 'flex-start',
-    width: '100%',
+    width: wp(90),
     marginTop: hp(4),
   },
   label: {
     fontFamily: 'raleway-regular',
     color: Colors.secondary,
     fontSize: hp(3),
-  },
-  addIngredient: {
-    flexDirection: 'row',
-    marginTop: 10,
   },
   caloriesContainer: {
     marginTop: hp(3),
@@ -279,11 +271,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.inputBackground,
     color: Colors.secondary,
     textAlign: 'center',
-    marginLeft: 10,
-    paddingHorizontal: 5,
+    marginLeft: wp(1),
+    paddingHorizontal: wp(1),
     fontFamily: 'source-regular',
-    borderRadius: 10,
-    width: '15%',
+    borderRadius: wp(3),
+    width: wp(20),
   },
 });
 
