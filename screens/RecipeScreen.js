@@ -31,6 +31,8 @@ const RecipesOverviewScreen = (props) => {
     });
   }, [navigation, dispatch]);
 
+  // TODO Make it a drag list
+
   return (
     <View style={styles.container}>
       <FlatList
