@@ -23,12 +23,8 @@ init();
 
 const fetchFonts = async () =>
   Font.loadAsync({
-    'raleway-regular': require('./assets/fonts/Raleway-Regular.ttf'),
-    'raleway-semibold': require('./assets/fonts/Raleway-SemiBold.ttf'),
-    'raleway-bold': require('./assets/fonts/Raleway-Bold.ttf'),
-    'source-regular': require('./assets/fonts/SourceSansPro-Regular.ttf'),
-    'source-bold': require('./assets/fonts/SourceSansPro-Bold.ttf'),
-    'gotu-regular': require('./assets/fonts/Gotu-Regular.ttf'),
+    'lato-regular': require('./assets/fonts/Lato-Regular.ttf'),
+    'lato-bold': require('./assets/fonts/Lato-Bold.ttf'),
   });
 
 const rootReducer = combineReducers({
