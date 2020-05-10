@@ -27,7 +27,7 @@ const RenderDragListItem = (props) => {
             fontWeight: 'bold',
             color: type === 'INGREDIENTS' ? Colors.secondary : Colors.primary,
             fontSize: hp(4),
-            width: wp(90),
+            width: wp(80),
           }}
           multiline
         >
@@ -36,7 +36,7 @@ const RenderDragListItem = (props) => {
         <IconButton
           iconName="md-trash"
           onPress={() => onDelete(item.key)}
-          iconSize={hp(5)}
+          iconSize={hp(4)}
           iconColor={type === 'INGREDIENTS' ? Colors.secondary : Colors.primary}
         />
       </View>
