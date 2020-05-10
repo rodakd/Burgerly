@@ -6,21 +6,22 @@ import {
 } from 'react-native-responsive-screen';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useDispatch } from 'react-redux';
-import { IoniconsHeaderButton } from '../components';
+import { IoniconsHeaderButton, ImageWithOverlay } from '../components';
 import Colors from '../constants/Colors';
 import { trashRecipe } from '../store/recipes/recipesActions';
 
 const RecipeDetailsScreen = (props) => {
   const { navigation, route } = props;
   const dispatch = useDispatch();
+
   const { recipe } = route.params;
-  const { image } = recipe;
+  const { image, title, duration, difficulty, calories } = recipe;
   const ingredients = JSON.parse(recipe.ingredients);
   const steps = JSON.parse(recipe.steps);
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: '',
+      headerTitle: 'Recipe',
       headerRight: () => {
         return (
           <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
@@ -47,11 +48,7 @@ const RecipeDetailsScreen = (props) => {
 
   return (
     <View style={styles.container}>
-      {recipe.image && <Image style={styles.image} source={{ uri: image }} />}
-      <Text style={styles.title}> {recipe.title} </Text>
-      <Text style={styles.attributes}> {recipe.calories} </Text>
-      <Text style={styles.attributes}> {recipe.duration} </Text>
-      <Text style={styles.attributes}> {recipe.difficulty} </Text>
+      {recipe.image && <ImageWithOverlay image={recipe.image} text={recipe.title} />}
     </View>
   );
 };

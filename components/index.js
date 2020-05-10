@@ -10,6 +10,7 @@ import EditButton from './common/EditButton';
 import RenderDragListItem from './RenderDragListItem';
 import RecipeListItem from './RecipeListItem';
 import List from './common/List';
+import ImageWithOverlay from './common/ImageWithOverlay';
 
 export {
   EditCategoryModal,
@@ -24,4 +25,5 @@ export {
   RenderDragListItem,
   RecipeListItem,
   List,
+  ImageWithOverlay,
 };
