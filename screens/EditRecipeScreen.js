@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -71,7 +71,16 @@ const EditRecipeScreen = (props) => {
     if (validateRecipe()) {
       if (!editedRecipe) {
         dispatch(
-          addRecipe(category.id, title, image, duration, difficulty, calories, ingredients, steps)
+          addRecipe(
+            category.id,
+            title,
+            image,
+            duration,
+            difficulty,
+            parseFloat(calories),
+            ingredients,
+            steps
+          )
         );
         navigation.goBack();
       } else {
@@ -82,7 +91,7 @@ const EditRecipeScreen = (props) => {
             image,
             duration,
             difficulty,
-            calories,
+            parseFloat(calories),
             ingredients,
             steps
           )
@@ -117,9 +126,6 @@ const EditRecipeScreen = (props) => {
   };
 
   const validateCalories = (text) => {
-    if (text.length > 1 && text[0] === '0') {
-      return;
-    }
     const numreg = /^[0-9]+$/;
     if (numreg.test(text) || text === '') {
       setCalories(text);
