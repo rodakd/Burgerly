@@ -18,9 +18,9 @@ const List = (props) => {
         <Text style={styles.label}>{typeCapitalized}</Text>
         <EditButton onPress={onEdit} />
       </View>
-      {data.map((item) => (
+      {data.map((item, index) => (
         <Text key={item.key} style={styles.listItem}>
-          {item.text}
+          {`${index + 1}. ${item.text}`}
         </Text>
       ))}
     </View>
@@ -29,22 +29,25 @@ const List = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: hp(3),
+    marginTop: hp(4),
     alignSelf: 'flex-start',
   },
   listHeader: {
     flexDirection: 'row',
+    marginBottom: hp(1),
+    height: hp(4),
   },
   listItem: {
-    fontSize: hp(3),
-    fontFamily: 'raleway-bold',
+    fontSize: hp(2.5),
+    fontFamily: 'lato-bold',
     color: Colors.secondary,
     marginTop: hp(1),
   },
   label: {
-    fontFamily: 'raleway-regular',
+    fontFamily: 'lato-regular',
     color: Colors.secondary,
     fontSize: hp(3),
+    alignSelf: 'center',
   },
 });
 

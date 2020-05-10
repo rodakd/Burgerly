@@ -9,12 +9,10 @@ import {
   Platform,
   Alert,
 } from 'react-native';
-import { Icon } from 'react-native-elements';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import Modal from 'react-native-modal';
 import { useHeaderHeight } from '@react-navigation/stack';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useDispatch } from 'react-redux';
@@ -30,9 +28,6 @@ const EditRecipeScreen = (props) => {
   const editedRecipe = route.params.recipe;
   const dispatch = useDispatch();
   const headerHeight = useHeaderHeight();
-  const ref = useRef();
-
-  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [title, setTitle] = useState(editedRecipe ? editedRecipe.title : 'New recipe');
   const [image, setImage] = useState(editedRecipe ? editedRecipe.image : null);
@@ -121,14 +116,6 @@ const EditRecipeScreen = (props) => {
     return true;
   };
 
-  const handleCloseModal = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleOpenModal = () => {
-    setIsModalVisible(true);
-  };
-
   const validateCalories = (text) => {
     if (text.length > 1 && text[0] === '0') {
       return;
@@ -147,37 +134,22 @@ const EditRecipeScreen = (props) => {
     >
       <ScrollView keyboardDismissMode="on-drag" keyboardShouldPersistTaps="always">
         <View style={styles.container}>
-          <Modal
-            isVisible={isModalVisible}
-            useNativeDriver
-            onBackdropPress={handleCloseModal}
-            onModalShow={() => ref.current.focus()}
-            onModalHide={() => title.length === 0 && setTitle('New recipe')}
-            style={styles.modal}
-            backdropOpacity={0.9}
-          >
-            <Text style={styles.modalTitleLabel}>Enter recipe name</Text>
-            <TextInput
-              ref={ref}
-              value={title}
-              onChangeText={setTitle}
-              style={styles.modalTextInput}
-              maxLength={50}
-            />
-          </Modal>
-          <View style={styles.headerContainer}>
-            <Text style={styles.title}>{title}</Text>
-            <Icon
-              name="md-create"
-              type="ionicon"
-              size={wp(7)}
-              color={Colors.secondary}
-              onPress={handleOpenModal}
-              underlayColor={Colors.background}
-            />
-          </View>
           <ImagePick image={image} onSetImage={setImage} />
           <View style={styles.inputsContainer}>
+            <View>
+              <Text style={styles.label}>Title</Text>
+              <TextInput
+                style={styles.titleInput}
+                onChangeText={setTitle}
+                maxLength={100}
+                value={title}
+                onBlur={() => {
+                  if (title.length === 0) {
+                    setTitle('New recipe');
+                  }
+                }}
+              />
+            </View>
             <DurationSlider value={duration} onValueChange={setDuration} />
             <DifficultySlider value={difficulty} onValueChange={setDifficulty} />
             <View style={styles.caloriesContainer}>
@@ -188,25 +160,30 @@ const EditRecipeScreen = (props) => {
                 onChangeText={validateCalories}
                 maxLength={4}
                 value={calories}
-                onFocus={() => setCalories('')}
                 onBlur={() => {
                   if (calories.length === 0) {
                     setCalories('0');
                   }
                 }}
+                onFocus={() => {
+                  setCalories('');
+                }}
               />
             </View>
+            <List
+              type={INGREDIENTS}
+              data={ingredients}
+              onEdit={() =>
+                navigation.navigate('dragList', { type: INGREDIENTS, data: ingredients })
+              }
+            />
+            <List
+              type={STEPS}
+              data={steps}
+              onEdit={() => navigation.navigate('dragList', { type: STEPS, data: steps })}
+            />
           </View>
-          <List
-            type={INGREDIENTS}
-            data={ingredients}
-            onEdit={() => navigation.navigate('dragList', { type: INGREDIENTS, data: ingredients })}
-          />
-          <List
-            type={STEPS}
-            data={steps}
-            onEdit={() => navigation.navigate('dragList', { type: STEPS, data: steps })}
-          />
+
           <View style={{ flex: 1 }} />
         </View>
       </ScrollView>
@@ -220,62 +197,43 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     backgroundColor: Colors.background,
     alignItems: 'center',
-    padding: wp(4),
+    paddingBottom: hp(1),
   },
-  modal: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
+  titleInput: {
+    fontSize: hp(3),
+    backgroundColor: Colors.inputBackground,
     color: Colors.secondary,
-    fontFamily: 'raleway-regular',
-    fontSize: hp(5),
-    marginRight: wp(3),
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    margin: wp(2),
-  },
-  modalTitleLabel: {
-    color: Colors.secondary,
-    fontFamily: 'raleway-regular',
-    fontSize: hp(4),
-  },
-  modalTextInput: {
-    backgroundColor: Colors.secondary,
-    fontFamily: 'raleway-regular',
-    paddingVertical: hp(1),
-    marginVertical: hp(1),
-    textAlign: 'center',
-    width: wp(70),
-    fontSize: hp(4),
+    fontFamily: 'lato-regular',
+    borderRadius: wp(1),
+    paddingHorizontal: wp(2),
+    width: wp(80),
+    height: hp(5),
+    marginTop: hp(1),
   },
   inputsContainer: {
-    alignSelf: 'flex-start',
     width: wp(90),
-    marginTop: hp(4),
+    marginTop: hp(2),
   },
   label: {
-    fontFamily: 'raleway-regular',
+    fontFamily: 'lato-regular',
     color: Colors.secondary,
     fontSize: hp(3),
   },
   caloriesContainer: {
-    marginTop: hp(3),
+    marginTop: hp(4),
     flexDirection: 'row',
     alignItems: 'center',
   },
   caloriesInput: {
-    fontSize: hp(4),
+    fontSize: hp(3),
     backgroundColor: Colors.inputBackground,
     color: Colors.secondary,
     textAlign: 'center',
     marginLeft: wp(1),
-    paddingHorizontal: wp(1),
-    fontFamily: 'source-regular',
-    borderRadius: wp(3),
-    width: wp(20),
+    fontFamily: 'lato-regular',
+    borderRadius: wp(1),
+    width: wp(17),
+    height: hp(4.5),
   },
 });
 

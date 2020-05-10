@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     marginLeft: hp(1),
   },
   label: {
-    fontFamily: 'raleway-regular',
+    fontFamily: 'lato-regular',
     marginRight: 10,
     fontSize: hp(2.3),
   },

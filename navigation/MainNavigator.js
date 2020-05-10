@@ -16,7 +16,7 @@ const defaultNavOptions = {
   },
   headerTintColor: Colors.secondary,
   headerTitleStyle: {
-    fontFamily: 'raleway-bold',
+    fontFamily: 'lato-bold',
   },
 };
 

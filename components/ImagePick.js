@@ -40,13 +40,13 @@ const ImagePick = (props) => {
     <View style={styles.imagePickerContainer}>
       <ImageBackground
         style={styles.imageBackground}
-        imageStyle={styles.rounded}
         source={image === null ? require('../assets/icon.png') : { uri: image }}
+        resizeMode="cover"
       >
         <IconButton
           onPress={pickImage}
-          buttonStyle={{ ...styles.imageOverlay, ...styles.rounded }}
-          touchableStyle={{ ...styles.imageOverlay, ...styles.rounded }}
+          buttonStyle={styles.imageOverlay}
+          touchableStyle={styles.imageOverlay}
           iconName="md-create"
           iconSize={wp(10)}
           noRipple
@@ -61,9 +61,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
-    borderRadius: wp(50),
-    width: wp(23),
-    height: wp(23),
+    height: hp(30),
   },
   imageOverlay: {
     height: hp(100),
@@ -73,14 +71,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageBackground: {
-    width: wp(23),
-    height: wp(23),
-    borderRadius: wp(50),
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  rounded: {
-    borderRadius: wp(50),
   },
 });
 

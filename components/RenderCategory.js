@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     fontSize: wp(6),
     textAlign: 'center',
     padding: wp(4),
-    fontFamily: 'raleway-regular',
+    fontFamily: 'lato-regular',
   },
 
   deleteButton: {

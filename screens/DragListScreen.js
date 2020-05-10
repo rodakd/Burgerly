@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: hp(5),
-    fontFamily: 'raleway-regular',
+    fontFamily: 'lato-regular',
     color: Colors.secondary,
     marginBottom: hp(2),
   },

@@ -115,12 +115,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   cardHeader: {
-    fontFamily: 'raleway-regular',
+    fontFamily: 'lato-regular',
     fontSize: hp(4),
   },
   buttonTitle: {
     fontSize: hp(3),
-    fontFamily: 'raleway-bold',
+    fontFamily: 'lato-bold',
     padding: 10,
   },
   colorPicker: {
@@ -128,14 +128,14 @@ const styles = StyleSheet.create({
     height: wp(50),
   },
   inputLabel: {
-    fontFamily: 'raleway-bold',
+    fontFamily: 'lato-bold',
     fontSize: hp(1.7),
   },
   textInputStyle: {
     paddingVertical: 7,
     paddingLeft: 4,
     fontSize: hp(3),
-    fontFamily: 'raleway-regular',
+    fontFamily: 'lato-regular',
   },
 });
 

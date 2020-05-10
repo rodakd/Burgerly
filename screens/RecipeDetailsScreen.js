@@ -47,11 +47,11 @@ const RecipeDetailsScreen = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}> {recipe.title} </Text>
       {recipe.image && <Image style={styles.image} source={{ uri: image }} />}
-      <Text style={styles.calories}> {recipe.calories} </Text>
-      <Text style={styles.duration}> {recipe.duration} </Text>
-      <Text style={styles.difficulty}> {recipe.difficulty} </Text>
+      <Text style={styles.title}> {recipe.title} </Text>
+      <Text style={styles.attributes}> {recipe.calories} </Text>
+      <Text style={styles.attributes}> {recipe.duration} </Text>
+      <Text style={styles.attributes}> {recipe.difficulty} </Text>
     </View>
   );
 };
@@ -60,17 +60,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
-    padding: wp(4),
   },
   image: {
     width: wp(100),
     height: hp(40),
-    borderRadius: wp(5),
     alignSelf: 'center',
   },
   title: {
-    fontFamily: 'raleway-regular',
+    fontFamily: 'lato-regular',
     fontSize: hp(5),
+    color: Colors.secondary,
+  },
+  attributes: {
+    fontFamily: 'lato-regular',
+    fontSize: hp(2),
+    color: Colors.secondary,
   },
 });
 

@@ -43,14 +43,23 @@ const RecipeListItem = (props) => {
 };
 
 const styles = StyleSheet.create({
-  title: { fontSize: hp(4), fontFamily: 'raleway-regular', color: Colors.secondary },
+  title: {
+    fontSize: hp(4),
+    fontFamily: 'lato-regular',
+    color: Colors.secondary,
+  },
+
   subtitle: {
     fontSize: hp(2),
-    fontFamily: 'source-regular',
+    fontFamily: 'lato-regular',
     color: 'rgb(230,230,230)',
-    marginTop: hp(1),
+    marginTop: hp(1.5),
   },
-  avatar: { width: hp(10), height: hp(10) },
+
+  avatar: {
+    width: hp(10),
+    height: hp(10),
+  },
 });
 
 RecipeListItem.propTypes = {

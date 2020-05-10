@@ -45,7 +45,7 @@ DifficultySlider.propTypes = {
 
 const styles = StyleSheet.create({
   label: {
-    fontFamily: 'raleway-regular',
+    fontFamily: 'lato-regular',
     color: Colors.secondary,
     fontSize: hp(3),
     marginBottom: hp(2),
