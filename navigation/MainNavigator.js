@@ -9,6 +9,7 @@ import {
 } from '../screens';
 import CategoryScreen from '../screens/CategoryScreen';
 import Colors from '../constants/Colors';
+import StepsScreen from '../screens/StepsScreen';
 
 const defaultNavOptions = {
   headerStyle: {
@@ -29,6 +30,7 @@ const MainNavigator = () => (
     <RecipeStackNavigator.Screen name="settings" component={SettingsScreen} />
     <RecipeStackNavigator.Screen name="edit" component={EditRecipeScreen} />
     <RecipeStackNavigator.Screen name="dragList" component={DragListScreen} />
+    <RecipeStackNavigator.Screen name="steps" component={StepsScreen} />
   </RecipeStackNavigator.Navigator>
 );
 

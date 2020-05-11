@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
 
+// TODO Show difficulty in subtitle with color
+
 const RecipeListItem = (props) => {
   const { item, onPress } = props;
   let subtitle = null;

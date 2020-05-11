@@ -18,6 +18,19 @@ export const difficultyPointsToText = (points) => {
   }
 };
 
+export const difficultyPointsToColor = (points) => {
+  switch (points) {
+    case 1:
+      return 'green';
+    case 2:
+      return 'yellow';
+    case 3:
+      return 'orange';
+    default:
+      return 'red';
+  }
+};
+
 const DifficultySlider = (props) => {
   const { value, onValueChange } = props;
 

@@ -5,6 +5,8 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Colors from '../../constants/Colors';
 import EditButton from './EditButton';
 
+// TODO Fix ugly list
+
 const List = (props) => {
   const { data, type, onEdit } = props;
 
