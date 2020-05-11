@@ -26,8 +26,8 @@ const RenderDragListItem = (props) => {
           style={{
             fontWeight: 'bold',
             color: type === 'INGREDIENTS' ? Colors.secondary : Colors.primary,
-            fontSize: hp(4),
-            width: wp(80),
+            fontSize: hp(2.5),
+            width: wp(75),
           }}
           multiline
         >

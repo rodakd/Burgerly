@@ -73,7 +73,9 @@ const RecipeDetailsScreen = (props) => {
             <Text style={styles.ingredientsHeader}>Ingredients</Text>
             <View style={styles.ingredientsList}>
               {ingredients.map((ing) => (
-                <Text style={styles.ingredient}>{ing.text}</Text>
+                <Text key={ing.key} style={styles.ingredient}>
+                  {ing.text}
+                </Text>
               ))}
             </View>
             <View style={styles.fill} />
@@ -87,6 +89,7 @@ const RecipeDetailsScreen = (props) => {
             titleStyle={styles.cookButtonTitle}
             title="Cook"
             buttonStyle={styles.cookButtonBackground}
+            onPress={() => navigation.navigate('steps', { steps })}
           />
         </View>
       </View>

@@ -58,7 +58,7 @@ const EditCategoryModal = (props) => {
         <Text style={styles.cardHeader}>{editedItem ? 'Editing category' : 'New category'}</Text>
         <Input
           ref={ref}
-          containerStyle={{ alignSelf: 'flex-start' }}
+          containerStyle={{ alignSelf: 'flex-start', width: wp(70) }}
           textInputStyle={styles.textInputStyle}
           label="Category name"
           labelStyle={styles.inputLabel}

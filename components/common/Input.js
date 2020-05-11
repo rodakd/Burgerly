@@ -7,6 +7,8 @@ const LIGHT_GREY = '#666';
 const BLUE = '#4961ff';
 const RED = '#ff0015';
 
+// TODO Remove it
+
 const Input = forwardRef((props, ref) => {
   const {
     label,
