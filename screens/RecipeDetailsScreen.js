@@ -55,7 +55,13 @@ const RecipeDetailsScreen = (props) => {
   return (
     <>
       <ScrollView style={styles.container}>
-        {image && <ImageWithOverlay image={image} text={title} />}
+        {image ? (
+          <ImageWithOverlay image={image} text={title} />
+        ) : (
+          <View style={styles.header}>
+            <Text style={styles.title}> {title} </Text>
+          </View>
+        )}
         <View style={styles.description}>
           <View style={styles.attributesContainer}>
             <View style={styles.difficultyContainer}>
@@ -107,6 +113,11 @@ const styles = StyleSheet.create({
     width: wp(100),
     height: hp(40),
     alignSelf: 'center',
+  },
+
+  header: {
+    paddingLeft: wp(2),
+    paddingTop: hp(2),
   },
 
   title: {

@@ -19,7 +19,7 @@ const StepsScreen = (props) => {
   }, [navigation]);
 
   return (
-    <Swiper dotColor={Colors.secondary} activeDotColor={Colors.tertiary}>
+    <Swiper dotColor={Colors.secondary} activeDotColor={Colors.tertiary} loop={false}>
       {steps.map((step, index) => {
         return (
           // eslint-disable-next-line react/no-array-index-key
