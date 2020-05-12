@@ -154,12 +154,13 @@ const styles = StyleSheet.create({
   absoluteView: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
 
   cookButtonContainer: {
     width: wp(40),
     paddingBottom: hp(2),
+    paddingRight: wp(3),
   },
 
   cookButtonTitle: {

@@ -23,8 +23,9 @@ const DragListScreen = (props) => {
 
   const addItem = () => {
     if (inputValue.length !== 0) {
-      setHighestKey((state) => state + 1);
-      setItems((state) => state.concat({ key: highestKey, text: inputValue }));
+      const newHighestKey = highestKey + 1;
+      setHighestKey(newHighestKey);
+      setItems((state) => state.concat({ key: newHighestKey, text: inputValue }));
       setInputValue('');
     }
   };
@@ -41,9 +42,11 @@ const DragListScreen = (props) => {
   };
 
   useEffect(() => {
-    for (let i = 0; i < items.length; i += 1) {
-      if (items[i].key > highestKey) setHighestKey(items[i].key + 1);
-    }
+    items.forEach((item) => {
+      if (item.key > highestKey) {
+        setHighestKey(item.key);
+      }
+    });
 
     navigation.setOptions({
       headerTitle: type === INGREDIENTS ? 'Recipe ingredients' : 'Recipe steps',
@@ -55,7 +58,7 @@ const DragListScreen = (props) => {
         );
       },
     });
-  }, [navigation, items]);
+  }, [navigation, items, route, highestKey]);
 
   return (
     <KeyboardAvoidingView
