@@ -2,13 +2,13 @@ import React, { useState, createRef, useEffect } from 'react';
 import { View, Text, StyleSheet, Keyboard } from 'react-native';
 import { Button } from 'react-native-elements';
 import Modal from 'react-native-modal';
-import { TriangleColorPicker, fromHsv, toHsv } from 'react-native-color-picker';
+import { ColorPicker, fromHsv, toHsv } from 'react-native-color-picker';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import PropTypes from 'prop-types';
-import Input from './common/Input';
+import { TextInput } from 'react-native-gesture-handler';
 import Colors from '../constants/Colors';
 
 const EditCategoryModal = (props) => {
@@ -16,7 +16,6 @@ const EditCategoryModal = (props) => {
 
   const [pickedColor, setPickedColor] = useState(toHsv(Colors.tertiary));
   const [name, setName] = useState('');
-  const [error, setError] = useState('');
   const ref = createRef();
 
   useEffect(() => {
@@ -28,14 +27,12 @@ const EditCategoryModal = (props) => {
 
   const handleClose = () => {
     setName('');
-    setError('');
     setPickedColor(toHsv(Colors.tertiary));
     onBackdropPress();
   };
 
   const handleSubmit = () => {
     if (name.length === 0) {
-      setError('Please enter the name');
       ref.current.focus();
     } else if (editedItem) {
       onEditItem(editedItem.id, name, fromHsv(pickedColor));
@@ -56,20 +53,8 @@ const EditCategoryModal = (props) => {
     >
       <View style={styles.card}>
         <Text style={styles.cardHeader}>{editedItem ? 'Editing category' : 'New category'}</Text>
-        <Input
-          ref={ref}
-          containerStyle={{ alignSelf: 'flex-start', width: wp(70) }}
-          textInputStyle={styles.textInputStyle}
-          label="Category name"
-          labelStyle={styles.inputLabel}
-          onChangeText={(value) => {
-            setName(value);
-          }}
-          value={name}
-          errorMessage={error}
-          maxLength={20}
-        />
-        <TriangleColorPicker
+        <TextInput ref={ref} style={styles.input} onChangeText={setName} value={name} />
+        <ColorPicker
           color={pickedColor}
           onColorChange={(color) => {
             Keyboard.dismiss();
@@ -79,6 +64,7 @@ const EditCategoryModal = (props) => {
         />
         <Button
           titleStyle={styles.buttonTitle}
+          buttonStyle={styles.button}
           title="Submit"
           type="outline"
           size={wp(50)}
@@ -125,17 +111,22 @@ const styles = StyleSheet.create({
   },
   colorPicker: {
     width: wp(50),
-    height: wp(50),
+    height: hp(30),
   },
   inputLabel: {
     fontFamily: 'lato-bold',
     fontSize: hp(1.7),
   },
-  textInputStyle: {
-    paddingVertical: 7,
+  input: {
     paddingLeft: 4,
     fontSize: hp(3),
     fontFamily: 'lato-regular',
+    backgroundColor: Colors.inputBackground,
+    width: wp(60),
+    height: hp(5),
+    borderRadius: wp(2),
+    paddingHorizontal: wp(2),
+    textAlign: 'center',
   },
 });
 
