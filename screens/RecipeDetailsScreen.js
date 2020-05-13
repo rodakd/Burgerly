@@ -16,6 +16,8 @@ import {
   difficultyPointsToColor,
 } from '../components/sliders/DifficultySlider';
 
+// TODO Checkbox
+
 const RecipeDetailsScreen = (props) => {
   const { navigation, route } = props;
   const dispatch = useDispatch();

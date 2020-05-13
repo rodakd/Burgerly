@@ -1,6 +1,9 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import Touchable from './Touchable';
@@ -24,7 +27,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(60,60,60,0.7)',
     justifyContent: 'center',
     width: hp(10),
-    marginLeft: hp(1),
+    paddingVertical: hp(0.5),
+    marginLeft: wp(2),
   },
   label: {
     fontFamily: 'lato-regular',

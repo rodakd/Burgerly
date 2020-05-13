@@ -29,7 +29,7 @@ const MainNavigator = () => (
     <RecipeStackNavigator.Screen name="details" component={RecipeDetailsScreen} />
     <RecipeStackNavigator.Screen name="settings" component={SettingsScreen} />
     <RecipeStackNavigator.Screen name="edit" component={EditRecipeScreen} />
-    <RecipeStackNavigator.Screen name="dragList" component={DragListScreen} />
+    <RecipeStackNavigator.Screen name="draglist" component={DragListScreen} />
     <RecipeStackNavigator.Screen name="steps" component={StepsScreen} />
   </RecipeStackNavigator.Navigator>
 );

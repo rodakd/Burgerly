@@ -18,7 +18,13 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useDispatch } from 'react-redux';
 import Colors from '../constants/Colors';
 import ImagePick from '../components/ImagePick';
-import { DurationSlider, DifficultySlider, IoniconsHeaderButton, List } from '../components';
+import {
+  DurationSlider,
+  DifficultySlider,
+  IoniconsHeaderButton,
+  List,
+  EditButton,
+} from '../components';
 import { addRecipe, editRecipe } from '../store/recipes/recipesActions';
 import { INGREDIENTS, STEPS } from './DragListScreen';
 
@@ -141,6 +147,7 @@ const EditRecipeScreen = (props) => {
       <ScrollView keyboardDismissMode="on-drag" keyboardShouldPersistTaps="always">
         <View style={styles.container}>
           <ImagePick image={image} onSetImage={setImage} />
+
           <View style={styles.inputsContainer}>
             <View>
               <Text style={styles.label}>Title</Text>
@@ -156,8 +163,11 @@ const EditRecipeScreen = (props) => {
                 }}
               />
             </View>
+
             <DurationSlider value={duration} onValueChange={setDuration} />
+
             <DifficultySlider value={difficulty} onValueChange={setDifficulty} />
+
             <View style={styles.caloriesContainer}>
               <Text style={styles.label}>Calories: </Text>
               <TextInput
@@ -176,18 +186,24 @@ const EditRecipeScreen = (props) => {
                 }}
               />
             </View>
-            <List
-              type={INGREDIENTS}
-              data={ingredients}
-              onEdit={() =>
-                navigation.navigate('dragList', { type: INGREDIENTS, data: ingredients })
-              }
-            />
-            <List
-              type={STEPS}
-              data={steps}
-              onEdit={() => navigation.navigate('dragList', { type: STEPS, data: steps })}
-            />
+
+            <View style={styles.labelContainer}>
+              <Text style={styles.label}>Ingredients </Text>
+              <EditButton
+                onPress={() =>
+                  navigation.navigate('draglist', { data: ingredients, type: INGREDIENTS })
+                }
+              />
+            </View>
+            <List data={ingredients} />
+
+            <View style={styles.labelContainer}>
+              <Text style={styles.label}>Steps </Text>
+              <EditButton
+                onPress={() => navigation.navigate('draglist', { data: steps, type: STEPS })}
+              />
+            </View>
+            <List data={steps} />
           </View>
 
           <View style={{ flex: 1 }} />
@@ -205,6 +221,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: hp(1),
   },
+
   titleInput: {
     fontSize: hp(3),
     backgroundColor: Colors.inputBackground,
@@ -216,20 +233,28 @@ const styles = StyleSheet.create({
     height: hp(5),
     marginTop: hp(1),
   },
+
+  listContainer: {
+    marginTop: hp(2),
+  },
+
   inputsContainer: {
     width: wp(90),
     marginTop: hp(2),
   },
+
   label: {
     fontFamily: 'lato-regular',
     color: Colors.secondary,
     fontSize: hp(3),
   },
+
   caloriesContainer: {
     marginTop: hp(4),
     flexDirection: 'row',
     alignItems: 'center',
   },
+
   caloriesInput: {
     fontSize: hp(3),
     backgroundColor: Colors.inputBackground,
@@ -240,6 +265,12 @@ const styles = StyleSheet.create({
     borderRadius: wp(1),
     width: wp(17),
     height: hp(4.5),
+  },
+
+  labelContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: hp(2),
   },
 });
 

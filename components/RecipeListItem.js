@@ -39,6 +39,7 @@ const RecipeListItem = (props) => {
             }
       }
       subtitle={subtitle}
+      rightSubtitle="hard"
       onPress={onPress}
     />
   );
