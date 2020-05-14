@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
   RecipeDetailsScreen,
-  RecipeScreen,
+  RecipeListScreen,
   SettingsScreen,
   EditRecipeScreen,
   DragListScreen,
@@ -25,7 +25,7 @@ const RecipeStackNavigator = createStackNavigator();
 const MainNavigator = () => (
   <RecipeStackNavigator.Navigator screenOptions={defaultNavOptions}>
     <RecipeStackNavigator.Screen name="categories" component={CategoryScreen} />
-    <RecipeStackNavigator.Screen name="recipes" component={RecipeScreen} />
+    <RecipeStackNavigator.Screen name="recipes" component={RecipeListScreen} />
     <RecipeStackNavigator.Screen name="details" component={RecipeDetailsScreen} />
     <RecipeStackNavigator.Screen name="settings" component={SettingsScreen} />
     <RecipeStackNavigator.Screen name="edit" component={EditRecipeScreen} />
