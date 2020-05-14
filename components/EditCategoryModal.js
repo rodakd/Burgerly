@@ -53,7 +53,13 @@ const EditCategoryModal = (props) => {
     >
       <View style={styles.card}>
         <Text style={styles.cardHeader}>{editedItem ? 'Editing category' : 'New category'}</Text>
-        <TextInput ref={ref} style={styles.input} onChangeText={setName} value={name} />
+        <TextInput
+          ref={ref}
+          style={styles.input}
+          onChangeText={setName}
+          value={name}
+          maxLength={50}
+        />
         <ColorPicker
           color={pickedColor}
           onColorChange={(color) => {

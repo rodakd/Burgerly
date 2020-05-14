@@ -8,15 +8,13 @@ import {
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useDispatch } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
-import { IoniconsHeaderButton, ImageWithOverlay } from '../components';
+import { IoniconsHeaderButton, ImageWithOverlay, List } from '../components';
 import Colors from '../constants/Colors';
 import { trashRecipe } from '../store/recipes/recipesActions';
 import {
   difficultyPointsToText,
   difficultyPointsToColor,
 } from '../components/sliders/DifficultySlider';
-
-// TODO Checkbox
 
 const RecipeDetailsScreen = (props) => {
   const { navigation, route } = props;
@@ -26,6 +24,7 @@ const RecipeDetailsScreen = (props) => {
   const { id, image, title, duration, difficulty, calories } = recipe;
   const ingredients = JSON.parse(recipe.ingredients);
   const steps = JSON.parse(recipe.steps);
+  const difficultyText = difficultyPointsToText(difficulty);
 
   useEffect(() => {
     navigation.setOptions({
@@ -71,23 +70,15 @@ const RecipeDetailsScreen = (props) => {
               <Text
                 style={{ ...styles.attributes, ...{ color: difficultyPointsToColor(difficulty) } }}
               >
-                {difficultyPointsToText(difficulty)}
+                {difficultyText}
               </Text>
             </View>
-            {duration && <Text style={styles.attributes}>Duration: {duration} mins</Text>}
-            {calories && <Text style={styles.attributes}>Calories: {calories} kcal</Text>}
+            {duration ? <Text style={styles.attributes}>Duration: {duration} mins</Text> : <View />}
+            {calories ? <Text style={styles.attributes}>Calories: {calories} kcal</Text> : <View />}
           </View>
-          <View style={styles.ingredientsContainer}>
-            <Text style={styles.ingredientsHeader}>Ingredients</Text>
-            <View style={styles.ingredientsList}>
-              {ingredients.map((ing) => (
-                <Text key={ing.key} style={styles.ingredient}>
-                  {ing.text}
-                </Text>
-              ))}
-            </View>
-            <View style={styles.fill} />
-          </View>
+          <Text style={styles.ingredientsHeader}>Ingredients</Text>
+          <List data={ingredients} withCheckboxes />
+          <View style={styles.fill} />
         </View>
       </ScrollView>
       <View style={styles.absoluteView} pointerEvents="box-none">
@@ -143,25 +134,11 @@ const styles = StyleSheet.create({
     marginTop: hp(1),
   },
 
-  ingredientsContainer: {
-    marginTop: hp(2),
-  },
-
   ingredientsHeader: {
     fontFamily: 'lato-bold',
     fontSize: hp(3),
     color: Colors.secondary,
-  },
-
-  ingredientsList: {
-    marginLeft: wp(3),
-  },
-
-  ingredient: {
-    fontFamily: 'lato-regular',
-    fontSize: hp(2.5),
-    color: Colors.secondary,
-    marginTop: hp(1.5),
+    marginTop: hp(2),
   },
 
   absoluteView: {

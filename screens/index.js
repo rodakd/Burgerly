@@ -1,5 +1,5 @@
 import CategoryScreen from './CategoryScreen';
-import RecipeScreen from './RecipeScreen';
+import RecipeListScreen from './RecipeListScreen';
 import EditRecipeScreen from './EditRecipeScreen';
 import RecipeDetailsScreen from './RecipeDetailsScreen';
 import SettingsScreen from './SettingsScreen';
@@ -8,7 +8,7 @@ import DragListScreen from './DragListScreen';
 
 export {
   CategoryScreen,
-  RecipeScreen,
+  RecipeListScreen,
   EditRecipeScreen,
   RecipeDetailsScreen,
   SettingsScreen,

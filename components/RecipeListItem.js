@@ -4,14 +4,15 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import PropTypes from 'prop-types';
 import { StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
-
-// TODO Show difficulty in subtitle with color
+import { difficultyPointsToText, difficultyPointsToColor } from './sliders/DifficultySlider';
 
 const RecipeListItem = (props) => {
   const { item, onPress } = props;
   let subtitle = null;
   const calories = item.calories ? `🍔 ${item.calories} kcal` : '';
   const duration = item.duration ? ` ⌚ ${item.duration} min` : '';
+  const difficulty = difficultyPointsToText(item.difficulty);
+  const difficultyColor = difficultyPointsToColor(item.difficulty);
 
   if (calories && duration) {
     subtitle = `${calories} ${duration}`;
@@ -39,7 +40,8 @@ const RecipeListItem = (props) => {
             }
       }
       subtitle={subtitle}
-      rightSubtitle="hard"
+      rightSubtitle={difficulty}
+      rightSubtitleStyle={{ ...styles.difficulty, ...{ color: difficultyColor } }}
       onPress={onPress}
     />
   );
@@ -47,7 +49,7 @@ const RecipeListItem = (props) => {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: hp(4),
+    fontSize: hp(3),
     fontFamily: 'lato-regular',
     color: Colors.secondary,
   },
@@ -57,6 +59,11 @@ const styles = StyleSheet.create({
     fontFamily: 'lato-regular',
     color: 'rgb(230,230,230)',
     marginTop: hp(1.5),
+  },
+
+  difficulty: {
+    fontSize: hp(2),
+    fontFamily: 'lato-bold',
   },
 
   avatar: {
@@ -71,6 +78,7 @@ RecipeListItem.propTypes = {
     image: PropTypes.string,
     calories: PropTypes.number,
     duration: PropTypes.number,
+    difficulty: PropTypes.number,
   }).isRequired,
   onPress: PropTypes.func.isRequired,
 };
