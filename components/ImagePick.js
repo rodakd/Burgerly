@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     height: hp(30),
   },
+
   imageOverlay: {
     height: hp(100),
     width: wp(100),
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   imageBackground: {
     justifyContent: 'center',
     alignItems: 'center',

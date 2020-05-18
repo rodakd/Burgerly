@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     paddingVertical: hp(0.5),
     marginLeft: wp(2),
   },
+
   label: {
     fontFamily: 'lato-regular',
     marginRight: 10,

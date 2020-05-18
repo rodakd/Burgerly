@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   card: {
     backgroundColor: Colors.secondary,
     shadowColor: '#000',
@@ -103,26 +104,32 @@ const styles = StyleSheet.create({
     width: wp(75),
     height: wp(100),
   },
+
   buttonContainer: {
     marginTop: 10,
   },
+
   cardHeader: {
     fontFamily: 'lato-regular',
     fontSize: hp(4),
   },
+
   buttonTitle: {
     fontSize: hp(3),
     fontFamily: 'lato-bold',
     padding: 10,
   },
+
   colorPicker: {
     width: wp(50),
     height: hp(30),
   },
+
   inputLabel: {
     fontFamily: 'lato-bold',
     fontSize: hp(1.7),
   },
+
   input: {
     paddingLeft: 4,
     fontSize: hp(3),

@@ -24,22 +24,26 @@ const ImageWithOverlay = (props) => {
 
 const styles = StyleSheet.create({
   container: {},
+
   overlay: {
     justifyContent: 'flex-end',
     alignItems: 'center',
     width: wp(100),
     height: hp(40),
   },
+
   imageBackground: {
     width: wp(100),
     height: hp(40),
   },
+
   text: {
     fontFamily: 'lato-bold',
     textAlign: 'center',
     fontSize: hp(3),
     color: Colors.secondary,
   },
+
   darker: {
     backgroundColor: 'rgba(0,0,0,0.7)',
     padding: hp(1),

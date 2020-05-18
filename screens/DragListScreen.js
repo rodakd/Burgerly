@@ -13,6 +13,8 @@ import { RenderDragListItem, IconButton, IoniconsHeaderButton } from '../compone
 export const INGREDIENTS = 'INGREDIENTS';
 export const STEPS = 'STEPS';
 
+// TODO Fix keyboard
+
 const DragListScreen = (props) => {
   const { navigation, route } = props;
   const { type, data } = route.params;
@@ -97,16 +99,19 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
     justifyContent: 'flex-end',
   },
+
   header: {
     fontSize: hp(5),
     fontFamily: 'lato-regular',
     color: Colors.secondary,
     marginBottom: hp(2),
   },
+
   inputContainer: {
     flexDirection: 'row',
     marginTop: hp(3),
   },
+
   input: {
     flex: 1,
     fontSize: hp(3),
@@ -117,6 +122,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
   },
+
   addButton: {
     justifyContent: 'center',
     alignItems: 'center',
