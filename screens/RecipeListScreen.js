@@ -6,15 +6,29 @@ import Colors from '../constants/Colors';
 import { IoniconsHeaderButton, RecipeListItem } from '../components';
 import { setRecipes } from '../store/recipes/recipesActions';
 
-const RecipesOverviewScreen = (props) => {
+const RecipeListScreen = (props) => {
   const { navigation, route } = props;
   const { category } = route.params;
   const recipes = useSelector((state) => state.root.recipes);
   const dispatch = useDispatch();
 
+  const shortenCategoryName = (name) => {
+    const oldName = name.slice(' ');
+    const newName = [];
+
+    oldName.reduce((acc, cur) => {
+      if (acc + cur.length <= 15) {
+        newName.push(cur);
+      }
+      return acc + cur.length;
+    }, 0);
+
+    return newName.join(' ');
+  };
+
   useEffect(() => {
     dispatch(setRecipes(category.id));
-    const title = category.title.length > 15 ? `${category.title.slice(0, 15)}...` : category.title;
+    const title = `${shortenCategoryName(category.title)} ...`;
     navigation.setOptions({
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
@@ -30,8 +44,6 @@ const RecipesOverviewScreen = (props) => {
       headerTitle: title,
     });
   }, [navigation, dispatch]);
-
-  // TODO Make it a drag list
 
   return (
     <View style={styles.container}>
@@ -56,4 +68,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RecipesOverviewScreen;
+export default RecipeListScreen;

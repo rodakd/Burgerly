@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { Alert } from 'react-native';
+import { Alert, StatusBar } from 'react-native';
 import ReduxThunk from 'redux-thunk';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import reducer from './store/reducer';
 import MainNavigator from './navigation/MainNavigator';
 import { createCategoryTable, createRecipeTable } from './helper/db';
+import Colors from './constants/Colors';
 
 const init = async () => {
   try {
@@ -41,6 +42,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
+      <StatusBar backgroundColor={Colors.background} />
       <NavigationContainer>
         <MainNavigator />
       </NavigationContainer>

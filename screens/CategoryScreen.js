@@ -20,8 +20,6 @@ const CategoryScreen = (props) => {
     dispatch(setCategories());
   }, [dispatch]);
 
-  // TODO Make it a drag list
-
   useEffect(() => {
     navigation.setOptions({
       headerTitle: 'Categories',
