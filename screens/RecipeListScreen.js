@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, FlatList, StyleSheet, Platform } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useDispatch, useSelector } from 'react-redux';
+import { shortenHeaderTitle } from '../helper/nav';
 import Colors from '../constants/Colors';
 import { IoniconsHeaderButton, RecipeListItem } from '../components';
 import { setRecipes } from '../store/recipes/recipesActions';
@@ -12,23 +13,9 @@ const RecipeListScreen = (props) => {
   const recipes = useSelector((state) => state.root.recipes);
   const dispatch = useDispatch();
 
-  const shortenCategoryName = (name) => {
-    const oldName = name.slice(' ');
-    const newName = [];
-
-    oldName.reduce((acc, cur) => {
-      if (acc + cur.length <= 15) {
-        newName.push(cur);
-      }
-      return acc + cur.length;
-    }, 0);
-
-    return newName.join(' ');
-  };
-
   useEffect(() => {
     dispatch(setRecipes(category.id));
-    const title = `${shortenCategoryName(category.title)} ...`;
+    const title = shortenHeaderTitle(category.title);
     navigation.setOptions({
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>

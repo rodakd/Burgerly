@@ -15,6 +15,7 @@ import {
   difficultyPointsToText,
   difficultyPointsToColor,
 } from '../components/sliders/DifficultySlider';
+import { shortenHeaderTitle } from '../helper/nav';
 
 const RecipeDetailsScreen = (props) => {
   const { navigation, route } = props;
@@ -28,7 +29,7 @@ const RecipeDetailsScreen = (props) => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: 'Recipe',
+      headerTitle: shortenHeaderTitle(title),
       headerRight: () => {
         return (
           <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
@@ -60,7 +61,7 @@ const RecipeDetailsScreen = (props) => {
           <ImageWithOverlay image={image} text={title} />
         ) : (
           <View style={styles.header}>
-            <Text style={styles.title}> {title} </Text>
+            <Text style={styles.title}>{title}</Text>
           </View>
         )}
         <View style={styles.description}>
